@@ -1,0 +1,12 @@
+/* SignUp.css */
+.container {
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.img-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-top: 10px;
+}

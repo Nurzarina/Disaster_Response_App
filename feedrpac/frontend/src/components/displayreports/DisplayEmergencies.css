@@ -1,0 +1,194 @@
+h1 {
+  color: black;
+}
+
+#reportCardTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 100;
+}
+
+#reportCardBody {
+  background-color: rgb(235, 235, 235);
+  height: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 90;
+}
+
+#reportCardBody:hover {
+  background-color: white;
+}
+
+#reportCard {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+#reportCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+
+  #reportCardTitle {
+    white-space: normal;
+    overflow: visible;
+    text-wrap: nowrap;
+  }
+
+  #addressText {
+    white-space: normal;
+    overflow: visible;
+  }
+
+  #reportCardBody {
+    height: max-content;
+  }
+}
+
+#volunBtn {
+  width: 100px;
+  height: 90px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 3px darkgray;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#volunBtn:hover {
+  background-color: #289e67;
+  transform: scale(1.05);
+  border: none;
+}
+
+#MapBtn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 2px 3px darkgray;
+}
+
+#MapBtn:hover {
+  transform: scale(1.05);
+}
+
+/* Background for the title section */
+#currTextBg {
+  background-color: #313131;
+  /* Light background color */
+  padding: 20px;
+  /* Space around the title */
+  border-radius: 8px;
+  /* Rounded corners */
+  text-align: center;
+  /* Center align text */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Light shadow */
+  margin-bottom: 20px;
+  /* Space below the section */
+}
+
+/* Title styling */
+#currText {
+  font-size: 2.5rem;
+  /* Larger font size for visibility */
+  font-weight: bold;
+  /* Bold text */
+  color: #e7e7e7;
+  /* Dark color for text */
+  margin: 0;
+  /* Remove default margin */
+  padding: 0;
+  /* Remove default padding */
+}
+
+/* Responsive design for the title */
+@media (max-width: 768px) {
+  #currText {
+    font-size: 2rem; /* Slightly smaller font size on smaller screens */
+  }
+}
+
+/* Dropdown styling */
+#dropdown-basic {
+  margin-top: 10px; /* Space above the dropdown */
+}
+
+#addressText {
+  font-size: calc(1.5rem + (0.1vw * 2));
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /* Ensure the container covers the full height of the viewport */
+}
+
+#footer {
+  height: 2em;
+  width: 100%;
+  background-color: #282c34;
+  color: white;
+  text-align: center;
+  position: relative;
+  margin-top: 10px;
+  transition: margin-top 1000ms ease-in-out;
+  /* Smooth transition */
+}
+
+/* #footerText{
+    /* letter-spacing:1px; */
+/* } */
+
+.card-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.card-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-exit-active {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.footer-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.footer-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.footer-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footer-exit-active {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 500ms, transform 500ms;
+}

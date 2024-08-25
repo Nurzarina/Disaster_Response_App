@@ -1,0 +1,7 @@
+.App {
+  text-align: center;
+}
+
+body.modal-open {
+  overflow: hidden; /* Disable scrolling on the body when the modal is open */
+}
