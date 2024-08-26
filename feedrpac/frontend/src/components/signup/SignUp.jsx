@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import axiosInstance from './axiosInstance'; // Import the Axios instance
+import axios from 'axios';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignUp.css'; // Create your CSS file for additional styling
+
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -32,24 +34,37 @@ const SignUp = () => {
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
-        const uploadPreset = 'y6dazgfn';            // Replace with your Cloudinary upload preset
-        const cloudName = 'dyndmpls6';              // Replace with your Cloudinary cloud name
+        const uploadPreset = 'y6dazgfn';            // Cloudinary upload preset
+        const cloudName = 'dyndmpls6';              // Cloudinary cloud name
 
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', uploadPreset);
 
+        console.log("file: ", file);
+
         try {
+
+            console.log("Sending POST request to Cloudinary");
+
             const response = await axios.post(
                 `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
                 formData
             );
+
+            console.log('Cloudinary response:', response); // Log the response from Cloudinary
+
+            // Log the secure URL to verify it was returned correctly
+            const imageUrl = response.data.secure_url;
+            console.log("Uploaded Image URL: ", imageUrl);
+
             setImageUrl(response.data.secure_url);
             setFormData((prevData) => ({
                 ...prevData,
                 profileImg: response.data.secure_url,
             }));
         } catch (error) {
+            console.error('Error uploading image:', error.response ? error.response.data : error.message);      // Log the error
             setError('Failed to upload image.');
         }
     };

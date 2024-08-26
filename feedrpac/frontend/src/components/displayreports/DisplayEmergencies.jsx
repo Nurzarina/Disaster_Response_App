@@ -9,25 +9,28 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { CalculateTimeDifference } from '../others/CalculateTimeDifference';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { emergencyIcons } from '../others/EmergencyIcons';
-import './DisplayEmergencies.css'
+import './DisplayEmergencies.css';
 import { ScrollComponent } from '../others/ScrollComponent';
 import HoverWindow from './HoverWindow';
 import MapModal from './MapModal';
-import VolunteerModal from '../volunteer/VolunteerModal';
+import ContactModal from '../volunteer/ContactModal';
 import { reportLink } from '../backendAddress/URL';
+import { useAuth } from '../login/AuthProvider'; // Import useAuth
 
 const DisplayEmergencies = () => {
   const { disastertype } = useParams();
   const [reports, setReports] = useState([]);
   const [filteredReports, setFilteredReports] = useState([]);
   const [filterType, setFilterType] = useState('All');
-  const [modalShow, setModalShow] = useState(false);
-  const [selectedReport, setSelectedReport] = useState(null);     // State to store selected report details
+  const [mapModalShow, setMapModalShow] = useState(false);
+  const [contactModalShow, setContactModalShow] = useState(false);
+  const [selectedReport, setSelectedReport] = useState(null);
   const navigate = useNavigate();
   const detailContent = "View the exact location on a map.";
   const detailVolunteer = "Click here to volunteer for this report.";
 
-  //Fetch the reports from backend only once.
+  const { user } = useAuth(); // Access user authentication state
+
   useEffect(() => {
     const fetchReports = async () => {
       try {
@@ -41,20 +44,13 @@ const DisplayEmergencies = () => {
     fetchReports();
   }, []);
 
-  //Automatically filter the reports when 'disastertype' or 'reports' change.
   useEffect(() => {
-    const type = disastertype || 'All';                   // 'type' is assigned the value of 'disastertype' if it exists, otherwise will default to 'All'.
+    const type = disastertype || 'All';
     filterReports(type);
 
-    // Filter the reports based on the selected disaster type
     let filtered = disastertype === 'All' ? reports : reports.filter(report => report.disastertype === disastertype);
-
-    // Sort the filtered reports by createdAt in descending order so that most recent report is shown first.
     filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-    // Update the state with the filtered and sorted reports
     setFilteredReports(filtered);
-
   }, [disastertype, reports]);
 
   const filterReports = (type) => {
@@ -68,18 +64,23 @@ const DisplayEmergencies = () => {
     filterReports(type);
   };
 
-  const handleShow = (report) => {
-    setSelectedReport(report);              // Store the selected report's details
-    setModalShow(true);
+  const handleShowMap = (report) => {
+    setSelectedReport(report);
+    setMapModalShow(true); // Show the map modal
   };
 
-  const handleClose = () => setModalShow(false);
+  const handleShowContact = (report) => {
+    if (user) { // Check if user is authenticated
+      setSelectedReport(report);
+      setContactModalShow(true); // Show the contact modal
+    } else {
+      // Handle unauthenticated access (e.g., redirect to login)
+      navigate('/login');
+    }
+  };
 
   return (
-
-    // Container fluid will enable the reports to be displayed responsively.
-    <Container fluid>             
-      {/* <ScrollComponent> */}
+    <Container fluid>
       <div className='m-2'>
         <Link to="/"> <IoIosArrowBack />Back</Link>
       </div>
@@ -94,7 +95,7 @@ const DisplayEmergencies = () => {
               {Object.keys(emergencyIcons).map((type, index) => (
                 <Dropdown.Item key={index} onClick={() => filterChangeByDropdown(type)}>{type}</Dropdown.Item>
               ))}
-              <DropdownDivider />
+              <DropdownDivider/>
               <Dropdown.Item onClick={() => filterChangeByDropdown('All')}>All</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -121,7 +122,7 @@ const DisplayEmergencies = () => {
                         </Card.Text>
                         <Card.Text>
                           <HoverWindow content={detailContent}>
-                            <Button id='MapBtn' variant='info' onClick={() => handleShow(report)}>
+                            <Button id='MapBtn' variant='info' onClick={() => handleShowMap(report)}>
                               View on Map
                             </Button>
                           </HoverWindow>
@@ -134,7 +135,7 @@ const DisplayEmergencies = () => {
                       </Col>
                       <Col xs={4} className='d-flex align-items-center justify-content-center'>
                         <HoverWindow content={detailVolunteer}>
-                          <Button id="volunBtn" variant="success" onClick={() => VolunteerModal()}> <FaHandsHelping color="white" size="40px" /></Button>
+                          <Button id="volunBtn" variant="success" onClick={() => handleShowContact(report)}> <FaHandsHelping color="white" size="40px" /></Button>
                         </HoverWindow>
                       </Col>
                     </Row>
@@ -152,16 +153,24 @@ const DisplayEmergencies = () => {
           </div>
         </CSSTransition>
       </TransitionGroup>
-      {/* </ScrollComponent> */}
-      {selectedReport && (                                   //Render MapModal only if selectedReport is not null.
-        <MapModal
-          show={modalShow}
-          handleClose={handleClose}
-          lat={selectedReport.lat}                          //The modal receives the latitude, longitude, and report ID from selectedReport.
-          long={selectedReport.lng}
-          report_id={selectedReport.id}
-          descr={selectedReport.description}
-        />
+      {selectedReport && (
+        <>
+          <MapModal
+            show={mapModalShow}
+            handleClose={() => setMapModalShow(false)}
+            lat={selectedReport.lat}
+            long={selectedReport.lng}
+            report_id={selectedReport._id}
+            descr={selectedReport.description}
+          />
+          {user && (
+            <ContactModal
+              show={contactModalShow}
+              handleClose={() => setContactModalShow(false)}
+              phone={selectedReport.phone}
+            />
+          )}
+        </>
       )}
     </Container>
   );

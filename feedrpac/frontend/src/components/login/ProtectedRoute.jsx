@@ -1,17 +1,16 @@
-import { Route, Redirect } from 'react-router-dom';
+
+import { Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './AuthProvider';
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-    const { isAuthenticated } = useAuth();
+const ProtectedRoute = ({ element: Component, ...rest }) => {
+  const { user } = useAuth();       // Access user from AuthProvider
+  const location = useLocation();   // Get the current location for redirection
 
-    return (
-        <Route
-            {...rest}
-            render={(props) =>
-                isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
-            }
-        />
-    );
+  return user ? (
+    <Component {...rest} />
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
+  );
 };
 
 export default ProtectedRoute;

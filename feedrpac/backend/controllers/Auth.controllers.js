@@ -4,7 +4,7 @@ import { generateTokenAndSetCookie } from "../lib/utils/GenerateToken.js";
 
 export const signup = async (req, res) => {
 
-    console.log("Received data:", req.body);            // To see if the data from FrontEnd is received.
+    console.log("Received signup data:", req.body);            // To see if the data from FrontEnd is received.
 
    try {
     const { 
