@@ -1,0 +1,21 @@
+/* SidebarNavbar.css */
+.sidebar-navbar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.sidebar-navbar .nav-link {
+    padding: 15px;
+}
+
+@media (min-width: 992px) { /* Bootstrap large breakpoint */
+    .sidebar-navbar {
+        display: block;
+    }
+}

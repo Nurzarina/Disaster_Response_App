@@ -1,0 +1,45 @@
+/* BottomNavbar.css */
+.bottom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Center items vertically */
+    background-color: #f8f9fa;
+    padding: 0 10px;
+    border-top: 1px solid #dee2e6;
+}
+
+.nav-items {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+
+.nav-items .nav-link {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+}
+
+.sos-link {
+    position: absolute; /* Position it in the center */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust the centering */
+}
+
+.sos-button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 991px) { /* Bootstrap large breakpoint */
+    .bottom-navbar {
+        display: flex;
+    }
+}

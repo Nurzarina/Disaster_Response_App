@@ -1,5 +1,6 @@
 
 import { Modal, Button } from 'react-bootstrap';
+import './ContactModal.css'
 
 const ContactModal = ({ show, handleClose, phone, report_id }) => {
   return (

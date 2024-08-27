@@ -7,12 +7,15 @@ import SignUp from './components/signup/SignUp';
 import Dashboard from './components/dashboard/Dashboard';
 import { AuthProvider } from './components/login/AuthProvider';
 import ProtectedRoute from './components/login/ProtectedRoute'; // Import ProtectedRoute
+import SidebarNavbar from './components/navbars/SidebarNavbar';
+import BottomNavbar from './components/navbars/BottomNavbar';
 
 const App = () => {
   return (
     <Router>
       <AuthProvider>
         <SOSButton />
+        {/* <SidebarNavbar /> */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
@@ -23,6 +26,7 @@ const App = () => {
           </Route>
           {/* No routes for modals, they are managed internally in DisplayEmergencies */}
         </Routes>
+        <BottomNavbar />
       </AuthProvider>
     </Router>
   );

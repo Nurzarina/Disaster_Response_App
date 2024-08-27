@@ -120,12 +120,10 @@ const DisplayEmergencies = () => {
                         <Card.Text id='addressText'>
                           {report.location}
                         </Card.Text>
-                        <Card.Text>
-                          <HoverWindow content={detailContent}>
+                        <Card.Text>   
                             <Button id='MapBtn' variant='info' onClick={() => handleShowMap(report)}>
                               View on Map
                             </Button>
-                          </HoverWindow>
                         </Card.Text>
                         <Card.Text>
                           <small className="text-muted">
