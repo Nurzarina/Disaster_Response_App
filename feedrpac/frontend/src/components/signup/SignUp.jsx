@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignUp.css'; // Create your CSS file for additional styling
 
-
 const SignUp = () => {
     const [formData, setFormData] = useState({
         username: '',
@@ -21,7 +20,8 @@ const SignUp = () => {
     });
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
+    const [profileImageUrl, setProfileImageUrl] = useState('');
+    const [coverImageUrl, setCoverImageUrl] = useState('');
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -32,10 +32,10 @@ const SignUp = () => {
         }));
     };
 
-    const handleImageUpload = async (e) => {
+    const handleImageUpload = async (e, type) => {
         const file = e.target.files[0];
-        const uploadPreset = 'y6dazgfn';            // Cloudinary upload preset
-        const cloudName = 'dyndmpls6';              // Cloudinary cloud name
+        const uploadPreset = 'y6dazgfn'; // Cloudinary upload preset
+        const cloudName = 'dyndmpls6'; // Cloudinary cloud name
 
         const formData = new FormData();
         formData.append('file', file);
@@ -44,7 +44,6 @@ const SignUp = () => {
         console.log("file: ", file);
 
         try {
-
             console.log("Sending POST request to Cloudinary");
 
             const response = await axios.post(
@@ -54,17 +53,24 @@ const SignUp = () => {
 
             console.log('Cloudinary response:', response); // Log the response from Cloudinary
 
-            // Log the secure URL to verify it was returned correctly
             const imageUrl = response.data.secure_url;
             console.log("Uploaded Image URL: ", imageUrl);
 
-            setImageUrl(response.data.secure_url);
-            setFormData((prevData) => ({
-                ...prevData,
-                profileImg: response.data.secure_url,
-            }));
+            if (type === 'profile') {
+                setProfileImageUrl(imageUrl);
+                setFormData((prevData) => ({
+                    ...prevData,
+                    profileImg: imageUrl,
+                }));
+            } else if (type === 'cover') {
+                setCoverImageUrl(imageUrl);
+                setFormData((prevData) => ({
+                    ...prevData,
+                    coverImg: imageUrl,
+                }));
+            }
         } catch (error) {
-            console.error('Error uploading image:', error.response ? error.response.data : error.message);      // Log the error
+            console.error('Error uploading image:', error.response ? error.response.data : error.message); // Log the error
             setError('Failed to upload image.');
         }
     };
@@ -82,7 +88,7 @@ const SignUp = () => {
             await axiosInstance.post('/signup', formData);
             setMessage('Sign up successful!');
             setTimeout(() => {
-                navigate('/');              // Navigate to DashBoard after signup form is submitted.
+                navigate('/'); // Navigate to DashBoard after signup form is submitted.
             }, 1000);
         } catch (err) {
             setError('Failed to sign up.');
@@ -144,10 +150,10 @@ const SignUp = () => {
                     <Form.Control
                         type="file"
                         accept="image/*"
-                        onChange={handleImageUpload}
+                        onChange={(e) => handleImageUpload(e, 'profile')}
                     />
-                    {imageUrl && (
-                        <img src={imageUrl} alt="Profile Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
+                    {profileImageUrl && (
+                        <img src={profileImageUrl} alt="Profile Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
                     )}
                 </Form.Group>
                 <Form.Group controlId="formCoverImg">
@@ -155,8 +161,11 @@ const SignUp = () => {
                     <Form.Control
                         type="file"
                         accept="image/*"
-                        onChange={handleImageUpload}
+                        onChange={(e) => handleImageUpload(e, 'cover')}
                     />
+                    {coverImageUrl && (
+                        <img src={coverImageUrl} alt="Cover Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
+                    )}
                 </Form.Group>
                 <Form.Group controlId="formBio">
                     <Form.Label>Bio</Form.Label>

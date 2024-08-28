@@ -1,58 +1,77 @@
-/* .user-profile-container {
-    background-color: #f8f9fa;
-    padding: 2rem;
-}
-
-.profile-card {
-    border-radius: 10px;
+.profile-container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-.cover-img {
+.cover-image-container {
+    position: relative;
+    width: 100%;
     height: 200px;
-    background-size: cover;
-    background-position: center;
 }
 
-.profile-card-body {
-    padding: 2rem;
+.cover-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
-.profile-img {
+.profile-details {
+    padding: 20px 15px;
+}
+
+.profile-image-container {
+    position: relative;
+    top: -50px;
+    margin-bottom: -50px;
+}
+
+.profile-image {
+    position: absolute;
+    top: 60px; /* Adjust this value to move the image up/down */
+    left: 50%;
+    transform: translateX(-50%);
     width: 120px;
     height: 120px;
-    object-fit: cover;
-    margin-top: -60px;
-    border: 4px solid #fff;
+    border-radius: 50%;
+    border: 5px solid #fff; /* Adds a white border around the profile image */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* Ensures the profile image is on top */
 }
 
-.welcome-text {
-    font-size: 1.5rem;
+.username {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 600;
 }
 
-.notlogin-text {
-    font-size: 1.5rem;
+.full-name {
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.location {
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.email-button {
+    margin: 10px 0;
+    font-weight: 500;
+}
+.bio {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.website {
+    font-size: 14px;
+    color: #555;
+}
+.follow-stats {
+    margin-top: 10px;
     font-weight: bold;
 }
-
-.list-unstyled li {
-    padding: 0.5rem 0;
-}
-
-.text-muted {
-    color: #6c757d;
-}
-
-.btn {
-    min-width: 120px;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-}
-
-.btn-outline-primary {
-    border-color: #007bff;
-    color: #007bff;
-} */

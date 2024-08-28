@@ -1,84 +1,76 @@
-import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import { useAuth } from '../login/AuthProvider';
+import { useState } from 'react';
+import { useAuth } from '../login/AuthProvider'; // Adjust the path as needed
+import UpdateProfile from './UpdateProfile'; // Import the UpdateProfile component
+import { Modal, Button, Card, Container, Row, Col, Image } from 'react-bootstrap'; // Import modal components from react-bootstrap
+import { Link } from 'react-router-dom';
+import { HiOutlineMail } from 'react-icons/hi';
 import './Profile.css';
-import { HiOutlineMail } from "react-icons/hi";
 
 const Profile = () => {
-    const { user, logout } = useAuth();
-    const handleEmailClick = () => {
-        window.location.href = `mailto:${user.email}`;
-    };
+    const { user, error, logout } = useAuth();
+    const [show, setShow] = useState(false); // State to manage modal visibility
 
-    const renderUserProfile = () => (
-        <Card className="profile-card">
-            <div className="cover-img" style={{ backgroundImage: `url(${user.coverImg || 'default-cover.jpg'})` }}></div>
-            <Card.Body>
-                <Card.Img
-                    variant="top"
-                    src={user.profileImg || 'default-profile.jpg'}
-                    alt={`${user.username}'s profile`}
-                    className="profile-img"
-                />
-                <Card.Title className="welcome-text">
-                    @{user.username}
-                </Card.Title>
-                <Card.Text>{user.bio} <button variant="outline-secondary"
-                        className="ms-2"
-                        onClick={handleEmailClick}><HiOutlineMail /></button></Card.Text>
-                <Card.Text>
-                    Website: <a href={user.website} target="_blank" rel="noopener noreferrer">{user.website}</a>
-                </Card.Text>
-                <Card.Text>Location: {user.location}</Card.Text>
-                <Col className="d-flex justify-content-center">
-                    <Card.Text className='ms-3'>Following: {user.following}</Card.Text>
-                    <Card.Text className='me-3'>Followers: {user.followers}</Card.Text>
-                </Col>
-            </Card.Body>
-            <Card.Footer>
-                <h2>Ongoing Missions</h2>
-                <ul>
-                    {user.ongoingMission && user.ongoingMission.length > 0 ? (
-                        user.ongoingMission.map((mission, index) => (
-                            <li key={index}>{mission}</li>
-                        ))
-                    ) : (
-                        <p>No ongoing missions</p>
-                    )}
-                </ul>
-                <h2>Previous Missions</h2>
-                <ul>
-                    {user.prevMission && user.prevMission.length > 0 ? (
-                        user.prevMission.map((mission, index) => (
-                            <li key={index}>{mission}</li>
-                        ))
-                    ) : (
-                        <p>No previous missions</p>
-                    )}
-                </ul>
-            </Card.Footer>
+    const handleShow = () => setShow(true);
+    const handleClose = () => setShow(false);
 
-            <Button
-                variant="outline-primary"
-                onClick={logout}
-                className="mt-4"
-            >
-                Logout
-            </Button>
-        </Card>
-    );
+    if (!user) {
+        return <Card className='justify-content-center'><p>Please log in to view your profile.</p>
+            <Link to={'/login'}><button>Login</button></Link>
+        </Card>;
 
-    const renderNotLoggedInMessage = () => (
-        <h2 className="notlogin-text">You Are Not Logged In</h2>
-    );
+
+    }
 
     return (
-        <Container fluid className="user-profile-container">
-            <Row className="justify-content-center my-4">
-                <Col md={8} lg={6} className="text-center">
-                    {user ? renderUserProfile() : renderNotLoggedInMessage()}
-                </Col>
-            </Row>
-        </Container>
+        <div>
+            {error && <p>{error}</p>}
+            <Container className='profile-container'>
+                <div className='cover-image-container'>
+                    <Image src={user.coverImg} alt="Cover" className='cover-image' fluid />
+                </div>
+                <Row className='profile-details'>
+                    <Col xs={12} className="text-center">
+                        <div>
+                            <Image src={user.profileImg} alt="Profile" className="profile-image" roundedCircle />
+                        </div>
+                        <h2 className='username'>@{user.username}</h2>
+                        <h4 className='full-name'>{user.fullName} {user.location}</h4>
+                        <Row>
+                            <Col>
+                                <p className='bio'>{user.bio}</p>
+                                <p className='website'>
+                                    Website:<a href={user.website} target='_blank' rel='noopener noreferrer'>{user.website}</a>
+                                </p>
+                            </Col>
+                        </Row>
+                        <Button
+                            variant="outline-primary"
+                            className="email-button"
+                            onClick={() => window.location.href = `mailto:${user.email}`}>
+                            <HiOutlineMail />
+                        </Button>
+                    </Col>
+                </Row>
+                <Row>
+                <div className="follow-stats">
+                        <span>{user.followers} Followers</span> | <span>{user.following} Following</span>
+                    </div>
+                </Row>
+
+                <Button variant="primary" onClick={handleShow}>Update Profile</Button> {/* Button to open the modal */}
+                <Button variant="danger" onClick={logout}>Logout</Button>
+            </Container>
+
+            {/* Modal for UpdateProfile */}
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Update Profile</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <UpdateProfile />
+                </Modal.Body>
+            </Modal>
+        </div>
     );
 };
 

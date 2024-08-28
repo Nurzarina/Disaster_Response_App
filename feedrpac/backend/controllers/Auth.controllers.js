@@ -149,3 +149,43 @@ export const getMe = async (req, res) => {
         
     }
 }
+export const update = async (req, res) => {
+    try {
+        const { _id, profileImg, coverImg, bio, website, location } = req.body;
+
+        if (!_id) {
+            return res.status(400).json({ message: "User ID is required" });
+        }
+
+        const user = await User.findById(_id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (profileImg) user.profileImg = profileImg;
+        if (coverImg) user.coverImg = coverImg;
+        if (bio) user.bio = bio;
+        if (website) user.website = website;
+        if (location) user.location = location;
+
+        const updated = await user.save();
+
+        res.status(200).json({
+            _id: updated._id,
+            username: updated.username,
+            profileImg: updated.profileImg,
+            coverImg: updated.coverImg,
+            bio: updated.bio,
+            website: updated.website,
+            location: updated.location,
+        });
+
+    } catch (error) {
+        console.log("Error in update controller: ", error.message);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+
+

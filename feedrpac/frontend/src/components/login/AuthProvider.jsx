@@ -12,10 +12,9 @@ export const AuthProvider = ({ children }) => {
     const login = async (username, password) => {
         try {
             const response = await axios.post('http://localhost:5050/api/auth/login', { username, password });
-            console.log('Response Data:', response.data); // Add this line to inspect the response
-            setUser(response.data);         // 'setUser' taking in data from backend and storing them in 'user' state.
+            setUser(response.data);
             setError(null);
-            navigate('/');                  // Redirect to a protected route after login
+            navigate('/');
         } catch (err) {
             setError('Invalid username or password.');
         }
@@ -26,8 +25,19 @@ export const AuthProvider = ({ children }) => {
         navigate('/');
     };
 
+    const update = async (profileData) => {
+        try {
+            const response = await axios.put('http://localhost:5050/api/auth/update', profileData);
+            setUser(prevUser => ({ ...prevUser, ...response.data })); // Update user state with new profile data
+            setError(null); // Clear any previous errors
+        } catch (err) {
+            setError('Failed to update profile.');
+        }
+    };
+    
+
     return (
-        <AuthContext.Provider value={{ user, error, login, logout }}>
+        <AuthContext.Provider value={{ user, error, login, logout, update }}>
             {children}
         </AuthContext.Provider>
     );
