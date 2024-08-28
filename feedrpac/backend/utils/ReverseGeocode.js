@@ -1,4 +1,6 @@
-const reverseGeocode = async (coordinates) => {
+import axios from 'axios';
+
+export const reverseGeocode = async (coordinates) => {
     const [lng, lat] = coordinates;
   
     try {
@@ -30,5 +32,3 @@ const reverseGeocode = async (coordinates) => {
       return { city: 'Unknown', state: 'Unknown' };
     }
   };
-
-  export default reverseGeocode;

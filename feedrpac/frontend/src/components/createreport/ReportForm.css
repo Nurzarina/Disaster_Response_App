@@ -20,3 +20,7 @@
     color: gray; /* Example color for placeholder */
     font-style: italic; /* Italicize placeholder text */
 }
+
+#formTitle{
+  margin-top: 3px;
+}

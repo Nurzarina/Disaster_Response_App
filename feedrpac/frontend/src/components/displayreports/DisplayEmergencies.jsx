@@ -95,7 +95,7 @@ const DisplayEmergencies = () => {
               {Object.keys(emergencyIcons).map((type, index) => (
                 <Dropdown.Item key={index} onClick={() => filterChangeByDropdown(type)}>{type}</Dropdown.Item>
               ))}
-              <DropdownDivider/>
+              <DropdownDivider />
               <Dropdown.Item onClick={() => filterChangeByDropdown('All')}>All</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -105,7 +105,9 @@ const DisplayEmergencies = () => {
       <Row>
         <TransitionGroup component={null}>
           {filteredReports.map((report, index) => (
-            <CSSTransition key={index} timeout={500} classNames="fade">
+            <CSSTransition key={index}
+              timeout={500}
+              classNames="fade">
               <Col xs={12} md={4} className="mb-2">
                 <Card id='reportCard'>
                   <Card.Body id='reportCardBody'>
@@ -118,12 +120,12 @@ const DisplayEmergencies = () => {
                           reported at
                         </Card.Text>
                         <Card.Text id='addressText'>
-                          {report.location}
+                          {report.state ? `${report.city}, ${report.state}` : 'Location not available.'}
                         </Card.Text>
-                        <Card.Text>   
-                            <Button id='MapBtn' variant='info' onClick={() => handleShowMap(report)}>
-                              View on Map
-                            </Button>
+                        <Card.Text>
+                          <Button id='MapBtn' variant='info' onClick={() => handleShowMap(report)}>
+                            View on Map
+                          </Button>
                         </Card.Text>
                         <Card.Text>
                           <small className="text-muted">
@@ -156,10 +158,12 @@ const DisplayEmergencies = () => {
           <MapModal
             show={mapModalShow}
             handleClose={() => setMapModalShow(false)}
-            lat={selectedReport.lat}
-            long={selectedReport.lng}
+            lat={selectedReport.location.coordinates[1]}
+            long={selectedReport.location.coordinates[0]}
             report_id={selectedReport._id}
             descr={selectedReport.description}
+            disaster={selectedReport.disastertype}
+            sever={selectedReport.severity}
           />
           {user && (
             <ContactModal

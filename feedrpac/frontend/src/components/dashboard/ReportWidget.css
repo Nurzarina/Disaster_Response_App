@@ -1,73 +1,93 @@
-#icon:hover{
-    transform: scale(1.05);
+/* Keyframes for entering animation */
+@keyframes enterAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);                 /* Start from a smaller size and below */
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);                      /* End at full size and original position */
+  }
 }
 
-#icon{
+/* Keyframes for exiting animation */
+@keyframes exitAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);                    /* Start at full size and original position */
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) translateY(-20px);              /* End at smaller size and move up while fading out */
+  }
+}
+
+/* Apply the animation to the icons */
+.icon-enter {
+  opacity: 0;                                             /* Initial state for entering */
+  animation: enterAnimation 1.0s ease-out forwards;
+}
+
+.icon-exit {
+  animation: exitAnimation 0.5s ease-in forwards;
+}
+
+/* Delay the entry animation based on the order of elements */
+.icon-enter:nth-child(1) {
+  animation-delay: 0s;
+}
+.icon-enter:nth-child(2) {
+  animation-delay: 0.05s;
+}
+.icon-enter:nth-child(3) {
+  animation-delay: 0.10s;
+}
+.icon-enter:nth-child(4) {
+  animation-delay: 0.10s;
+}
+.icon-enter:nth-child(5) {
+  animation-delay: 0.10s;
+}
+.icon-enter:nth-child(6) {
+  animation-delay: 0.10s;
+}
+.icon-enter:nth-child(7) {
+  animation-delay: 0.10s;
+}
+.icon-enter:nth-child(8) {
+  animation-delay: 0.10s;
+}
+
+#icon {
     border: 1px solid black;
     border-radius: 20%;
     padding: 0.5px;
     box-shadow: 2px darkgray;
     height: 100px;
     width: 100px;
-    gap:auto;
-    /* display: flex; */
-    /* justify-content: center; */
+    gap: auto;
     padding-top: 20px;
     align-items: center;
+    transition: transform 0.3s ease;                        /* Smooth transition for hover effect */
 }
 
-#icons_collection{
+#icons_collection {
     gap: 6px;
 }
 
-#widgetTitle{
+#widgetTitle {
     letter-spacing: 2px;
 }
 
-.card-enter {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  .card-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 500ms, transform 500ms;
-  }
-  
-  .card-exit {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .card-exit-active {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 500ms, transform 500ms;
-  }
-
-  .footer-enter {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  
-  .footer-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 500ms, transform 500ms;
-  }
-  
-  .footer-exit {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .footer-exit-active {
-    opacity: 0;
-    transform: translateY(100%);
-    transition: opacity 500ms, transform 500ms;
-  }
-
 #viewBtn {
   margin-top: 10px;
+}
+
+#widgetBorder {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  /* border-radius: 10px; */
+}
+
+#icon:hover {
+  transform: scale(1.05);                                 /* Slightly scale up on hover */
 }

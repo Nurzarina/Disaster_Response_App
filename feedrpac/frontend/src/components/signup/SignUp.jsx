@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignUp.css'; // Create your CSS file for additional styling
 
-
 const SignUp = () => {
     const [formData, setFormData] = useState({
         username: '',
@@ -41,22 +40,11 @@ const SignUp = () => {
         formData.append('file', file);
         formData.append('upload_preset', uploadPreset);
 
-        console.log("file: ", file);
-
         try {
-
-            console.log("Sending POST request to Cloudinary");
-
             const response = await axios.post(
                 `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
                 formData
             );
-
-            console.log('Cloudinary response:', response); // Log the response from Cloudinary
-
-            // Log the secure URL to verify it was returned correctly
-            const imageUrl = response.data.secure_url;
-            console.log("Uploaded Image URL: ", imageUrl);
 
             setImageUrl(response.data.secure_url);
             setFormData((prevData) => ({
@@ -64,7 +52,6 @@ const SignUp = () => {
                 profileImg: response.data.secure_url,
             }));
         } catch (error) {
-            console.error('Error uploading image:', error.response ? error.response.data : error.message);      // Log the error
             setError('Failed to upload image.');
         }
     };
@@ -90,8 +77,8 @@ const SignUp = () => {
     };
 
     return (
-        <Container>
-            <h2 className="my-4">Sign Up</h2>
+        <Container id='signup-container'>
+            <h1 id="signup-title" className="my-4"><b>Sign Up</b></h1>
             {message && <Alert variant="success">{message}</Alert>}
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
@@ -147,7 +134,7 @@ const SignUp = () => {
                         onChange={handleImageUpload}
                     />
                     {imageUrl && (
-                        <img src={imageUrl} alt="Profile Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
+                        <img src={imageUrl} alt="Profile Preview" className="img-preview" />
                     )}
                 </Form.Group>
                 <Form.Group controlId="formCoverImg">
@@ -188,8 +175,7 @@ const SignUp = () => {
                         onChange={handleChange}
                     />
                 </Form.Group>
-                <br />
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className='mt-3'>
                     Sign Up
                 </Button>
             </Form>

@@ -102,6 +102,8 @@ export const login = async (req, res) => {
             return res.status(401).json({ message: "Invalid username or password" });
         }
 
+        console.log("Received login data:", req.body);
+
         generateTokenAndSetCookie(user._id, res);
         res.status(200).json({
             _id: user._id,
@@ -129,6 +131,7 @@ export const logout = async (req, res) => {
     try {
         res.cookie("jwt_token", "", {maxAge: 0})
         res.status(200).json({ message: "Logged out successfully" });
+        console.log("User has successfully logged out.");
     } catch (error) {
         
         console.log("Error in logout controller: ", error.message);

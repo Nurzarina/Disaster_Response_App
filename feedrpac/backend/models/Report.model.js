@@ -63,7 +63,7 @@ const reportSchema = new Schema({
     severity: {
         type: String,
         required: true,
-        enum: ['low', 'moderate', 'high', 'critical'],      // Severity levels
+        enum: ['Low', 'Medium', 'High', 'Critical'],      // Severity levels
     },
     volunteers: [{
         type: mongoose.Schema.Types.ObjectId,

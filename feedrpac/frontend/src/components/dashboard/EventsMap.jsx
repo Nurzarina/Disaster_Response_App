@@ -1,19 +1,29 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import pinUserIcon from '../../assets/user-pin.png';
+import pinUserIcon from '../../assets/map-pin.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DisasterIcons } from '../others/EmergencyIcons';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import './EventsMap.css';
 
-// Custom icon for events (optional)
-const eventIcon = new L.Icon({
-    iconUrl: pinUserIcon,
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
-    shadowUrl: shadowUrl,
-    shadowSize: [30, 30],
-});
+
+// Custom icon creation function
+const createCustomIcon = () => {
+    const iconDiv = document.createElement('div');
+    iconDiv.className = 'bouncing-marker'; // Apply the bouncing class
+
+    const iconImage = document.createElement('img');
+    iconImage.src = pinUserIcon;
+    iconImage.style.width = '30px';
+    iconImage.style.height = '30px';
+
+    iconDiv.appendChild(iconImage);
+    return L.divIcon({ className: '', html: iconDiv.outerHTML });
+};
+
+// Use custom icon in Leaflet
+const eventIcon = createCustomIcon();
 
 const EventsMap = ({ events }) => {
     // Define the bounds of Malaysia
@@ -24,30 +34,34 @@ const EventsMap = ({ events }) => {
 
     // Prepare markers for the map
     const markers = events
-    .filter(event => event.latitude && event.longitude)  // Filter out events with missing coordinates
-    .map((event, index) => {
-        // Get the correct icon and color for the disaster type
-        const { icon: DisasterIcon, color } = DisasterIcons[event.disastertype] || {};
+        .filter(event => event.latitude && event.longitude)
+        .map((event, index) => {
+            // Find the disaster object that matches the event's disaster type
+            const disaster = DisasterIcons.find(d => d.type === event.disastertype) || {};
+            const { icon, color } = disaster;
 
-        return (
-            <Marker
-                key={index}
-                position={[event.latitude, event.longitude]}
-                icon={eventIcon}
-            >
-                <Popup>
-                    {DisasterIcon && (
-                        <>
-                            <DisasterIcon color={color} size={32} style={{ marginRight: '10px' }} />
-                            <strong>{event.disastertype}</strong>
-                        </>
-                    )}
-                    <br />
-                    <strong>Severity:</strong> {event.severity}
-                </Popup>
-            </Marker>
-        );
-    });
+            // Log to help with debugging
+            console.log(event.disastertype, icon, color);
+
+            return (
+                <Marker
+                    key={index}
+                    position={[event.latitude, event.longitude]}
+                    icon={eventIcon}
+                >
+                    <Popup>
+                        {icon && (
+                            <div>
+                                <FontAwesomeIcon icon={icon} color={color} size="2x" style={{ marginRight: '10px' }} />
+                                <strong>{event.disastertype}</strong>
+                            </div>
+                        )}
+                        <br />
+                        <strong>Severity:</strong> {event.severity}
+                    </Popup>
+                </Marker>
+            );
+        });
 
     return (
         <MapContainer
@@ -61,7 +75,7 @@ const EventsMap = ({ events }) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-             {markers.length > 0 ? markers : <div>No events to display</div>}
+            {markers.length > 0 ? markers : <div>No events to display</div>}
         </MapContainer>
     );
 };

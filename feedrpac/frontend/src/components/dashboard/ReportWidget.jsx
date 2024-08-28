@@ -8,7 +8,6 @@ import { Container, Button } from 'react-bootstrap';
 import { DisasterIcons } from '../others/EmergencyIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { reportLink } from '../backendAddress/reportURL';
-import ReportForm from '../createreport/ReportForm';
 
 const ReportWidget = () => {
     const navigate = useNavigate();
@@ -18,7 +17,7 @@ const ReportWidget = () => {
         Landslide: 0,
         Fire: 0,
         Tsunami: 0,
-        Volcanoeruption: 0,
+        'Volcano Eruption': 0,
         Drought: 0,
         Tornado: 0
     });
@@ -39,20 +38,15 @@ const ReportWidget = () => {
                 Landslide: 0,
                 Fire: 0,
                 Tsunami: 0,
-                Volcanoeruption: 0,
+                'Volcano Eruption': 0,
                 Drought: 0,
                 Tornado: 0
             };
 
             response.data.forEach(report => {
-                if (report.disastertype === 'Flood') counts.Flood++;
-                if (report.disastertype === 'Earthquake') counts.Earthquake++;
-                if (report.disastertype === 'Landslide') counts.Landslide++;
-                if (report.disastertype === 'Fire') counts.Fire++;
-                if (report.disastertype === 'Tsunami') counts.Tsunami++;
-                if (report.disastertype === "Volcano Eruption") counts.Volcanoeruption++;
-                if (report.disastertype === 'Drought') counts.Drought++;
-                if (report.disastertype === 'Tornado') counts.Tornado++;
+                if (counts.hasOwnProperty(report.disastertype)) {
+                    counts[report.disastertype]++;
+                }
             });
 
             setReportCounts(counts);
@@ -61,32 +55,51 @@ const ReportWidget = () => {
         }
     };
 
-    
-
-    //Pass the 'label' to URL instead of 'type' so that it will be the same as in DisplayEmergencies.js 
     const handleFilterClick = (filter) => {
         const typeLabel = DisasterIcons.find(disaster => disaster.type === filter).label;
         navigate(`/emergencies/${typeLabel}`, { state: { disasterType: typeLabel } });
     };
 
+     // Check if all report counts are zero
+     const noReports = Object.values(reportCounts).every(count => count === 0);
+
+    
+
     return (
-        <Container>
-            <div className="card text-center shadow-md mx-3">
+        <Container fluid id='icons-container'>
+            <div id='widgetBorder' className="card text-center mx-3">
                 <div className="card-header">
-                    <h1 id="widgetTitle" className="text-center mb-0 bg-dark text-white">Current Situation</h1>
+                    <h2 id="widgetTitle" className="text-center mb-0 bg-dark text-white">Current Situation</h2>
+                    
+                    {noReports ? (
+                            <></>       // Don't render button if there is no reports at all.
+                        ) :
+                    (
                     <Link to="/emergencies/All">
-                    {/* Add a link to the AllEmergencies component */}
                         <Button variant="primary" className="mb-3" id="viewBtn">View All Emergencies</Button>
                     </Link>
-                    {/* Start Icons display */}
+                    )}
                     <div id='icons_collection' className="card-body d-flex justify-content-around flex-wrap mt-2">
-                        {DisasterIcons.map(disaster =>
-                            reportCounts[disaster.type] > 0 && (
-                                <div id='icon' key={disaster.type} onClick={() => handleFilterClick(disaster.type)} style={{ cursor: 'pointer' }}>
-                                    <FontAwesomeIcon className="mb-2" style={{ color: disaster.color, fontSize: '2rem' }} icon={disaster.icon} />
-                                    <p>{reportCounts[disaster.type]}</p>
-                                </div>
-                                ))}
+                    {noReports ? (
+                            <p style={{ fontStyle: 'italic', color: 'grey' }}>All clear! There are no ongoing disasters currently.</p>
+                        ) : (
+                            DisasterIcons.map((disaster, index) =>
+                                reportCounts[disaster.type] > 0 && (
+                                    <div
+                                        id='icon'
+                                        key={disaster.type}
+                                        onClick={() => handleFilterClick(disaster.type)}
+                                        className={`icon ${reportCounts[disaster.type] > 0 ? 'icon-enter' : 'icon-exit'}`}
+                                        style={{ cursor: 'pointer', animationDelay: `${index * 0.1}s`}}>
+                                        <FontAwesomeIcon
+                                            className="mb-2"
+                                            style={{ color: disaster.color, fontSize: '2rem' }}
+                                            icon={disaster.icon} />
+                                        <p>{reportCounts[disaster.type]}</p>
+                                    </div>
+                                )
+                            )
+                        )}
                     </div>
                 </div>
             </div>

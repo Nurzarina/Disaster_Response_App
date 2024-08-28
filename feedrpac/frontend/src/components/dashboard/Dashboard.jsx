@@ -8,10 +8,11 @@ import ReportWidget from './ReportWidget';
 import EventsMap from './EventsMap';
 import './Dashboard.css';
 
-
 const Dashboard = () => {
     const { user, logout } = useAuth();
     const [reports, setReports] = useState([]);
+    const [showMap, setShowMap] = useState(true);
+    const [showIcons, setShowIcons] = useState(true);
 
     useEffect(() => {
         const fetchReports = async () => {
@@ -26,20 +27,19 @@ const Dashboard = () => {
         fetchReports();
     }, []);
 
-    // Process reports into the format needed by EventsMap
     const events = reports
-        .filter(report => report.location && report.location.coordinates )  // Ensure coordinates exist
+        .filter(report => report.location && report.location.coordinates)
         .map(report => ({
-            latitude: report.location.coordinates[1],           // Latitude is the second item in the coordinates array
-            longitude: report.location.coordinates[0],          // Longitude is the first item
+            latitude: report.location.coordinates[1],
+            longitude: report.location.coordinates[0],
             disastertype: report.disastertype,
             severity: report.severity,
         }));
 
     return (
-        <Container fluid className="dashboard-container">
+        <Container fluid id="dashboard-container">
             <Row className="justify-content-center my-4">
-                <Col md={8} lg={6} className="text-center">
+                <Col xs={12} md={8} lg={6} className="text-center">
                     <CSSTransition
                         in={!!user}
                         timeout={500}
@@ -48,7 +48,6 @@ const Dashboard = () => {
                     >
                         <div>
                             {user ? (
-                                // User Greeting Card
                                 <Card className="profile-card">
                                     <Card.Body>
                                         {user.profileImg && (
@@ -62,57 +61,49 @@ const Dashboard = () => {
                                         <Card.Title className="welcome-text">
                                             Welcome, {user.username}!
                                         </Card.Title>
-
-                                        {/* Logout Button */}
                                         <Button
                                             variant="outline-primary"
                                             onClick={logout}
-                                            className="mt-4"
+                                            className="mt-4 mb-4"
                                         >
                                             Logout
                                         </Button>
-
                                     </Card.Body>
                                 </Card>
                             ) : (
-                                <></>  // Render empty JSX to avoid passing `null`
-                            )}
-                        </div>
-                    </CSSTransition>
-                    <CSSTransition
-                        in={!user}
-                        timeout={500}
-                        classNames="fade"
-                        unmountOnExit
-                    >
-                        <div>
-                            {!user ? (
                                 <h2 className="notlogin-text">You Are Not Logged In</h2>
-                            ) : (
-                                <></>  // Render empty JSX to avoid passing `null`
                             )}
                         </div>
                     </CSSTransition>
                 </Col>
             </Row>
 
-            {/*  Report Widget component*/}
             <Row className="justify-content-center">
                 <Col xs={12} md={10} lg={8}>
                     <ReportWidget />
                 </Col>
             </Row>
 
-            {/* EventsMap Component */}
-            <Row className="justify-content-center map-container">
-                <Col >
-                    <Card.Body>
-                        <Card.Title>Events within Malaysia</Card.Title>
-                        <EventsMap events={events} />
-                    </Card.Body>
+            <Row className="justify-content-center mt-5">
+                <Col xs={12}>
+                    <CSSTransition
+                        in={showMap}
+                        timeout={700}
+                        classNames="fade"
+                        unmountOnExit
+                    >
+                        <Card id="EventsMapContainer">
+                            <Card.Body>
+                                <Card.Title id="EventsMapTitle" className="text-center mb-2">
+                                    Events within Malaysia
+                                </Card.Title>
+                                <EventsMap events={events} />
+                            </Card.Body>
+                        </Card>
+                    </CSSTransition>
                 </Col>
             </Row>
-        </Container >
+        </Container>
     );
 };
 
