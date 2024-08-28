@@ -57,3 +57,13 @@ button.mb-4 {
         width: 100%;
     }
 }
+
+.map-container {
+    margin-top: 1rem;
+}
+
+dashboard-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Adjust spacing between elements */
+}

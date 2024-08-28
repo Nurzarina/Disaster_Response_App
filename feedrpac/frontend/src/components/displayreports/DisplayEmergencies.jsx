@@ -14,7 +14,7 @@ import { ScrollComponent } from '../others/ScrollComponent';
 import HoverWindow from './HoverWindow';
 import MapModal from './MapModal';
 import ContactModal from '../volunteer/ContactModal';
-import { reportLink } from '../backendAddress/URL';
+import { reportLink } from '../backendAddress/reportURL';
 import { useAuth } from '../login/AuthProvider'; // Import useAuth
 
 const DisplayEmergencies = () => {

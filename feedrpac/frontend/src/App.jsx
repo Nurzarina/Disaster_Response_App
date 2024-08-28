@@ -21,6 +21,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/sosreport" element={<ReportForm />} />
+          {/* Nested Route */}
           <Route path="/emergencies" element={<DisplayEmergencies />}>
             <Route path=":disastertype" element={<DisplayEmergencies />} />
           </Route>

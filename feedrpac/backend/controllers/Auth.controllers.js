@@ -112,6 +112,11 @@ export const login = async (req, res) => {
             following: user.following,
             profileImg: user.profileImg,
             coverImg: user.coverImg,
+            bio: user.bio,
+            website: user.website,
+            location: user.location,
+            ongoingMission: user.ongoingMission,
+            prevMission: user.prevMission
         })
 
     } catch (error) {

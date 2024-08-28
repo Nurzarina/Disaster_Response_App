@@ -126,12 +126,11 @@ h1 {
   white-space: nowrap;
 }
 
-.container {
+/* .container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   /* Ensure the container covers the full height of the viewport */
-}
 
 #footer {
   height: 2em;

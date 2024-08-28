@@ -18,7 +18,7 @@ export const emergencyIcons = {
       };
 
 //Icons for Emergencies widget
-export const disasterTypes = [
+export const DisasterIcons = [
     { type: 'Flood', icon: faHouseFloodWater, color: 'blue', label: 'Flood' },
     { type: 'Earthquake', icon: faHouseCrack, color: 'teal', label: 'Earthquake' },
     { type: 'Landslide', icon: faHillRockslide, color: 'brown', label: 'Landslide' },

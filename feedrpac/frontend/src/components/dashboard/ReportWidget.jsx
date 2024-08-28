@@ -5,9 +5,9 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { useNavigate, Link } from 'react-router-dom';
 import './ReportWidget.css'
 import { Container, Button } from 'react-bootstrap';
-import { disasterTypes } from '../others/EmergencyIcons';
+import { DisasterIcons } from '../others/EmergencyIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { reportLink } from '../backendAddress/URL';
+import { reportLink } from '../backendAddress/reportURL';
 import ReportForm from '../createreport/ReportForm';
 
 const ReportWidget = () => {
@@ -65,7 +65,7 @@ const ReportWidget = () => {
 
     //Pass the 'label' to URL instead of 'type' so that it will be the same as in DisplayEmergencies.js 
     const handleFilterClick = (filter) => {
-        const typeLabel = disasterTypes.find(disaster => disaster.type === filter).label;
+        const typeLabel = DisasterIcons.find(disaster => disaster.type === filter).label;
         navigate(`/emergencies/${typeLabel}`, { state: { disasterType: typeLabel } });
     };
 
@@ -80,7 +80,7 @@ const ReportWidget = () => {
                     </Link>
                     {/* Start Icons display */}
                     <div id='icons_collection' className="card-body d-flex justify-content-around flex-wrap mt-2">
-                        {disasterTypes.map(disaster =>
+                        {DisasterIcons.map(disaster =>
                             reportCounts[disaster.type] > 0 && (
                                 <div id='icon' key={disaster.type} onClick={() => handleFilterClick(disaster.type)} style={{ cursor: 'pointer' }}>
                                     <FontAwesomeIcon className="mb-2" style={{ color: disaster.color, fontSize: '2rem' }} icon={disaster.icon} />
