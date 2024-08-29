@@ -14,63 +14,79 @@ const Profile = () => {
     const handleClose = () => setShow(false);
 
     if (!user) {
-        return <Card className='justify-content-center'><p>Please log in to view your profile.</p>
-            <Link to={'/login'}><button>Login</button></Link>
-        </Card>;
-
-
+        return (
+            <Container fluid className="d-flex align-items-center justify-content-center vh-100">
+                <Card className="text-center p-4 shadow-lg">
+                    <Card.Body>
+                        <Card.Title>Please Log In</Card.Title>
+                        <Card.Text>To view your profile.</Card.Text>
+                        <Link to="/login">
+                            <Button variant="primary">Login</Button>
+                        </Link>
+                    </Card.Body>
+                </Card>
+            </Container>
+        );
     }
 
     return (
-        <div>
-            {error && <p>{error}</p>}
-            <Container className='profile-container'>
-                <div className='cover-image-container'>
-                    <Image src={user.coverImg} alt="Cover" className='cover-image' fluid />
+        <Container className="d-flex justify-content-center align-items-center vh-100">
+            <Card className="outside-card w-100">
+                {error && <p className="text-danger text-center">{error}</p>}
+                <div className="cover-image-container">
+                    <Image src={user.coverImg} alt="Cover" className="cover-image" fluid />
                 </div>
-                <Row className='profile-details'>
-                    <Col xs={12} className="text-center">
-                        <div>
-                            <Image src={user.profileImg} alt="Profile" className="profile-image" roundedCircle />
-                        </div>
-                        <h2 className='username'>@{user.username}</h2>
-                        <h4 className='full-name'>{user.fullName} {user.location}</h4>
-                        <Row>
-                            <Col>
-                                <p className='bio'>{user.bio}</p>
-                                <p className='website'>
-                                    Website:<a href={user.website} target='_blank' rel='noopener noreferrer'>{user.website}</a>
-                                </p>
-                            </Col>
-                        </Row>
+                <Card.Body className="text-center">
+                    <div className="profile-image-container">
+                        <Image src={user.profileImg} alt="Profile" className="profile-image mb-3" roundedCircle />
+                    </div>
+                    <div className="d-flex justify-content-center align-items-center mb-3">
+                        <h2 className="username">@{user.username}</h2>
                         <Button
                             variant="outline-primary"
-                            className="email-button"
+                            className="email-button ms-3"
                             onClick={() => window.location.href = `mailto:${user.email}`}>
-                            <HiOutlineMail />
+                            <HiOutlineMail /> Email
                         </Button>
-                    </Col>
-                </Row>
-                <Row>
-                <div className="follow-stats">
-                        <span>{user.followers} Followers</span> | <span>{user.following} Following</span>
                     </div>
-                </Row>
-
-                <Button variant="primary" onClick={handleShow}>Update Profile</Button> {/* Button to open the modal */}
-                <Button variant="danger" onClick={logout}>Logout</Button>
-            </Container>
+                    <h4 className="full-name">{user.fullName} || {user.location}</h4>
+                    <p className="bio">{user.bio}</p>
+                    <Row className="mb-3">
+                        <Col>
+                            <p className="website">
+                                <a href={user.website} target='_blank' rel='noopener noreferrer'>{user.website}</a>
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row className="mb-3">
+                        <Col>
+                            <p><strong> {user.prevMission.count} Mission</strong></p>
+                        </Col>
+                        <Col>
+                            <p><strong> {user.followers} Followers</strong></p>
+                        </Col>
+                        <Col>
+                            <p><strong> {user.following} Following</strong></p>
+                        </Col>
+                    </Row>
+                    <div className="d-flex justify-content-between">
+                        <Button variant="primary" onClick={handleShow}>Update Profile</Button>
+                        <Button variant="danger" onClick={logout}>Logout</Button>
+                    </div>
+                </Card.Body>
+            </Card>
 
             {/* Modal for UpdateProfile */}
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Update Profile</Modal.Title>
+            <Modal show={show} onHide={handleClose} centered size="lg" scrollable className="update-profile-modal ">
+                <Modal.Header closeButton className="modal-header-custom">
+                    <Modal.Title className="modal-title-custom">Update Your Profile</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <UpdateProfile />
+                <Modal.Body className="modal-body-custom">
+                    <UpdateProfile handleClose={handleClose} />
                 </Modal.Body>
             </Modal>
-        </div>
+
+        </Container>
     );
 };
 

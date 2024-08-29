@@ -151,7 +151,7 @@ export const getMe = async (req, res) => {
 }
 export const update = async (req, res) => {
     try {
-        const { _id, profileImg, coverImg, bio, website, location } = req.body;
+        const { _id, fullName,profileImg, coverImg, bio, website, location } = req.body;
 
         if (!_id) {
             return res.status(400).json({ message: "User ID is required" });
@@ -163,6 +163,8 @@ export const update = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
+
+        if (fullName) user.fullName = fullName;
         if (profileImg) user.profileImg = profileImg;
         if (coverImg) user.coverImg = coverImg;
         if (bio) user.bio = bio;
@@ -173,7 +175,7 @@ export const update = async (req, res) => {
 
         res.status(200).json({
             _id: updated._id,
-            username: updated.username,
+            fullName: updated.fullName,
             profileImg: updated.profileImg,
             coverImg: updated.coverImg,
             bio: updated.bio,
