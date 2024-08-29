@@ -14,7 +14,7 @@ const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <SOSButton />
+        {/* <SOSButton /> */}
         {/* <SidebarNavbar /> */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
