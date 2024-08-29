@@ -34,10 +34,10 @@ export const AuthProvider = ({ children }) => {
             setError('Failed to update profile.');
         }
     };
-    
+
 
     return (
-        <AuthContext.Provider value={{ user, error, login, logout, update,setUser }}>
+        <AuthContext.Provider value={{ user, error, login, logout, update, setUser }}>
             {children}
         </AuthContext.Provider>
     );
