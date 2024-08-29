@@ -80,7 +80,7 @@ const DisplayEmergencies = () => {
   };
 
   return (
-    <Container fluid>
+    <Container fluid id="displayEmergenciesContainer">
       <div className='m-2'>
         <Link to="/"> <IoIosArrowBack />Back</Link>
       </div>
@@ -108,7 +108,7 @@ const DisplayEmergencies = () => {
             <CSSTransition key={index}
               timeout={500}
               classNames="fade">
-              <Col xs={12} md={4} className="mb-2">
+              <Col xs={11} md={6} lg={4} className="mb-2">
                 <Card id='reportCard'>
                   <Card.Body id='reportCardBody'>
                     <Row>

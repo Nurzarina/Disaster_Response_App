@@ -1,26 +1,69 @@
 .fade-enter {
-    opacity: 0;
-  }
-  
-  .fade-enter-active {
-    opacity: 1;
-    transition: opacity 300ms;
-  }
-  
-  .fade-exit {
-    opacity: 1;
-  }
-  
-  .fade-exit-active {
-    opacity: 0;
-    transition: opacity 300ms;
-  }
-  
-  select option:first-child {
-    color: gray; /* Example color for placeholder */
-    font-style: italic; /* Italicize placeholder text */
+  opacity: 0;
 }
 
-#formTitle{
-  margin-top: 3px;
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+select option:first-child {
+  color: gray;
+  /* Example color for placeholder */
+  font-style: italic;
+  /* Italicize placeholder text */
+}
+
+/* #formTitle{
+
+}
+
+#formTitleText{
+
+} */
+
+@media (max-width: 576px) {
+  #custom-card {
+    min-width: 100%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
+  #custom-card {
+    min-width: 75%;
+  }
+}
+
+@media (min-width: 768px) {
+  #custom-card {
+    min-width: 50%;
+  }
+}
+
+/* Override body styles for MyPage */
+.createReportPage-body-style {
+  display: block;
+  margin: 0;
+  min-height: 96vh;
+  /* Other styles specific to this page */
+}
+
+#custom-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  /* Set a max-width for larger screens */
+  width: 100%;
+  /* Make sure it takes full width on smaller screens */
 }

@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+body {
+  background: linear-gradient(135deg, #CC0000, #3E0046, #000066, #FFCC00);
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 body.modal-open {
   overflow: hidden; /* Disable scrolling on the body when the modal is open */
 }

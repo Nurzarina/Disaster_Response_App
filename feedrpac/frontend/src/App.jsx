@@ -9,12 +9,13 @@ import { AuthProvider } from './components/login/AuthProvider';
 import ProtectedRoute from './components/login/ProtectedRoute'; // Import ProtectedRoute
 import SidebarNavbar from './components/navbars/SidebarNavbar';
 import BottomNavbar from './components/navbars/BottomNavbar';
+import './App.css'
 
 const App = () => {
   return (
     <Router>
       <AuthProvider>
-        <SOSButton />
+        {/* <SOSButton /> */}
         {/* <SidebarNavbar /> */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
