@@ -62,10 +62,10 @@
 
 // BottomNavbar.jsx
 import { useState } from 'react';
-import { Navbar, Nav, Button, Offcanvas, ToggleButton } from 'react-bootstrap';
+import { Navbar, Nav, Button, Offcanvas, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTachometerAlt, faRocket, faHistory, faUser, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faRocket, faComments, faUser, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { SlArrowRightCircle } from "react-icons/sl";
 import './BottomNavbar.css';
 
@@ -100,16 +100,16 @@ function BottomNavbar() {
                                     <FontAwesomeIcon icon={faRocket} /> Mission
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/history">
-                                    <FontAwesomeIcon icon={faHistory} /> History
+                                    <FontAwesomeIcon icon={faComments} /> Community
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/profile">
                                     <FontAwesomeIcon icon={faUser} /> User Profile
                                 </Nav.Link>
-                                <Nav.Link to="/sosreport" className="sos-link mt-auto">
+                                <Link to="/sosreport" className="sos-link mt-auto">
                                     <Button className="sos-button">
                                         <FontAwesomeIcon icon={faExclamationTriangle} /> SoS
                                     </Button>
-                                </Nav.Link>
+                                </Link>
                             </Nav>
                         {/* </Navbar.Collapse>
                     </Navbar> */}
@@ -133,7 +133,7 @@ function BottomNavbar() {
                         </Button>
                     </Link>
                     <Nav.Link as={Link} to="/history">
-                        <FontAwesomeIcon icon={faHistory} />
+                        <FontAwesomeIcon icon={faComments} />
                     </Nav.Link>
                     <Nav.Link as={Link} to="/profile">
                         <FontAwesomeIcon icon={faUser} />
