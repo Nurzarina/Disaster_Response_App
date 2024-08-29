@@ -49,7 +49,7 @@ select option:first-child {
   }
 }
 
-/* Override body styles for MyPage */
+/* Override body styles for ReportForm */
 .createReportPage-body-style {
   display: block;
   margin: 0;

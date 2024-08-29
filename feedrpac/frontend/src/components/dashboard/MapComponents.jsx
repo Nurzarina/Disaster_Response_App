@@ -40,7 +40,7 @@ const MapComponent = ({ location, onLocationChange }) => {
     return (
         <MapContainer
             center={location}
-            zoom={5}
+            zoom={12}
             style={{ height: '300px', width: '100%', borderRadius: '10px' }}
             maxBounds={malaysiaBounds}  // Restrict panning within Malaysia
             maxBoundsViscosity={1.0}  // Prevent panning outside the bounds

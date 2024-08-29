@@ -32,6 +32,16 @@ const DisplayEmergencies = () => {
   const { user } = useAuth(); // Access user authentication state
 
   useEffect(() => {
+    // Add a custom class to the body
+    document.body.classList.add('displayReportPage-body-style');
+
+    return () => {
+      // Remove the class when the component unmounts
+      document.body.classList.remove('displayReportPage-body-style');
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchReports = async () => {
       try {
         const response = await axios.get(reportLink);
@@ -102,13 +112,17 @@ const DisplayEmergencies = () => {
         </div>
         <br></br>
       </Row>
-      <Row>
+
+      {/* This row wraps wround each report Card. */}
+      <Row className="justify-content-center">
         <TransitionGroup component={null}>
           {filteredReports.map((report, index) => (
             <CSSTransition key={index}
               timeout={500}
               classNames="fade">
+              {/* Col to make the report cards arranged horizontally */}
               <Col xs={11} md={6} lg={4} className="mb-2">
+                {/* Render Card component */}
                 <Card id='reportCard'>
                   <Card.Body id='reportCardBody'>
                     <Row>
@@ -146,6 +160,7 @@ const DisplayEmergencies = () => {
           ))}
         </TransitionGroup>
       </Row>
+
       <TransitionGroup component={null}>
         <CSSTransition timeout={500} classNames="fade">
           <div id='footer' className='footer-container'>

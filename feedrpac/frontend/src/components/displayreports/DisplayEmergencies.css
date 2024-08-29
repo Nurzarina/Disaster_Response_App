@@ -13,6 +13,7 @@ h1 {
   background-color: rgb(235, 235, 235);
   height: 250px;
   width: 100%;
+  min-width: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -197,4 +198,10 @@ h1 {
   background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a semi-transparent background */
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Override body styles for DisplayEmergencies */
+.displayReportPage-body-style {
+  padding: 12px;
+  /* Other styles specific to this page */
 }
