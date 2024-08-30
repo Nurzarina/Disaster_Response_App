@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Container, Row, Col, Card, Button, Dropdown, DropdownDivider } from 'react-bootstrap';
 import { FaHandsHelping } from "react-icons/fa";
 import { IoIosArrowBack } from 'react-icons/io';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { CalculateTimeDifference } from '../others/CalculateTimeDifference';
@@ -95,7 +96,7 @@ const DisplayEmergencies = () => {
               {Object.keys(emergencyIcons).map((type, index) => (
                 <Dropdown.Item key={index} onClick={() => filterChangeByDropdown(type)}>{type}</Dropdown.Item>
               ))}
-              <DropdownDivider/>
+              <DropdownDivider />
               <Dropdown.Item onClick={() => filterChangeByDropdown('All')}>All</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -109,6 +110,10 @@ const DisplayEmergencies = () => {
               <Col xs={12} md={4} className="mb-2">
                 <Card id='reportCard'>
                   <Card.Body id='reportCardBody'>
+                    {/* Severity Dash Wrapper */}
+                    <div className="severity-dash-wrapper">
+                      <div className={`severity-dash severity-${report.severity}`}></div>
+                    </div>
                     <Row>
                       <Col xs={8}>
                         <Card.Title id='reportCardTitle'>
@@ -120,10 +125,10 @@ const DisplayEmergencies = () => {
                         <Card.Text id='addressText'>
                           {report.location}
                         </Card.Text>
-                        <Card.Text>   
-                            <Button id='MapBtn' variant='info' onClick={() => handleShowMap(report)}>
-                              View on Map
-                            </Button>
+                        <Card.Text>
+                          <Button id='MapBtn' variant='info' onClick={() => handleShowMap(report)}>
+                            View on Map
+                          </Button>
                         </Card.Text>
                         <Card.Text>
                           <small className="text-muted">

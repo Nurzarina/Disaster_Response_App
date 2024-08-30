@@ -29,6 +29,37 @@ h1 {
   margin-top: 5px;
 }
 
+.severity-dash-wrapper {
+  position: relative; /* Ensure that the severity dash is positioned relative to this wrapper */
+  float: right; /* Float the wrapper to the right */
+}
+
+.severity-dash {
+  position: absolute; /* Position the dash absolutely within the wrapper */
+  right: 0; /* Align the dash to the right */
+  top: 0; /* Align the dash to the top */
+  height: 20px;
+  width: 100px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  background-color: currentColor; /* This will allow dynamic color changes */
+}
+
+.severity-low {
+  background-color: green;
+}
+
+.severity-medium {
+  background-color: yellow;
+}
+
+.severity-high {
+  background-color: orange;
+}
+.severity-critical {
+  background-color: red;
+}
+
 #reportCard:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
