@@ -21,7 +21,7 @@ app.use(cors({
 }));
 
 app.use('/api/auth',authRoutes);
-app.use('/reports', reportRoutes);
+app.use('/api/reports', reportRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

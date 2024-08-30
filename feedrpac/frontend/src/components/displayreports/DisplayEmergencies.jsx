@@ -7,15 +7,15 @@ import { IoIosArrowBack } from 'react-icons/io';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { CalculateTimeDifference } from '../others/CalculateTimeDifference';
+import { CalculateTimeDifference } from '../utils/CalculateTimeDifference';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { emergencyIcons } from '../others/EmergencyIcons';
+import { emergencyIcons } from '../utils/EmergencyIcons';
 import './DisplayEmergencies.css';
-import { ScrollComponent } from '../others/ScrollComponent';
+import { ScrollComponent } from '../utils/ScrollComponent';
 import HoverWindow from './HoverWindow';
 import MapModal from './MapModal';
 import ContactModal from '../volunteer/ContactModal';
-import { reportLink } from '../backendAddress/URL';
+import { reportLink } from '../backendAddress/reportURL';
 import { useAuth } from '../login/AuthProvider'; // Import useAuth
 
 const DisplayEmergencies = () => {
@@ -31,6 +31,16 @@ const DisplayEmergencies = () => {
   const detailVolunteer = "Click here to volunteer for this report.";
 
   const { user } = useAuth(); // Access user authentication state
+
+  useEffect(() => {
+    // Add a custom class to the body
+    document.body.classList.add('displayReportPage-body-style');
+
+    return () => {
+      // Remove the class when the component unmounts
+      document.body.classList.remove('displayReportPage-body-style');
+    };
+  }, []);
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -81,7 +91,7 @@ const DisplayEmergencies = () => {
   };
 
   return (
-    <Container fluid>
+    <Container fluid id="displayEmergenciesContainer">
       <div className='m-2'>
         <Link to="/"> <IoIosArrowBack />Back</Link>
       </div>
@@ -103,11 +113,17 @@ const DisplayEmergencies = () => {
         </div>
         <br></br>
       </Row>
-      <Row>
+
+      {/* This row wraps wround each report Card. */}
+      <Row className="justify-content-center">
         <TransitionGroup component={null}>
           {filteredReports.map((report, index) => (
-            <CSSTransition key={index} timeout={500} classNames="fade">
-              <Col xs={12} md={4} className="mb-2">
+            <CSSTransition key={index}
+              timeout={500}
+              classNames="fade">
+              {/* Col to make the report cards arranged horizontally */}
+              <Col xs={11} md={6} lg={4} className="mb-2">
+                {/* Render Card component */}
                 <Card id='reportCard'>
                   <Card.Body id='reportCardBody'>
                     {/* Severity Dash Wrapper */}
@@ -123,7 +139,7 @@ const DisplayEmergencies = () => {
                           reported at
                         </Card.Text>
                         <Card.Text id='addressText'>
-                          {report.location}
+                          {report.state ? `${report.city}, ${report.state}` : 'Location not available.'}
                         </Card.Text>
                         <Card.Text>
                           <Button id='MapBtn' variant='info' onClick={() => handleShowMap(report)}>
@@ -149,6 +165,7 @@ const DisplayEmergencies = () => {
           ))}
         </TransitionGroup>
       </Row>
+
       <TransitionGroup component={null}>
         <CSSTransition timeout={500} classNames="fade">
           <div id='footer' className='footer-container'>
@@ -161,10 +178,12 @@ const DisplayEmergencies = () => {
           <MapModal
             show={mapModalShow}
             handleClose={() => setMapModalShow(false)}
-            lat={selectedReport.lat}
-            long={selectedReport.lng}
+            lat={selectedReport.location.coordinates[1]}
+            long={selectedReport.location.coordinates[0]}
             report_id={selectedReport._id}
             descr={selectedReport.description}
+            disaster={selectedReport.disastertype}
+            sever={selectedReport.severity}
           />
           {user && (
             <ContactModal
