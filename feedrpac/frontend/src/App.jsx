@@ -9,6 +9,7 @@ import { AuthProvider } from './components/login/AuthProvider';
 import ProtectedRoute from './components/login/ProtectedRoute'; // Import ProtectedRoute
 import SidebarNavbar from './components/navbars/SidebarNavbar';
 import BottomNavbar from './components/navbars/BottomNavbar';
+import Profile from './components/userprofile/Profile';
 import './App.css'
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/emergencies" element={<DisplayEmergencies />}>
             <Route path=":disastertype" element={<DisplayEmergencies />} />
           </Route>
+          <Route path="/profile" element={<Profile />} />
           {/* No routes for modals, they are managed internally in DisplayEmergencies */}
         </Routes>
         <BottomNavbar />

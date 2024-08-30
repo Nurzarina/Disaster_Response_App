@@ -24,4 +24,4 @@ function SOSButton() {
   );
 }
 
-export default SOSButton;
+export default SOSButton

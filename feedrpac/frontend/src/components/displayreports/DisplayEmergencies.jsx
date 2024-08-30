@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Container, Row, Col, Card, Button, Dropdown, DropdownDivider } from 'react-bootstrap';
 import { FaHandsHelping } from "react-icons/fa";
 import { IoIosArrowBack } from 'react-icons/io';
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { CalculateTimeDifference } from '../utils/CalculateTimeDifference';
@@ -125,6 +126,10 @@ const DisplayEmergencies = () => {
                 {/* Render Card component */}
                 <Card id='reportCard'>
                   <Card.Body id='reportCardBody'>
+                    {/* Severity Dash Wrapper */}
+                    <div className="severity-dash-wrapper">
+                      <div className={`severity-dash severity-${report.severity}`}></div>
+                    </div>
                     <Row>
                       <Col xs={8}>
                         <Card.Title id='reportCardTitle'>
