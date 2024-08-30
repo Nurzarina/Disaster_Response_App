@@ -10,7 +10,7 @@ import ProtectedRoute from './components/login/ProtectedRoute'; // Import Protec
 import SidebarNavbar from './components/navbars/SidebarNavbar';
 import BottomNavbar from './components/navbars/BottomNavbar';
 import Profile from './components/userprofile/Profile';
-
+import './App.css'
 
 const App = () => {
   return (
@@ -23,6 +23,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/sosreport" element={<ReportForm />} />
+          {/* Nested Route */}
           <Route path="/emergencies" element={<DisplayEmergencies />}>
             <Route path=":disastertype" element={<DisplayEmergencies />} />
           </Route>
