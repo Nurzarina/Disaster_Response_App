@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import pinUserIcon from '../../assets/map-pin.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { DisasterIcons } from '../others/EmergencyIcons';
+import { DisasterIcons } from '../utils/EmergencyIcons';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 import './EventsMap.css';
 

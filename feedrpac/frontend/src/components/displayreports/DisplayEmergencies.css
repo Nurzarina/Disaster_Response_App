@@ -127,6 +127,7 @@ h1 {
   white-space: nowrap;
 }
 
+/* Commenting this so that Container in other components are not affected. */
 /* .container {
   display: flex;
   flex-direction: column;

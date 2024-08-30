@@ -1,6 +1,6 @@
 import Report from "../models/Report.model.js";
 import { config as configDotenv } from "dotenv";
-import { reverseGeocode } from "../utils/ReverseGeocode.js";
+import { reverseGeocode } from "../lib/utils/ReverseGeocode.js";
 
 configDotenv();
 // require('dotenv').config();

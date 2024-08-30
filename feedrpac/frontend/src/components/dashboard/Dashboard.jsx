@@ -6,6 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 import ReportWidget from './ReportWidget';
 import EventsMap from './EventsMap';
+import SOSButton from '../SOSButton';
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -48,6 +49,7 @@ const Dashboard = () => {
                     >
                         <div>
                             {user ? (
+                                 // User Profile Card
                                 <Card className="profile-card">
                                     <Card.Body>
                                         {user.profileImg && (
@@ -71,8 +73,22 @@ const Dashboard = () => {
                                     </Card.Body>
                                 </Card>
                             ) : (
-                                <h2 className="notlogin-text">You Are Not Logged In</h2>
+                                <></>  // Render empty JSX to avoid passing `null`
                             )}
+                        </div>
+                    </CSSTransition>
+                    <CSSTransition
+                        in={!user}
+                        timeout={500}
+                        classNames="fade"
+                        unmountOnExit
+                    >
+                        <div>
+                            {!user ? (
+                                 <SOSButton />
+                            ) : (
+                                <></>  // Render empty JSX to avoid passing `null`                            
+                                )}
                         </div>
                     </CSSTransition>
                 </Col>

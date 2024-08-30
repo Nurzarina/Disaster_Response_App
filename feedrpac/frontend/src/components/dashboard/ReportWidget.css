@@ -91,3 +91,22 @@
 #icon:hover {
   transform: scale(1.05);                                 /* Slightly scale up on hover */
 }
+
+.icon {
+  position: relative; /* Allows absolute positioning of the badge within the icon */
+  display: inline-block;
+  margin: 10px;
+}
+
+.badge-inside-icon {
+  position: absolute;
+  top: 0; 
+  right: 0; 
+  transform: translate(50%, -50%);
+  background-color: red; /* Or any color you prefer */
+  color: white;
+  font-size: 0.75rem; /* Adjust font size */
+  padding: 0.25em 0.5em; /* Adjust padding */
+  border-radius: 50%; /* Make the badge round */
+  z-index: 10; /* Ensures the badge appears above the icon */
+}
