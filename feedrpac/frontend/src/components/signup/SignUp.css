@@ -17,18 +17,32 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     background-color: #f8f9fa;
-    text-align: center; /* Centers the content inside the card */
+    text-align: center;
+    /* Centers the content inside the card */
 }
 
 .profile-img {
-    width: 80px; /* Smaller size */
-    height: 80px; /* Maintain circular shape */
-    border-radius: 50%; /* Ensures the image is circular */
-    object-fit: cover; /* Maintains the aspect ratio of the image */
-    margin: 0 auto; /* Centers the image within the card */
+    width: 80px;
+    /* Smaller size */
+    height: 80px;
+    /* Maintain circular shape */
+    border-radius: 50%;
+    /* Ensures the image is circular */
+    object-fit: cover;
+    /* Maintains the aspect ratio of the image */
+    margin: 0 auto;
+    /* Centers the image within the card */
     margin-bottom: 10px;
 }
 
 .welcome-text {
     margin-bottom: 20px;
+}
+
+.scrollable {
+    height: 100vh;
+    /* or any height that fits your design */
+    overflow-y: auto;
+    padding-right: 15px;
+    /* Optional: to avoid scrollbar overlapping content */
 }

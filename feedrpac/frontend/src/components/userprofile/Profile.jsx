@@ -5,6 +5,9 @@ import { Modal, Button, Card, Container, Row, Col, Image } from 'react-bootstrap
 import { Link } from 'react-router-dom';
 import { HiOutlineMail } from 'react-icons/hi';
 import './Profile.css';
+import defaultProfileImg from '/profileimg.png';
+import defaultCoverImg from '/coverimg.png';
+
 
 const Profile = () => {
     const { user, error, logout } = useAuth();
@@ -34,11 +37,11 @@ const Profile = () => {
             <Card className="outside-card w-100">
                 {error && <p className="text-danger text-center">{error}</p>}
                 <div className="cover-image-container">
-                    <Image src={user.coverImg} alt="Cover" className="cover-image" fluid />
+                    <Image src={user.coverImg || defaultCoverImg} alt="Cover" className="cover-image" fluid />
                 </div>
                 <Card.Body className="text-center">
                     <div className="profile-image-container">
-                        <Image src={user.profileImg} alt="Profile" className="profile-image mb-3" roundedCircle />
+                        <Image src={user.profileImg || defaultProfileImg} alt="Profile" className="profile-image mb-3" roundedCircle />
                     </div>
                     <div className="d-flex justify-content-center align-items-center mb-3">
                         <h2 className="username">@{user.username}</h2>
@@ -60,8 +63,9 @@ const Profile = () => {
                     </Row>
                     <Row className="mb-3">
                         <Col>
-                            <p><strong> {user.prevMission.count} Mission</strong></p>
+                            <p><strong>{user.prevMission?.count || 0} Mission{user.prevMission?.count === 1 ? '' : 's'}</strong></p>
                         </Col>
+
                         <Col>
                             <p><strong> {user.followers} Followers</strong></p>
                         </Col>
