@@ -1,6 +1,7 @@
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { useAuth } from '../login/AuthProvider';
 import ReportWidget from './ReportWidget';
+import SOSButton from '../SOSButton';
 import { CSSTransition } from 'react-transition-group';
 import './Dashboard.css';
 
@@ -58,7 +59,7 @@ const Dashboard = () => {
                     >
                         <div>
                             {!user ? (
-                                <h2 className="notlogin-text">You Are Not Logged In</h2>
+                                 <SOSButton />
                             ) : (
                                 <></>  // Render empty JSX to avoid passing `null`
                             )}

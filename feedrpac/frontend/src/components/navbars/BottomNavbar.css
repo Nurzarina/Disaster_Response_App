@@ -1,45 +1,106 @@
-/* BottomNavbar.css */
+
+/* Styles for the Offcanvas component */
+.offcanvas {
+    width: 150px; /* Adjust as needed */
+}
+
+.offcanvas .offcanvas-header {
+    background-color: #f8f9fa;
+}
+
+.offcanvas .offcanvas-body {
+    padding: 1rem;
+}
+
+.offcanvas .nav-link {
+    padding: 0.5rem 1rem;
+    color: #333;
+}
+
+.offcanvas .nav-link:focus, .offcanvas .nav-link:hover {
+    color: #3f7ac2;
+    transform: scale(1.05);
+}
+
+.offcanvas .sos-button {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    margin-left: 1em;
+}
+
+.offcanvas .sos-button:focus, .offcanvas .sos-button:hover {
+    background-color: #a11523;
+    transform: scale(1.05);
+}
+
+.fixed-top-icon {
+    position: fixed;
+    top: 10px; /* Adjust the distance from the top */
+    left: 10px; /* Adjust the distance from the right */
+    z-index: 1000; /* Ensure it's above other elements */
+    cursor: pointer;
+    color: #2b3d51; /* Optional: Change the color */
+}
+
+.fixed-top-icon:hover {
+    color: #0561c3; /* Optional: Change color on hover */
+    transform: scale(1.1);
+}
+
+
+/* Bottom navbar for mobile screens */
+@media (max-width: 768px) {
+    .fixed-top-icon {
+        display: none;
+    }
+
+    .offcanvas {
+        display:none;
+    }
+}
+
 .bottom-navbar {
     display: flex;
-    justify-content: space-between;
-    align-items: center; /* Center items vertically */
+    justify-content: center; /* Centers the button horizontally */
+    align-items: center; 
     background-color: #f8f9fa;
-    padding: 0 10px;
     border-top: 1px solid #dee2e6;
 }
 
-.nav-items {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
+.bottom-navbar .nav-link {
+    color: #333;
+    font-size: 1.25rem; /* Adjust icon size if needed */
 }
 
-.nav-items .nav-link {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
+.bottom-navbar .nav-link:focus, .bottom-navbar .nav-link:hover {
+    color: #007bff;
+    transform: scale(1.1);
 }
 
-.sos-link {
-    position: absolute; /* Position it in the center */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust the centering */
-}
-
-.sos-button {
-    background-color: red;
-    color: white;
+.bottom-navbar .sos-button {
+    /* background-color: #dc3545;
     border: none;
+    color: white;
+    padding: 10px 20px;     
+    border-radius: 50%;     
+    cursor: pointer;         */
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
 }
 
-@media (max-width: 991px) { /* Bootstrap large breakpoint */
-    .bottom-navbar {
-        display: flex;
-    }
+.bottom-navbar .sos-button:focus, .bottom-navbar .sos-button:hover {
+    background-color: #931320;
+    transform: scale(1.1);
 }
+
+
