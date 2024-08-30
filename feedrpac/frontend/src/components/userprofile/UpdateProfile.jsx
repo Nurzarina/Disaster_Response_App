@@ -1,27 +1,25 @@
-import { useState } from 'react';
-import axiosInstance from './axiosInstance'; // Import the Axios instance
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './SignUp.css'; // Create your CSS file for additional styling
 
-const SignUp = () => {
+import { useAuth } from '../login/AuthProvider'; // Adjust the path as needed
+
+const UpdateProfile = ({ handleClose }) => {
+    const { user, update } = useAuth(); // Access current user
     const [formData, setFormData] = useState({
-        username: '',
-        fullName: '',
-        password: '',
-        email: '',
-        profileImg: '',
-        coverImg: '',
-        bio: '',
-        website: '',
-        location: '',
+        _id: user._id,
+        fullName: user.fullName || '',
+        profileImg: user.profileImg || '',
+        coverImg: user.coverImg || '',
+        bio: user.bio || '',
+        website: user.website || '',
+        location: user.location || '',
     });
     const [error, setError] = useState('');
-    const [message, setMessage] = useState('');
-    const [profileImageUrl, setProfileImageUrl] = useState('');
-    const [coverImageUrl, setCoverImageUrl] = useState('');
+    const [profileImageUrl, setProfileImageUrl] = useState(formData.profileImg);
+    const [coverImageUrl, setCoverImageUrl] = useState(formData.coverImg);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -34,28 +32,22 @@ const SignUp = () => {
 
     const handleImageUpload = async (e, type) => {
         const file = e.target.files[0];
-        const uploadPreset = 'y6dazgfn'; // Cloudinary upload preset
-        const cloudName = 'dyndmpls6'; // Cloudinary cloud name
+        if (!file) return; // Avoid uploading if no file is selected
+
+        const uploadPreset = 'y6dazgfn';
+        const cloudName = 'dyndmpls6';
 
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', uploadPreset);
 
-        console.log("file: ", file);
-
         try {
-            console.log("Sending POST request to Cloudinary");
-
             const response = await axios.post(
                 `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
                 formData
             );
 
-            console.log('Cloudinary response:', response); // Log the response from Cloudinary
-
             const imageUrl = response.data.secure_url;
-            console.log("Uploaded Image URL: ", imageUrl);
-
             if (type === 'profile') {
                 setProfileImageUrl(imageUrl);
                 setFormData((prevData) => ({
@@ -70,7 +62,7 @@ const SignUp = () => {
                 }));
             }
         } catch (error) {
-            console.error('Error uploading image:', error.response ? error.response.data : error.message); // Log the error
+            console.error('Error uploading image:', error.response ? error.response.data : error.message);
             setError('Failed to upload image.');
         }
     };
@@ -78,40 +70,19 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate password length
-        if (formData.password.length < 8) {
-            setError('Password must be at least 8 characters long.');
-            return;
-        }
-
         try {
-            await axiosInstance.post('/signup', formData);
-            setMessage('Sign up successful!');
-            setTimeout(() => {
-                navigate('/'); // Navigate to DashBoard after signup form is submitted.
-            }, 1000);
+            await update(formData); // Use the update function from AuthContext
+            handleClose(); // Close the modal after success
+            navigate('/profile'); // Redirect to profile page immediately after update
         } catch (err) {
-            setError('Failed to sign up.');
+            console.error('Error updating profile:', err.response ? err.response.data : err.message);
+            setError('Failed to update profile.');
         }
     };
 
     return (
-        <Container>
-            <h2 className="my-4">Sign Up</h2>
-            {message && <Alert variant="success">{message}</Alert>}
-            {error && <Alert variant="danger">{error}</Alert>}
+        <Container className="my-5 h-100">
             <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter your username"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
                 <Form.Group controlId="formFullName">
                     <Form.Label>Full Name</Form.Label>
                     <Form.Control
@@ -123,28 +94,8 @@ const SignUp = () => {
                         required
                     />
                 </Form.Group>
-                <Form.Group controlId="formPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Enter your password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
-                <Form.Group controlId="formEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="Enter your email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
+
+
                 <Form.Group controlId="formProfileImg">
                     <Form.Label>Profile Image</Form.Label>
                     <Form.Control
@@ -155,6 +106,7 @@ const SignUp = () => {
                     {profileImageUrl && (
                         <img src={profileImageUrl} alt="Profile Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
                     )}
+
                 </Form.Group>
                 <Form.Group controlId="formCoverImg">
                     <Form.Label>Cover Image</Form.Label>
@@ -166,6 +118,7 @@ const SignUp = () => {
                     {coverImageUrl && (
                         <img src={coverImageUrl} alt="Cover Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
                     )}
+
                 </Form.Group>
                 <Form.Group controlId="formBio">
                     <Form.Label>Bio</Form.Label>
@@ -198,12 +151,12 @@ const SignUp = () => {
                     />
                 </Form.Group>
                 <br />
-                <Button variant="primary" type="submit">
-                    Sign Up
-                </Button>
+                <Button variant="primary" onClick={handleSubmit}>Save Changes</Button>
+                <Button variant="secondary" onClick={handleClose} className="ms-2">Cancel</Button>
+                
             </Form>
         </Container>
     );
 };
 
-export default SignUp;
+export default UpdateProfile;
