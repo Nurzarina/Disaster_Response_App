@@ -15,9 +15,9 @@ app.use(express.json()); // middleware to parse JSON request bodies.
 app.use(express.urlencoded({ extended: true })); // middleware to parse URL-encoded request bodies.
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:5173',                // Vite FrontEnd URL.
+    origin: 'http://localhost:5173',                    // Vite FrontEnd server.
     methods: ['GET', 'POST','PATCH', 'PUT', 'DELETE'],
-    credentials: true,                              // To resolve issue of OPTIONS request.
+    credentials: true,                                  // Allow cookies to be sent from BackEnd
 }));
 
 app.use('/api/auth',authRoutes);

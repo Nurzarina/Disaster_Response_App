@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 import MapComponent from './MapComponent';
-import { reportLink } from '../backendAddress/reportURL';
+import { reportLink } from '../backendAddress/URL';
 import { Container, Card, Form, Button } from 'react-bootstrap';
 import './ReportForm.css'
 
@@ -19,15 +19,15 @@ const ReportForm = () => {
         severity: '',
     });
 
-    useEffect(() => {
-        // Add a custom class to the body
-        document.body.classList.add('createReportPage-body-style');
+    // useEffect(() => {
+    //     // Add a custom class to the body
+    //     document.body.classList.add('createReportPage-body-style');
 
-        return () => {
-            // Remove the class when the component unmounts
-            document.body.classList.remove('createReportPage-body-style');
-        };
-    }, []);
+    //     return () => {
+    //         // Remove the class when the component unmounts
+    //         document.body.classList.remove('createReportPage-body-style');
+    //     };
+    // }, []);
 
     const handleChange = (e) => {
         setFormData({
@@ -97,7 +97,7 @@ const ReportForm = () => {
     };
 
     return (
-        <Container fluid id="custom-card" className="mt-4 mx-1 mx-auto">
+        <Container fluid id="custom-card">
             <Card>
                 <Card.Header id="formTitle" className="bg-dark text-white">
                     <h2 id='formTitleText'>Submit a Report</h2>

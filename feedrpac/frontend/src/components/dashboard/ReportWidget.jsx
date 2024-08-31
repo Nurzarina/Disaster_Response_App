@@ -6,7 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Container, Button, Badge } from 'react-bootstrap';
 import { DisasterIcons } from '../utils/EmergencyIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { reportLink } from '../backendAddress/reportURL';
+import { reportLink } from '../backendAddress/URL';
 import './ReportWidget.css';
 
 const ReportWidget = () => {
@@ -47,7 +47,7 @@ const ReportWidget = () => {
     useEffect(() => {
         fetchReports();
         // Fetch new reports periodically
-        const intervalId = setInterval(fetchReports, 10000); // Fetch reports every 10 seconds
+        const intervalId = setInterval(fetchReports, 120000); // Fetch reports every 120 seconds.
         return () => clearInterval(intervalId); // Cleanup on component unmount
     }, []);
 
@@ -95,7 +95,7 @@ const ReportWidget = () => {
     return (
         <Container fluid id='icons-container'>
             <div id='widgetBorder' className="card text-center mx-3">
-                <div className="card-header">
+                <div className="card-header mt-2">
                     <h2 id="widgetTitle" className="text-center mb-0 bg-dark text-white">Current Situation</h2>
                     
                     {noReports ? (

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuth } from '../login/AuthProvider'; // Adjust the path as needed
+import { useAuth } from '../backendAddress/AuthProvider'; // Adjust the path as needed
 import UpdateProfile from './UpdateProfile'; // Import the UpdateProfile component
 import { Modal, Button, Card, Container, Row, Col, Image } from 'react-bootstrap'; // Import modal components from react-bootstrap
 import { Link } from 'react-router-dom';
