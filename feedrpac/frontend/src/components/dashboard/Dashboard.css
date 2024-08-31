@@ -53,17 +53,17 @@
 @media (min-width: 473px) and (max-width: 768px) {
 
     #dashboard-container {
-
         padding: 20px;
         width: 100%;
+        border: 5px;
         /* Ensure full width on smaller screens */
         max-width: 500px;
         /* Adjust max-width for smaller screens */
         min-width: 0;
         margin: 30px auto;
         /* Ensure some space from the top */
-        margin-top: 150px;
-        margin-bottom: 10%;
+        margin-top: 3vh;
+        margin-bottom: 10vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -71,16 +71,16 @@
     }
 
     #userArea {
-        margin-top: -60px;
+        margin-top: 6px;
     }
 
     #guestArea {
-        margin-top: -90px;
+        margin-top: 6px;
         margin-right: 10px;
     }
 
     #EventsMapContainer {
-        margin-bottom: -20px;
+        margin-bottom: 20px;
     }
 }
 

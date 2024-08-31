@@ -6,11 +6,11 @@
     border-radius: 5px;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(0%);              /*  Move HoverWindow horizontally to the left by 100% of its own width. */
     /* transform: translateY(-10%); */
     white-space: none;               
     pointer-events: none;
-    max-width: 350px;     
+    max-width: 100px;     
     max-height: 150px;        
     width: 100%;
     overflow: normal;                   
@@ -18,29 +18,28 @@
   }
 
   #hoverwindow{
-    width: 350px;
+    /* width: 350px; */
   }
   
-  /* Wrap text on smaller screens */
-  /* @media (max-width: 992px) {            /* Adjust based on your desired breakpoint */
-     /*  .tooltip-window {
-      white-space: normal;              Allow text wrapping on screens smaller than laptops
-    }
-  } */
-  
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
     .tooltip-window {
       font-size: 14px;                  /* Adjust font size for smaller screens */
       padding: 8px;
+      transform: translateX(-100%);  
+      white-space: none;
+      overflow: wrap;
+      max-width: 100px;
     }
   }
   
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     .tooltip-window {
       font-size: 12px;
       padding: 6px;
-      transform: translateX(-90%);
-      /* max-width: 100px;                   Adjust the width to fit smaller screens */
+      transform: translateX(-130%);
+      white-space: none;
+      overflow: wrap;
+      max-width: 80px;
     }
   }
   

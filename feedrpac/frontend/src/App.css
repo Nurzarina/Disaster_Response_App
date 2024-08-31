@@ -3,7 +3,8 @@
 }
 
 html,body{
-  height : 100%;
+  /* Let height be 'auto' so that DisplayEmergencies page does not overflow. */
+  height : auto;          
   margin :0;
 }
 
