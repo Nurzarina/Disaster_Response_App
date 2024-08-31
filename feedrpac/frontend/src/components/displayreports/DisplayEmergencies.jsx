@@ -14,9 +14,9 @@ import './DisplayEmergencies.css';
 import { ScrollComponent } from '../utils/ScrollComponent';
 import HoverWindow from './HoverWindow';
 import MapModal from './MapModal';
-import ContactModal from '../volunteer/ContactModal';
-import { reportLink } from '../backendAddress/reportURL';
-import { useAuth } from '../login/AuthProvider'; // Import useAuth
+import ContactModal from './volunteer/ContactModal';
+import { reportLink } from '../backendAddress/URL';
+import { useAuth } from '../backendAddress/AuthProvider'; // Import useAuth
 
 const DisplayEmergencies = () => {
   const { disastertype } = useParams();
@@ -85,7 +85,7 @@ const DisplayEmergencies = () => {
       setSelectedReport(report);
       setContactModalShow(true); // Show the contact modal
     } else {
-      // Handle unauthenticated access (e.g., redirect to login)
+      // Handle unauthenticated access (redirect to login page)
       navigate('/login');
     }
   };

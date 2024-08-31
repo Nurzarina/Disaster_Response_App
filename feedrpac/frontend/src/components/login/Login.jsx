@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Form, Button, Alert, Container, Row, Col, Card } from 'react-bootstrap';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../backendAddress/AuthProvider';
 import { CSSTransition } from 'react-transition-group';
 import './Login.css'; // Add custom CSS if needed
 
@@ -22,7 +22,7 @@ const Login = () => {
                 <Col md={12}>
                     <Card id="loginCard" className="p-4 shadow-sm">
                         <Card.Body>
-                            <h1 className="text-center mb-4"><b>Login</b></h1>
+                            <h1 className="text-center mb-5"><b>Login</b></h1>
                             <CSSTransition
                                 in={showAlert && !!error}
                                 timeout={300}

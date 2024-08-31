@@ -1,16 +1,17 @@
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { useAuth } from '../login/AuthProvider';
-import { reportLink } from '../backendAddress/reportURL';
+import { useAuth } from '../backendAddress/AuthProvider';
+import { reportLink } from '../backendAddress/URL';
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 import ReportWidget from './ReportWidget';
 import EventsMap from './EventsMap';
-import SOSButton from '../SOSButton';
+import LogInCard from './LogInCard';
+import UserCard from './userCard';
 import './Dashboard.css';
 
 const Dashboard = () => {
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
     const [reports, setReports] = useState([]);
     const [showMap, setShowMap] = useState(true);
     const [showIcons, setShowIcons] = useState(true);
@@ -40,38 +41,17 @@ const Dashboard = () => {
     return (
         <Container fluid id="dashboard-container">
             <Row className="justify-content-center my-4">
-                <Col xs={12} md={8} lg={6} className="text-center">
+                <Col xs={12} md={12} lg={12} className="text-center">
                     <CSSTransition
                         in={!!user}
                         timeout={500}
                         classNames="fade"
                         unmountOnExit
                     >
-                        <div>
+                        <div id="userArea">
                             {user ? (
                                  // User Profile Card
-                                <Card className="profile-card">
-                                    <Card.Body>
-                                        {user.profileImg && (
-                                            <Card.Img
-                                                variant="top"
-                                                src={user.profileImg}
-                                                alt="Profile"
-                                                className="profile-img"
-                                            />
-                                        )}
-                                        <Card.Title className="welcome-text">
-                                            Welcome, {user.username}!
-                                        </Card.Title>
-                                        <Button
-                                            variant="outline-primary"
-                                            onClick={logout}
-                                            className="mt-4 mb-4"
-                                        >
-                                            Logout
-                                        </Button>
-                                    </Card.Body>
-                                </Card>
+                                 <UserCard />
                             ) : (
                                 <></>  // Render empty JSX to avoid passing `null`
                             )}
@@ -83,9 +63,10 @@ const Dashboard = () => {
                         classNames="fade"
                         unmountOnExit
                     >
-                        <div>
+                        <div id="guestArea">
                             {!user ? (
-                                 <SOSButton />
+                                 // 'Login' & 'SignUp' Call-to-action button
+                                 <LogInCard />
                             ) : (
                                 <></>  // Render empty JSX to avoid passing `null`                            
                                 )}
@@ -94,14 +75,14 @@ const Dashboard = () => {
                 </Col>
             </Row>
 
-            <Row className="justify-content-center">
+            <Row id="ReportWidgetContainer" className="justify-content-center mt-3">
                 <Col xs={12} md={10} lg={8}>
                     <ReportWidget />
                 </Col>
             </Row>
 
-            <Row className="justify-content-center mt-5">
-                <Col xs={12}>
+            <Row className="justify-content-center mt-2">
+                <Col xs={12} md={12} lg={12}>
                     <CSSTransition
                         in={showMap}
                         timeout={700}

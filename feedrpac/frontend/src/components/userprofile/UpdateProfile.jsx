@@ -4,7 +4,7 @@ import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { useAuth } from '../login/AuthProvider'; // Adjust the path as needed
+import { useAuth } from '../backendAddress/AuthProvider'; // Adjust the path as needed
 
 const UpdateProfile = ({ handleClose }) => {
     const { user, update } = useAuth(); // Access current user
