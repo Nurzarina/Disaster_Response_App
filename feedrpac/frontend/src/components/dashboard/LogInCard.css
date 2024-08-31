@@ -1,6 +1,6 @@
 /* SOSButton.css */
 
-.container {
+#loginContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,7 +55,4 @@
   }
 
   @media (min-width: 0px) and (max-width: 473px) {
-    #loginContainer{
-      /* margin-top: -20%; */
-  }
 }

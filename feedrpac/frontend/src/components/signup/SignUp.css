@@ -17,6 +17,11 @@
     margin-bottom: 30px;
 }
 
+.required-field::after {
+    content: ' *';
+    color: red;
+}
+
 .img-preview {
     width: 100px;
     height: 100px;
@@ -64,4 +69,5 @@
     }
 }
 
-@media (min-width: 0px) and (max-width: 473px) {}
+@media (min-width: 0px) and (max-width: 473px) { 
+}

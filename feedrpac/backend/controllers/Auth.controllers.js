@@ -24,24 +24,24 @@ export const signup = async (req, res) => {
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            return res.status(400).json({ message: "Invalid email format" });
+            return res.status(400).json({ message: "Invalid email format." });
             console.log("Invalid email format");
         }
 
         const userExists = await User.findOne({ username });
         if (userExists) {
-            return res.status(400).json({ message: "Username already exists" });
+            return res.status(400).json({ message: "Username already exists." });
             console.log("Username already exists");
         }
 
         const emailExists = await User.findOne({ email });
         if (emailExists) {
-            return res.status(400).json({ message: "Email already used" });
+            return res.status(400).json({ message: "Email already in use." });
             console.log("Email already used");
         }
 
         if (password.length < 8) {
-            return res.status(400).json({ message: "Password must be at least 8 characters long" });
+            return res.status(400).json({ message: "Password must be at least 8 characters long." });
             console.log("Password must be at least 8 characters long");
         }
 

@@ -31,7 +31,7 @@ function MapModal({ show, handleClose, lat, long, report_id, descr, disaster, se
 
   // Check if the location is available
   const locationAvailable = selectedReport.lat && selectedReport.long;
-  
+
   // Convert selectedReport into the format needed for EventsMap & send as an aray so that events.filter will work in EventsMap.
   const events = locationAvailable ? [
     {
@@ -45,7 +45,7 @@ function MapModal({ show, handleClose, lat, long, report_id, descr, disaster, se
   return (
     <Modal show={show} onHide={closeAndClear} size="lg" centered>
       <Modal.Header closeButton>
-        <Modal.Title>Emergency's Location</Modal.Title>
+        <Modal.Title><b>Emergency's Location</b></Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="map-container">      {/* Map Section */}
@@ -62,6 +62,10 @@ function MapModal({ show, handleClose, lat, long, report_id, descr, disaster, se
               description={descr}
               />                   */}
 
+        </div>
+        <div className="description-container">
+          <h5 style={{ marginTop: '10px', marginLeft:'5px'}}>Disaster Overview:</h5>
+          <p style={{ paddingLeft: '20px' }}>{selectedReport.descr}</p>
         </div>
       </Modal.Body>
       <Modal.Footer>

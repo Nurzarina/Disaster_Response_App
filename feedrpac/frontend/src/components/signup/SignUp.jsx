@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import axiosInstance from '../backendAddress/axiosInstance'; // Import the Axios instance
+import axiosInstance from '../backendAddress/axiosInstance';
 import axios from 'axios';
 import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './SignUp.css';                      // CSS file for additional styling
+import './SignUp.css';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -34,27 +34,20 @@ const SignUp = () => {
 
     const handleImageUpload = async (e, type) => {
         const file = e.target.files[0];
-        const uploadPreset = 'y6dazgfn'; // Cloudinary upload preset
-        const cloudName = 'dyndmpls6'; // Cloudinary cloud name
+        const uploadPreset = 'y6dazgfn';
+        const cloudName = 'dyndmpls6';
 
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', uploadPreset);
 
-        console.log("file: ", file);
-
         try {
-            console.log("Sending POST request to Cloudinary");
-
             const response = await axios.post(
                 `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
                 formData
             );
 
-            console.log('Cloudinary response:', response); // Log the response from Cloudinary
-
             const imageUrl = response.data.secure_url;
-            console.log("Uploaded Image URL: ", imageUrl);
 
             if (type === 'profile') {
                 setProfileImageUrl(imageUrl);
@@ -70,7 +63,6 @@ const SignUp = () => {
                 }));
             }
         } catch (error) {
-            console.error('Error uploading image:', error.response ? error.response.data : error.message); // Log the error
             setError('Failed to upload image.');
         }
     };
@@ -78,20 +70,18 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate password length
-        if (formData.password.length < 8) {
-            setError('Password must be at least 8 characters long.');
-            return;
-        }
-
         try {
-            await axiosInstance.post('/signup', formData);
+            const response = await axiosInstance.post('/signup', formData);
             setMessage('Sign up successful!');
             setTimeout(() => {
-                navigate('/'); // Navigate to DashBoard after signup form is submitted.
+                navigate('/');
             }, 1000);
         } catch (err) {
-            setError('Failed to sign up.');
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message); // Set the error message from the backend
+            } else {
+                setError('Failed to sign up. Please try again later.');
+            }
         }
     };
 
