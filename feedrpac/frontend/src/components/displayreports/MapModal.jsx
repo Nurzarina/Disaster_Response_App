@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Modal, Button, Row, Col } from 'react-bootstrap';
 import MapPage from './MapPage';
 import './MapModal.css';                      // Import your map component
-import EventsMap from '../dashboard/EventsMap';
+import EventsMap from '../dashboard/overallsituation/EventsMap';
 
 function MapModal({ show, handleClose, lat, long, report_id, descr, disaster, sever }) {
 

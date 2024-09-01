@@ -4,9 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Button, Badge } from 'react-bootstrap';
-import { DisasterIcons } from '../utils/EmergencyIcons';
+import { DisasterIcons } from '../../utils/EmergencyIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { reportLink } from '../backendAddress/URL';
+import { reportLink } from '../../tobackend/URL';
 import './ReportWidget.css';
 
 const ReportWidget = () => {
