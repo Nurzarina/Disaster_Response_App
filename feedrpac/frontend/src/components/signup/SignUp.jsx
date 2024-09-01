@@ -5,6 +5,8 @@ import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignUp.css'; // Create your CSS file for additional styling
+import defaultProfileImg from '/profileimg.png';
+import defaultCoverImg from '/coverimg.png';
 
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -97,10 +99,10 @@ const SignUp = () => {
 
     return (
         <Container>
-            <h2 className="my-4">Sign Up</h2>
+            <h2 className="my-4 ">Sign Up</h2>
             {message && <Alert variant="success">{message}</Alert>}
             {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} className='scrollable'>
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
@@ -153,7 +155,7 @@ const SignUp = () => {
                         onChange={(e) => handleImageUpload(e, 'profile')}
                     />
                     {profileImageUrl && (
-                        <img src={profileImageUrl} alt="Profile Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
+                        <img src={profileImageUrl || defaultProfileImg} alt="Profile Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
                     )}
                 </Form.Group>
                 <Form.Group controlId="formCoverImg">
@@ -164,7 +166,7 @@ const SignUp = () => {
                         onChange={(e) => handleImageUpload(e, 'cover')}
                     />
                     {coverImageUrl && (
-                        <img src={coverImageUrl} alt="Cover Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
+                        <img src={coverImageUrl || defaultCoverImg} alt="Cover Preview" style={{ width: '100px', height: '100px', objectFit: 'cover', marginTop: '10px' }} />
                     )}
                 </Form.Group>
                 <Form.Group controlId="formBio">
