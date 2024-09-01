@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
     coverImg: { type: String, default: '' },
     bio: { type: String, default: '' },
     website: { type: String, default: '' },
+    likedPosts:[{type: mongoose.Schema.Types.ObjectId, ref: 'Post', default: []}],
     location: { type: String, default: '' },
     ongoingMission: [missionSchema], // Array of ongoing missions
     prevMission: [missionSchema], // Array of previous missions
