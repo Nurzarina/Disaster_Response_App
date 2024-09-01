@@ -11,6 +11,7 @@ import './ReportWidget.css';
 
 const ReportWidget = () => {
     const navigate = useNavigate();
+    // Initialize ReportCounts state for counting amount of reports based on disastertype.
     const [reportCounts, setReportCounts] = useState({
         Flood: 0,
         Earthquake: 0,
@@ -22,6 +23,7 @@ const ReportWidget = () => {
         Tornado: 0
     });
 
+    // Initialize newReportCounts state for Badge.
     const [newReportCounts, setNewReportCounts] = useState({
         Flood: 0,
         Earthquake: 0,
@@ -33,6 +35,7 @@ const ReportWidget = () => {
         Tornado: 0
     });
 
+    // Initialize lastReportCounts state for Badge.
     const [lastReportCounts, setLastReportCounts] = useState({
         Flood: 0,
         Earthquake: 0,
@@ -51,6 +54,7 @@ const ReportWidget = () => {
         return () => clearInterval(intervalId); // Cleanup on component unmount
     }, []);
 
+    // Fetch reports api from BackEnd using axios GET request.
     const fetchReports = async () => {
         try {
             const response = await axios.get(reportLink);
@@ -65,6 +69,7 @@ const ReportWidget = () => {
                 Tornado: 0
             };
 
+            // Count occurrences of each disaster type.
             response.data.forEach(report => {
                 if (counts.hasOwnProperty(report.disastertype)) {
                     counts[report.disastertype]++;
@@ -85,6 +90,7 @@ const ReportWidget = () => {
         }
     };
 
+    // When an icon is clicked, find the label for the clicked disaster type and navigates to the corresponding route, displaying filtered emergencies of that type.
     const handleFilterClick = (filter) => {
         const typeLabel = DisasterIcons.find(disaster => disaster.type === filter).label;
         navigate(`/emergencies/${typeLabel}`, { state: { disasterType: typeLabel } });
@@ -97,15 +103,16 @@ const ReportWidget = () => {
             <div id='widgetBorder' className="card text-center mx-3">
                 <div className="card-header mt-2">
                     <h2 id="widgetTitle" className="text-center mb-0 bg-dark text-white">Current Situation</h2>
-                    
+
                     {noReports ? (
                         <></>
                     ) : (
+                        // Button to View All Emergencies 
                         <Link to="/emergencies/All">
                             <Button variant="primary" className="mb-3" id="viewBtn">View All Emergencies</Button>
                         </Link>
                     )}
-
+                    {/* Icons Collection */}
                     <div id='icons_collection' className="card-body d-flex justify-content-around flex-wrap mt-2">
                         {noReports ? (
                             <p style={{ fontStyle: 'italic', color: 'grey' }}>All clear! There are no ongoing disasters currently.</p>
@@ -118,19 +125,20 @@ const ReportWidget = () => {
                                         onClick={() => handleFilterClick(disaster.type)}
                                         className={`icon ${reportCounts[disaster.type] > 0 ? 'icon-enter' : 'icon-exit'}`}
                                         style={{ cursor: 'pointer', animationDelay: `${index * 0.1}s` }}>
-                                        
+
                                         <FontAwesomeIcon
                                             className="mb-2"
                                             style={{ color: disaster.color, fontSize: '2rem' }}
                                             icon={disaster.icon} />
-                                        
+
                                         <p>{reportCounts[disaster.type]}</p>
 
-                                        {newReportCounts[disaster.type] > 0 && (
+                                        {/* Badge indicating new reports since the last update. */}
+                                        {/* {newReportCounts[disaster.type] > 0 && (
                                             <Badge bg="danger" pill className="badge-inside-icon">
                                                 {newReportCounts[disaster.type]}
                                             </Badge>
-                                        )}
+                                        )} */}
                                     </div>
                                 )
                             )

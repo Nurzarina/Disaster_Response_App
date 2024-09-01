@@ -7,6 +7,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import SidebarNavbar from './components/navbars/SidebarNavbar';
 import BottomNavbar from './components/navbars/BottomNavbar';
 import Profile from './components/userprofile/Profile';
+import UserMissions from './components/missions/UserMissions';
 import { AuthProvider, useAuth } from './components/tobackend/AuthProvider';
 import './App.css';
 
@@ -14,7 +15,7 @@ const App = () => {
   return (
 
     <Router>
-      <AuthProvider>                                            
+      <AuthProvider>
         <AppRoutes />
         <BottomNavbar />
       </AuthProvider>
@@ -41,6 +42,7 @@ const AppRoutes = () => {
         <Route path=":disastertype" element={<DisplayEmergencies />} />
       </Route>
       <Route path="/profile" element={<Profile />} />
+      <Route path="/missions" element={<UserMissions />} />
     </Routes>
   );
 };

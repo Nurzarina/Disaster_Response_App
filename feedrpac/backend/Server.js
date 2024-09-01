@@ -8,7 +8,6 @@ import userRoutes from './routes/User.routes.js';
 import postRoutes from './routes/Post.routes.js';
 import notificationRoutes from './routes/Notification.routes.js';
 import messageRoutes from './routes/Message.routes.js';
-import authRoutes from './routes/Auth.routes.js';
 import reportRoutes from './routes/Report.routes.js';       //Use of alias to import default function.
 import cookieParser from 'cookie-parser';
 import cors from 'cors';

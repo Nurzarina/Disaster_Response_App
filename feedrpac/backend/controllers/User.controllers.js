@@ -185,3 +185,7 @@ export const getUserSidebar = async (req, res) => {
     }
 
 };
+
+export const addReportToOngoingMission = async (req, res) => {
+
+};

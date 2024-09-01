@@ -14,6 +14,7 @@ import { ScrollComponent } from '../utils/ScrollComponent';
 import HoverWindow from './HoverWindow';
 import MapModal from './MapModal';
 import ContactModal from './volunteer/ContactModal';
+import ConfirmLoginModal from './volunteer/ConfirmLoginModal';
 import { reportLink } from '../tobackend/URL';
 import { useAuth } from '../tobackend/AuthProvider'; // Import useAuth for user authentication.
 
@@ -25,6 +26,7 @@ const DisplayEmergencies = () => {
   const [severityFilter, setSeverityFilter] = useState('All');
   const [mapModalShow, setMapModalShow] = useState(false);
   const [contactModalShow, setContactModalShow] = useState(false);
+  const [loginModalShow, setLoginModalShow] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
   const navigate = useNavigate();
   const detailVolunteer = "Click here to volunteer for this report.";
@@ -51,9 +53,10 @@ const DisplayEmergencies = () => {
     fetchReports();
   }, []);
 
+  //Automatically filter the reports when 'disastertype' or 'reports' or 'severityFilter' change.
   useEffect(() => {
     const type = disastertype || 'All';
-    filterReports(type, severityFilter);                  // Apply existing severity filter
+    filterReports(type, severityFilter);
   }, [disastertype, severityFilter, reports]);
 
   const filterReports = (type, severity) => {
@@ -66,6 +69,9 @@ const DisplayEmergencies = () => {
     if (severity !== 'All') {
       filtered = filtered.filter(report => report.severity === severity);
     }
+
+    // Sort the filtered reports by date in descending order of their 'createdAt' date.
+    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     setFilteredReports(filtered);
   };
@@ -91,7 +97,7 @@ const DisplayEmergencies = () => {
       setSelectedReport(report);
       setContactModalShow(true);
     } else {
-      navigate('/login');
+      setLoginModalShow(true);
     }
   };
 
@@ -124,7 +130,7 @@ const DisplayEmergencies = () => {
               Filter by Severity: {severityFilter}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-            <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'Critical')}>
+              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'Critical')}>
                 Critical
               </Dropdown.Item>
               <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'High')}>
@@ -211,6 +217,8 @@ const DisplayEmergencies = () => {
           </div>
         </CSSTransition>
       </TransitionGroup>
+
+      {/* Send props to MapModal & ContactModal from selectedReports */}
       {selectedReport && (
         <>
           <MapModal
@@ -228,10 +236,17 @@ const DisplayEmergencies = () => {
               show={contactModalShow}
               handleClose={() => setContactModalShow(false)}
               phone={selectedReport.phone}
+              report_id={selectedReport._id}
+              user_id={user._id}
             />
           )}
         </>
       )}
+      {/* Modal to give user option to login or go back to viewing reports. */}
+      <ConfirmLoginModal
+        show={loginModalShow}
+        handleClose={() => setLoginModalShow(false)}
+      />
     </Container>
   );
 };
