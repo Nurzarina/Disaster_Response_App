@@ -8,6 +8,7 @@ import ReportWidget from './ReportWidget';
 import EventsMap from './EventsMap';
 import SOSButton from '../SOSButton';
 import './Dashboard.css';
+import defaultProfileImg from '/profileimg.png'; // Ensure the path is correct
 
 const Dashboard = () => {
     const { user, logout } = useAuth();
@@ -52,14 +53,14 @@ const Dashboard = () => {
                                  // User Profile Card
                                 <Card className="profile-card">
                                     <Card.Body>
-                                        {user.profileImg && (
-                                            <Card.Img
-                                                variant="top"
-                                                src={user.profileImg}
-                                                alt="Profile"
-                                                className="profile-img"
-                                            />
-                                        )}
+
+                                        <Card.Img
+                                            variant="top"
+                                            src={user.profileImg || defaultProfileImg}
+                                            alt="Profile"
+                                            className="profile-img"
+                                        />
+
                                         <Card.Title className="welcome-text">
                                             Welcome, {user.username}!
                                         </Card.Title>
