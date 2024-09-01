@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 
 const missionSchema = new mongoose.Schema({
     missionId: { type: String, required: true },
-    status: { type: String, required: true },
-    startDate: { type: Date, required: true }
-}, { _id: false }); // _id: false to not create a separate _id for each mission object
+    status: { type: String, required: true, enum: ['ongoing', 'completed'], default: 'ongoing', },
+    startDate: { type: Date, required: true },
+    stopDate: { type: Date }
+}, { _id: false });                                 // _id: false to not create a separate _id for each mission object
 
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
