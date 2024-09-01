@@ -1,13 +1,13 @@
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import { useAuth } from '../backendAddress/AuthProvider';
-import { reportLink } from '../backendAddress/URL';
+import { useAuth } from '../tobackend/AuthProvider';
+import { reportLink } from '../tobackend/URL';
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
-import ReportWidget from './ReportWidget';
-import EventsMap from './EventsMap';
-import LogInCard from './LogInCard';
-import UserCard from './userCard';
+import ReportWidget from './currentsituation/ReportWidget';
+import EventsMap from './overallsituation/EventsMap';
+import LogInCard from './userlogin/LogInCard';
+import UserCard from './userlogin/userCard';
 import './Dashboard.css';
 
 const Dashboard = () => {

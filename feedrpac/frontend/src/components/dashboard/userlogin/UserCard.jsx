@@ -1,5 +1,5 @@
 import { Button, Card } from 'react-bootstrap';
-import { useAuth } from '../backendAddress/AuthProvider';
+import { useAuth } from '../../tobackend/AuthProvider';
 import './UserCard.css'
 
 function UserCard() {

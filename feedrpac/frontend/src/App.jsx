@@ -7,7 +7,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import SidebarNavbar from './components/navbars/SidebarNavbar';
 import BottomNavbar from './components/navbars/BottomNavbar';
 import Profile from './components/userprofile/Profile';
-import { AuthProvider, useAuth } from './components/backendAddress/AuthProvider';
+import { AuthProvider, useAuth } from './components/tobackend/AuthProvider';
 import './App.css';
 
 const App = () => {

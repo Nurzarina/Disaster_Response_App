@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
 import MapComponent from './MapComponent';
-import { reportLink } from '../backendAddress/URL';
+import { reportLink } from '../tobackend/URL';
 import { Container, Card, Form, Button } from 'react-bootstrap';
 import './ReportForm.css'
 

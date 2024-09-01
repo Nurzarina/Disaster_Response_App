@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Container, Row, Col, Card, Button, Dropdown, DropdownDivider } from 'react-bootstrap';
 import { FaHandsHelping } from "react-icons/fa";
 import { IoIosArrowBack } from 'react-icons/io';
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { CalculateTimeDifference } from '../utils/CalculateTimeDifference';
@@ -15,8 +14,8 @@ import { ScrollComponent } from '../utils/ScrollComponent';
 import HoverWindow from './HoverWindow';
 import MapModal from './MapModal';
 import ContactModal from './volunteer/ContactModal';
-import { reportLink } from '../backendAddress/URL';
-import { useAuth } from '../backendAddress/AuthProvider'; // Import useAuth for user authentication.
+import { reportLink } from '../tobackend/URL';
+import { useAuth } from '../tobackend/AuthProvider'; // Import useAuth for user authentication.
 
 const DisplayEmergencies = () => {
   const { disastertype } = useParams();
