@@ -18,23 +18,26 @@
 }
 
 /* Profile image container styling */
+/* Profile image container styling */
 .profile-image-container {
     position: absolute;
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 140px;
-    height: 140px;
+    width: 145px;
+    height: 145px;
     border-radius: 50%;
     border: 6px solid #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;  /* Ensure the image doesn't overflow the container */
 }
 
 .profile-image {
-    width: 130px;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 50%;
+    width: 100%;  /* Ensure the image fills the container's width */
+    height: 100%; /* Ensure the image fills the container's height */
+    object-fit: cover; /* Make the image cover the entire container */
+    border-radius: 50%; /* Keep the image circular */
+    
 }
 
 /* Additional styling */
