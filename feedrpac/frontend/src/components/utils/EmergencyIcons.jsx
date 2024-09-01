@@ -1,5 +1,5 @@
 // import React from 'react';
-import { FaFire, FaVolcano, FaSunPlantWilt } from "react-icons/fa6";
+import { FaFire, FaVolcano, FaSunPlantWilt, FaLocationPin } from "react-icons/fa6";
 import { MdFlood } from "react-icons/md";
 import { GiFallingRocks, GiBigWave, GiTornado } from "react-icons/gi";
 import { RiEarthquakeFill } from "react-icons/ri";
@@ -18,13 +18,15 @@ export const emergencyIcons = {
       };
 
 //Icons for Emergencies widget
-export const disasterTypes = [
+export const DisasterIcons = [
     { type: 'Flood', icon: faHouseFloodWater, color: 'blue', label: 'Flood' },
     { type: 'Earthquake', icon: faHouseCrack, color: 'teal', label: 'Earthquake' },
     { type: 'Landslide', icon: faHillRockslide, color: 'brown', label: 'Landslide' },
     { type: 'Fire', icon: faHouseFire, color: 'red', label: 'Fire' },
     { type: 'Tsunami', icon: faHouseTsunami, color: 'purple', label: 'Tsunami' },
-    { type: 'Volcanoeruption', icon: faVolcano, color: 'black', label: "Volcano Eruption" },
+    { type: 'Volcano Eruption', icon: faVolcano, color: 'black', label: "Volcano Eruption" },
     { type: 'Drought', icon: faSunPlantWilt, color: 'orange', label: 'Drought' },
     { type: 'Tornado', icon: faTornado, color: 'green', label: 'Tornado' },
     ];
+
+export const mapMarkerIcon = <FaLocationPin color="red" size="40" />;

@@ -1,6 +1,6 @@
 /* MapModal.css */
 .modal-dialog {
-  height: 90vh; /* Use a percentage of the viewport height */
+  height: fit-content; /* Use a percentage of the viewport height */
   max-height: 90vh; /* Prevent the modal from exceeding this height */
 }
 
@@ -14,6 +14,6 @@
   padding: 0; /* Optional: Remove padding if needed */
 }
 
-#map{
+/* #map{
   
-}
+} */

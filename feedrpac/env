@@ -1,0 +1,5 @@
+
+MONGO_URI = mongodb://localhost:27017/disasterReports
+PORT = 5050
+JWT_SECRET = mCUHCfwnsT4+SlNqP2RP0jXD+I2P0U3dtRqjWyCWL0w=
+NODE_ENV = development
