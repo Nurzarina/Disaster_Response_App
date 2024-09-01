@@ -9,6 +9,7 @@ import EventsMap from './overallsituation/EventsMap';
 import LogInCard from './userlogin/LogInCard';
 import UserCard from './userlogin/userCard';
 import './Dashboard.css';
+import defaultProfileImg from '/profileimg.png'; // Ensure the path is correct
 
 const Dashboard = () => {
     const { user } = useAuth();
@@ -51,6 +52,28 @@ const Dashboard = () => {
                         <div id="userArea">
                             {user ? (
                                  // User Profile Card
+                                <Card className="profile-card">
+                                    <Card.Body>
+
+                                        <Card.Img
+                                            variant="top"
+                                            src={user.profileImg || defaultProfileImg}
+                                            alt="Profile"
+                                            className="profile-img"
+                                        />
+
+                                        <Card.Title className="welcome-text">
+                                            Welcome, {user.username}!
+                                        </Card.Title>
+                                        <Button
+                                            variant="outline-primary"
+                                            onClick={logout}
+                                            className="mt-4 mb-4"
+                                        >
+                                            Logout
+                                        </Button>
+                                    </Card.Body>
+                                </Card>
                                  <UserCard />
                             ) : (
                                 <></>  // Render empty JSX to avoid passing `null`
