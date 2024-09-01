@@ -55,6 +55,7 @@
 
 .welcome-text {
     margin-bottom: 20px;
+}
   
 #signup-title {
     margin-bottom: 40px;
@@ -108,5 +109,5 @@
     }
 }
 
-@media (min-width: 0px) and (max-width: 473px) { 
-}
+/* @media (min-width: 0px) and (max-width: 473px) { 
+} */
