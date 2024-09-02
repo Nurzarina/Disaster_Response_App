@@ -5,28 +5,46 @@ import Post from '../models/Post.model.js';
 export const createPost = async (req, res) => {
 
     try {
-        const {text} = req.body;
-        let {img} = req.body;
-        const userId = req.user._id.toString();
+
+         // Log the entire request body to inspect the incoming data
+         console.log("Request Body: ", req.body);
+
+        // Destructure the title, body, and image from the request body
+        const { title, body } = req.body;
+        let { img } = req.body;
+        const userId = req.body.user; // Changed to get user ID from request body
+
+         // Log individual fields to verify their values
+         console.log("Title received from Front End: ", title);
+         console.log("Body received from Front End: ", body);
+         console.log("Image received from Front End: ", img);
 
         const user = await User.findById(userId)
         if (!user) {
-            return res.status(404).json({message: "User not found"});
+            return res.status(404).json({message: "User not found."});
         }
 
-        if (!user && !img) {
-            return res.status(400).json({message: "Image or text are required"});
+        // Validates that both title and body are provided before creating the post.
+        if (!title || !body){
+            return res.status(400).json({message: "Title and body is required."});
         }
 
-        if (img) {
-            const uploadedImg = await cloudinary.uploader.upload(img);
-            img = uploadedImg.secure_url;
-        }
+        // Commented out as image is not required in postSchema.
+        // if (!user && !img) {
+        //     return res.status(400).json({message: "Image or text are required"});
+        // }
+
+        // Commented because the image is already uploaded to Cloudinary in FrontEnd and send to BackEnd here as URL string.
+        // if (img) {
+        //     const uploadedImg = await cloudinary.uploader.upload(img);
+        //     img = uploadedImg.secure_url;
+        // }
 
         const newPost = new Post(
             {
                 user: userId,
-                text,
+                title,
+                body,
                 img,
             });
 
@@ -34,8 +52,15 @@ export const createPost = async (req, res) => {
         return res.status(201).json(newPost);
 
     } catch (error) {
-        console.log("Error in createPost controller: ", error.message);
-        res.status(500).json({message: "Internal server error"});
+        // Log detailed error information
+        console.error("Error in createPost controller:", {
+            message: error.message,
+            stack: error.stack,
+            // Additional info
+            body: req.body,
+            file: req.file
+        });
+        res.status(500).json({ message: "Internal server error" });
     }
 };
 
