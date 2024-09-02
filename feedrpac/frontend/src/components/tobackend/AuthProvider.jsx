@@ -17,13 +17,13 @@ export const AuthProvider = ({ children }) => {
 
     const checkAuth = async () => {
         try {
-            const response = await axiosInstance.get(checkAuthLink); // Adjust the endpoint as needed.
-            setUser(response.data);                                 //User date from BackEnd.
+            const response = await axiosInstance.get(checkAuthLink);    
+            setUser(response.data);                                     //User date from BackEnd.
         } catch (error) {
             console.error('Error checking auth status:', error);
-            setUser(null);                                          // User is not authenticated
+            setUser(null);                                              // User is not authenticated
         } finally {
-            setLoading(false);                                      // Loading complete
+            setLoading(false);                                          // Even if got error, change Loading to 'false' to show that loading has been completed.
         }
     };
 
