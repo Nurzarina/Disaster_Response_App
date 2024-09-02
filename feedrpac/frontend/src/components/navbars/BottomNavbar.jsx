@@ -99,7 +99,7 @@ function BottomNavbar() {
                                 <Nav.Link as={Link} to="/missions">
                                     <FontAwesomeIcon icon={faRocket} /> Mission
                                 </Nav.Link>
-                                <Nav.Link as={Link} to="/community">
+                                <Nav.Link as={Link} to="/community/feed">
                                     <FontAwesomeIcon icon={faComments} /> Community
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/profile">
@@ -132,7 +132,7 @@ function BottomNavbar() {
                             <FontAwesomeIcon icon={faExclamationTriangle} />
                         </Button>
                     </Link>
-                    <Nav.Link as={Link} to="/community">
+                    <Nav.Link as={Link} to="/community/feed">
                         <FontAwesomeIcon icon={faComments} />
                     </Nav.Link>
                     <Nav.Link as={Link} to="/profile">

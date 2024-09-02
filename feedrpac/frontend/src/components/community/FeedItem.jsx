@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FaThumbsUp, FaThumbsDown } from 'react-icons/fa'; 
 import './FeedItem.css';
 
@@ -53,7 +53,7 @@ const FeedItem = ({ item }) => {
   const handleVote = async (id, vote) => {
     try {
       const response = await fetch(`http://localhost:5050/api/comments/${id}/vote`, {
-        method: 'PATCH',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },

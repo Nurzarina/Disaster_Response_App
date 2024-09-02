@@ -4,12 +4,13 @@ import ReportForm from './components/createreport/ReportForm';
 import Login from './components/login/Login';
 import SignUp from './components/signup/SignUp';
 import Dashboard from './components/dashboard/Dashboard';
-import SidebarNavbar from './components/navbars/SidebarNavbar';
+// import SidebarNavbar from './components/navbars/SidebarNavbar';
 import BottomNavbar from './components/navbars/BottomNavbar';
 import Profile from './components/userprofile/Profile';
 import UserMissions from './components/missions/UserMissions';
-import { AuthProvider, useAuth } from './components/tobackend/AuthProvider';
 import CreatePost from './components/community/CreatePost';
+import Feed from './components/community/Feed';
+import { AuthProvider, useAuth } from './components/tobackend/AuthProvider';
 import './App.css';
 
 const App = () => {
@@ -44,7 +45,8 @@ const AppRoutes = () => {
       </Route>
       <Route path="/profile" element={<Profile />} />
       <Route path="/missions" element={<UserMissions />} />
-      <Route path="/community" element={<CreatePost />} />
+      <Route path="/community/createpost" element={<CreatePost />} />
+      <Route path="/community/feed" element={<Feed />} />
     </Routes>
   );
 };
