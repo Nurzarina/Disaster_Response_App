@@ -9,6 +9,7 @@ import BottomNavbar from './components/navbars/BottomNavbar';
 import Profile from './components/userprofile/Profile';
 import UserMissions from './components/missions/UserMissions';
 import { AuthProvider, useAuth } from './components/tobackend/AuthProvider';
+import CreatePost from './components/community/CreatePost';
 import './App.css';
 
 const App = () => {
@@ -43,6 +44,7 @@ const AppRoutes = () => {
       </Route>
       <Route path="/profile" element={<Profile />} />
       <Route path="/missions" element={<UserMissions />} />
+      <Route path="/community" element={<CreatePost />} />
     </Routes>
   );
 };

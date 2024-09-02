@@ -75,7 +75,7 @@ const SignUp = () => {
         e.preventDefault();
 
         try {
-            const response = await axiosInstance.post('/signup', formData);
+            const response = await axiosInstance.post('auth/signup', formData);
             setMessage('Sign up successful!');
             setTimeout(() => {
                 navigate('/');
