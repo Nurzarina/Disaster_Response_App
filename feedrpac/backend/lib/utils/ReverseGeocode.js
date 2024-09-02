@@ -1,3 +1,8 @@
+// This function is a utility that takes a set of coordinates (longitude and latitude) 
+// and queries the OpenStreetMap Nominatim API to retrieve the corresponding city and state. 
+// It includes error handling and default values to ensure the function returns a valid result 
+// even if something goes wrong during the API request.
+
 import axios from 'axios';
 
 export const reverseGeocode = async (coordinates) => {
@@ -18,17 +23,17 @@ export const reverseGeocode = async (coordinates) => {
       const data = response.data;
       if (!data || !data.address) {
         console.log('No address data found for the given coordinates');
-        return { city: 'Unknown', state: 'Unknown' };
+        return { city: 'Unknown city', state: 'Unknown state' };
       }
   
       console.log('Address Data:', data.address);
   
-      const city = data.address.city || data.address.town || data.address.village || 'Unknown';
-      const state = data.address.state || data.address.region || 'Unknown';
+      const city = data.address.city || data.address.town || data.address.village || 'Unknown city';
+      const state = data.address.state || data.address.region || 'Unknown state';
   
       return { city, state };
     } catch (error) {
       console.error('Error fetching geocode data:', error);
-      return { city: 'Unknown', state: 'Unknown' };
+      return { city: 'Unknown city', state: 'Unknown state' };
     }
   };
