@@ -1,4 +1,4 @@
-// SidebarNavbar.jsx
+
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './SidebarNavbar.css'; // Import custom CSS
@@ -8,7 +8,7 @@ const SidebarNavbar = () => (
         <Nav className="flex-column">
             <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
             <Nav.Link as={Link} to="/mission">Mission</Nav.Link>
-            <Nav.Link as={Link} to="/history">History</Nav.Link>
+            <Nav.Link as={Link} to="/history">Community</Nav.Link>
             <Nav.Link as={Link} to="/profile">User Profile</Nav.Link>
         </Nav>
     </Navbar>

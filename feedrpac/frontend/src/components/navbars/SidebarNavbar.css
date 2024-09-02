@@ -1,4 +1,4 @@
-/* SidebarNavbar.css */
+
 .sidebar-navbar {
     display: none;
     position: fixed;
@@ -14,7 +14,7 @@
     padding: 15px;
 }
 
-@media (min-width: 992px) { /* Bootstrap large breakpoint */
+@media (min-width: 992px) { 
     .sidebar-navbar {
         display: block;
     }

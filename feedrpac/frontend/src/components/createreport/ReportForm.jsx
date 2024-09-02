@@ -1,211 +1,208 @@
 import { useState, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
-import { IoIosArrowBack } from 'react-icons/io';
-import L from 'leaflet';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import axios from 'axios';
-import { CSSTransition } from 'react-transition-group';
-import { Link, useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "bootstrap/dist/js/bootstrap.bundle.min";
-import 'leaflet/dist/leaflet.css';
-import './ReportForm.css';
+import MapComponent from './MapComponent';
+import { reportLink } from '../backendAddress/reportURL';
+import { Container, Card, Form, Button } from 'react-bootstrap';
+import './ReportForm.css'
 
-// Custom hook to handle map events and update position
-function MapEvents({ position, setPosition }) {
-    useMapEvents({
-        click(e) {
-            setPosition([e.latlng.lat, e.latlng.lng]);
-        },
-    });
+const ReportForm = () => {
 
-    return position ? (
-        <Marker position={position} icon={new L.Icon.Default()}>
-            <Popup>
-                Selected Location: {position[0].toFixed(5)}, {position[1].toFixed(5)}
-            </Popup>
-        </Marker>
-    ) : null;
-}
-
-const ReportForm = ({ history }) => {
+    const navigate = useNavigate(); // Use the navigate hook
     const [formData, setFormData] = useState({
         name: '',
         disastertype: '',
-        location: '',
         description: '',
         lat: '',
         lng: '',
         phone: '',
         severity: '',
     });
-    const [position, setPosition] = useState(null);
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
-    const [inTransition, setInTransition] = useState(true)
-    const navigate = useNavigate();
 
     useEffect(() => {
-        // Get user's location
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                setPosition([position.coords.latitude, position.coords.longitude]);
-                setFormData((prevData) => ({
-                    ...prevData,
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                }));
-            },
-            (error) => {
-                setError('Unable to retrieve location.');
-            }
-        );
+        // Add a custom class to the body
+        document.body.classList.add('createReportPage-body-style');
+
+        return () => {
+            // Remove the class when the component unmounts
+            document.body.classList.remove('createReportPage-body-style');
+        };
     }, []);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleMapChange = (lat, lng) => {
+        setFormData({
+            ...formData,
+            lat: lat,
+            lng: lng
+        });
+    };
+
+    const useCurrentLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords;
+                setFormData((prevData) => ({
+                    ...prevData,
+                    lat: latitude,
+                    lng: longitude,
+                }));
+            }, (error) => {
+                console.error("Error getting location:", error);
+                alert("Unable to retrieve your location. Please allow location access.");
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!position) {
-            setError('Please select a location on the map.');
-            return;
-        }
         try {
-            const data = { ...formData, lat: position[0], lng: position[1], status: 'ongoing' };
-            await axios.post('http://localhost:5050/reports', data);
-            setMessage('Report created successfully!');
-            setTimeout(() => {
-                navigate('/emergencies/All'); // Navigate to Report Board after form is submitted.
-            }, 1000);
-        } catch (err) {
-            setError('Failed to create report.');
+            await axios.post(reportLink, {
+                name: formData.name,
+                disastertype: formData.disastertype,
+                location: { // Send location as GeoJSON
+                    type: 'Point',
+                    coordinates: [formData.lng, formData.lat],
+                },
+                description: formData.description,
+                phone: formData.phone,
+                severity: formData.severity,
+            });
+
+            alert('Your report has been submitted successfully');
+            setFormData({ // Reset the form fields
+                name: '',
+                disastertype: '',
+                description: '',
+                lat: '',
+                lng: '',
+                phone: '',
+                severity: '',
+            });
+            navigate('/emergencies/All'); // Navigate to the 'All' report page
+        } catch (error) {
+            console.error('Error submitting report:', error.response ? error.response.data : error.message);
+            alert('Failed to submit report. Please try again');
+
+            console.log('Data sent from Front End: ', formData);
         }
     };
 
     return (
-        <Container>
-            <Row className="my-4">
-                <Col>
-                    <CSSTransition
-                        in={inTransition}
-                        timeout={300}
-                        classNames="fade"
-                        onEntered={() => setInTransition(false)}
-                    >
-                        <div>
-                            <h2>Create Disaster Report</h2>
-                            {message && <Alert variant="success">{message}</Alert>}
-                            {error && <Alert variant="danger">{error}</Alert>}
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group controlId="formName">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter your name..."
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Form.Group>
-                                <Form.Group controlId="formDisasterType">
-                                    <Form.Label>Disaster Type</Form.Label>
-                                    <Form.Control
-                                        as="select"
-                                        name="disastertype"
-                                        value={formData.disastertype}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        <option value="" disabled>Select type of disaster</option> {/* Placeholder option */}
-                                        <option value="Flood">Flood</option>
-                                        <option value="Fire">Fire</option>
-                                        <option value="Tsunami">Tsunami</option>
-                                        <option value="Tornado">Tornado</option>
-                                        <option value="Earthquake">Earthquake</option>
-                                        <option value="Volcano Eruption">Volcano Eruption</option>
-                                        <option value="Landslide">Landslide</option>
-                                        <option value="Drought">Drought</option>
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group controlId="formLocation">
-                                    <Form.Label>Location</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter the location..."
-                                        name="location"
-                                        value={formData.location}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Form.Group>
-                                <Form.Group controlId="formDescription">
-                                    <Form.Label>Description</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        rows={3}
-                                        placeholder="Enter a description of the disaster..."
-                                        name="description"
-                                        value={formData.description}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Form.Group>
-                                <Form.Group controlId="formPhone">
-                                    <Form.Label>Phone</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter your phone number..."
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </Form.Group>
-                                <Form.Group controlId="formSeverity">
-                                    <Form.Label>Severity</Form.Label>
-                                    <Form.Control
-                                        as="select"
-                                        name="severity"
-                                        value={formData.severity}
-                                        onChange={handleChange}
-                                        required
-                                    >
-                                        <option value="" disabled>Select level of severity</option>
-                                        <option value="low">Low</option>
-                                        <option value="moderate">Moderate</option>
-                                        <option value="high">High</option>
-                                        <option value="critical">Critical</option>
-                                    </Form.Control>
-                                </Form.Group>
-                                <br></br>
-                                <Button variant="primary" type="submit" style={{ height: 'fit-content', width: 'fit-content' }}>
-                                    Submit
-                                </Button>
-                                <br></br>
-                            </Form>
-                        </div>
-                    </CSSTransition>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <h3>Select Location</h3>
-                    <MapContainer center={position || [4.2105, 101.9758]} zoom={6} style={{ height: '400px', width: '100%' }}>
-                        <TileLayer
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        />
-                        <MapEvents position={position} setPosition={setPosition} />
-                    </MapContainer>
-                </Col>
-            </Row>
+        <Container fluid id="custom-card" className="mt-4 mx-1 mx-auto">
+            <Card>
+                <Card.Header id="formTitle" className="bg-dark text-white">
+                    <h2 id='formTitleText'>Submit a Report</h2>
+                </Card.Header>
+                <Card.Body>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="formName">
+                            <Form.Label>Name:</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                placeholder="Your Name"
+                                required
+                            />
+                        </Form.Group>
+
+                        <Form.Group controlId="formDisasterType">
+                            <Form.Label className='mt-3'>Disaster Type:</Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="disastertype"
+                                value={formData.disastertype}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="" disabled>Select type of disaster</option> {/* Placeholder option */}
+                                <option value="Flood">Flood</option>
+                                <option value="Fire">Fire</option>
+                                <option value="Tsunami">Tsunami</option>
+                                <option value="Tornado">Tornado</option>
+                                <option value="Earthquake">Earthquake</option>
+                                <option value="Volcano Eruption">Volcano Eruption</option>
+                                <option value="Landslide">Landslide</option>
+                                <option value="Drought">Drought</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group controlId="formPhone">
+                            <Form.Label className='mt-3'>Phone:</Form.Label>
+                            <Form.Control
+                                type="tel"
+                                name="phone"
+                                pattern='^(\+?6?01)[0-46-9]-*[0-9]{7,8}$'
+                                value={formData.phone}
+                                onChange={handleChange}
+                                placeholder="Your Phone Number"
+                                required
+                            />
+                        </Form.Group>
+
+                        <Form.Group controlId="formSeverity">
+                            <Form.Label className='mt-3'>Severity:</Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="severity"
+                                value={formData.severity}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="" disabled>Select level of severity</option>
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </Form.Control>
+                        </Form.Group>
+
+                        <Form.Group className='mt-3'>
+                            <Form.Label>Location:</Form.Label>
+                            <Button
+                                variant="warning"
+                                id="CurrentLocationBtn"
+                                onClick={useCurrentLocation}
+                                className='m-2'
+                            >
+                                Use Current Location
+                            </Button>
+
+                            {/* Assuming MapComponent is another component you have */}
+                            <MapComponent
+                                location={{ lat: formData.lat, lng: formData.lng }}
+                                onLocationChange={handleMapChange}
+                            />
+                        </Form.Group>
+
+                        <Form.Group controlId="formDescription" className='mt-3'>
+                            <Form.Label>Description:</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                name="description"
+                                value={formData.description}
+                                onChange={handleChange}
+                                placeholder="Description for the situation that needs to be addressed"
+                                required
+                            />
+                        </Form.Group>
+
+                        <Button type="submit" variant="primary" className="mt-5">
+                            Submit Report
+                        </Button>
+                    </Form>
+                </Card.Body>
+            </Card>
         </Container>
     );
 };
