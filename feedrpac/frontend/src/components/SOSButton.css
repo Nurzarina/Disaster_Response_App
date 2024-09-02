@@ -1,6 +1,42 @@
-#SOSBtn{
-    /* border-radius: 50%;
-    height: 10em;
-    width: 10em; */
-    z-index: 1;
-}
+/* SOSButton.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* background-color: #f7f9fc; */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .heading {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .button-container {
+    margin-bottom: 20px;
+  }
+  
+  .SOSBtn {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 18px;
+  }
+  
+  .link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .paragraph {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  

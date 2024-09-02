@@ -13,6 +13,7 @@ h1 {
   background-color: rgb(235, 235, 235);
   height: 250px;
   width: 100%;
+  min-width: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -150,19 +151,19 @@ h1 {
 }
 
 #addressText {
-  font-size: calc(1.5rem + (0.1vw * 2));
+  font-size: calc(2rem + (0.1vw * 2));
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.container {
+/* Commenting this so that Container in other components are not affected. */
+/* .container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   /* Ensure the container covers the full height of the viewport */
-}
 
 #footer {
   height: 2em;
@@ -222,4 +223,17 @@ h1 {
   opacity: 0;
   transform: translateY(100%);
   transition: opacity 500ms, transform 500ms;
+}
+
+#displayEmergenciesContainer{
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a semi-transparent background */
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Override body styles for DisplayEmergencies */
+.displayReportPage-body-style {
+  padding: 12px;
+  /* Other styles specific to this page */
 }
