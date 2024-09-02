@@ -10,10 +10,9 @@ h1 {
 }
 
 #reportCardBody {
-  background-color: rgb(235, 235, 235);
+  /* background-color: rgb(235, 235, 235); */
   height: 250px;
-  width: 100%;
-  min-width: fit-content;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -25,39 +24,48 @@ h1 {
 }
 
 #reportCard {
+  background-color: none;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   margin-bottom: 5px;
   margin-top: 5px;
+  max-width: 400px;
 }
 
 .severity-dash-wrapper {
-  position: relative; /* Ensure that the severity dash is positioned relative to this wrapper */
-  float: right; /* Float the wrapper to the right */
+  position: relative;
+  /* Ensure that the severity dash is positioned relative to this wrapper */
+  float: right;
+  /* Float the wrapper to the right */
 }
 
 .severity-dash {
-  position: absolute; /* Position the dash absolutely within the wrapper */
-  right: 0; /* Align the dash to the right */
-  top: 0; /* Align the dash to the top */
+  position: absolute;
+  /* Position the dash absolutely within the wrapper */
+  right: 0;
+  /* Align the dash to the right */
+  top: 0;
+  /* Align the dash to the top */
   height: 20px;
   width: 100px;
   margin-bottom: 5px;
   border-radius: 4px;
-  background-color: currentColor; /* This will allow dynamic color changes */
+  background-color: currentColor;
+  /* This will allow dynamic color changes */
 }
 
-.severity-low {
+.severity-Low {
   background-color: green;
 }
 
-.severity-medium {
+.severity-Medium {
   background-color: yellow;
 }
 
-.severity-high {
+.severity-High {
   background-color: orange;
 }
-.severity-critical {
+
+.severity-Critical {
   background-color: red;
 }
 
@@ -138,16 +146,10 @@ h1 {
   /* Remove default padding */
 }
 
-/* Responsive design for the title */
-@media (max-width: 768px) {
-  #currText {
-    font-size: 2rem; /* Slightly smaller font size on smaller screens */
-  }
-}
-
 /* Dropdown styling */
 #dropdown-basic {
-  margin-top: 10px; /* Space above the dropdown */
+  margin-top: 10px;
+  /* Space above the dropdown */
 }
 
 #addressText {
@@ -225,15 +227,56 @@ h1 {
   transition: opacity 500ms, transform 500ms;
 }
 
-#displayEmergenciesContainer{
+#displayEmergenciesContainer {
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9); /* Optional: Add a semi-transparent background */
+  background-color: rgba(255, 255, 255, 0.9);
+  /* Optional: Add a semi-transparent background */
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  height: auto;
 }
 
 /* Override body styles for DisplayEmergencies */
 .displayReportPage-body-style {
   padding: 12px;
   /* Other styles specific to this page */
+}
+
+/* Responsive adjustments */
+
+@media (min-width: 768px) {
+  #currText {
+    font-size: 2rem;
+  }
+  #reportCardBody {
+    min-width: 400px;
+    /* max-width: 600px; */
+  }
+  #reportCardWrapperCol{
+    display: flex;
+    justify-content: center;
+    min-width: 500px;
+  }
+  #reportCardWrapperRow{
+    width: auto;
+  }
+}
+
+@media (min-width: 473px) and (max-width: 768px) {
+  #displayEmergenciesContainer {
+    margin-bottom: 20%;
+    /* margin-top: 230%; */
+  }
+  #reportCardWrapperRow{
+    justify-content: center;
+    /* padding-left: 100px; */
+  }
+}
+
+@media (min-width: 0px) and (max-width: 473px) {
+  #displayEmergenciesContainer {
+    margin-bottom: 30%;
+    /* margin-top: 300%; */
+    margin-left: 5%;
+  }
 }
