@@ -1,46 +1,45 @@
-
 /* Styles for the Offcanvas component */
 .offcanvas {
-    width: 150px; /* Adjust as needed */
-}
-
-.offcanvas .offcanvas-title {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bolder;
-    color: #333;
+    width: 200px; /* Adjust as needed */
 }
 
 .offcanvas .offcanvas-header {
-    background-color: #bdcddc;
+    background-color: #6a0dad; /* Purple */
+}
+
+.offcanvas .offcanvas-title {
+    font-size: 1.6rem;
+    color: #f0e6ff; /* Light Lavender (to complement the purple) */
 }
 
 .offcanvas .offcanvas-body {
+    background-color: #8a2be2; /* Blue Violet */
     padding: 1rem;
 }
 
 .offcanvas .nav-link {
-    padding: 0.5rem 1rem;
-    color: #333;
+    padding: 1rem 1rem;
+    font-size: 1.4rem;
+    color: #dcdcdc; /* Gainsboro (a light gray that works well with purple) */
 }
 
 .offcanvas .nav-link:focus, .offcanvas .nav-link:hover {
-    color: #3f7ac2;
-    transform: scale(1.05);
+    color: #fffacd; /* Lemon Chiffon (a soft yellow for contrast) */
+    transform: scale(1.10);
 }
 
 .offcanvas .sos-button {
-    background-color: #dc3545;
+    font-size: 1.25rem;
+    background-color: #ff4500; /* Orange Red (complementary color to purple) */
     border: none;
     color: white;
     padding: 0.5rem 1rem;
     margin-left: 1em;
-    margin-top: 0.5em;
 }
 
 .offcanvas .sos-button:focus, .offcanvas .sos-button:hover {
-    background-color: #a11523;
-    transform: scale(1.05);
+    background-color: #e63946; /* A slightly darker red for hover effect */
+    transform: scale(1.10);
 }
 
 .fixed-top-icon {
@@ -49,14 +48,13 @@
     left: 10px; /* Adjust the distance from the right */
     z-index: 1000; /* Ensure it's above other elements */
     cursor: pointer;
-    color: #2b3d51; /* Optional: Change the color */
+    color: #6235bd; /* Medium Purple */
 }
 
 .fixed-top-icon:hover {
-    color: #0561c3; /* Optional: Change color on hover */
+    color: #f4d5f4; /* Plum */
     transform: scale(1.1);
 }
-
 
 /* Bottom navbar for mobile screens */
 @media (max-width: 768px) {
@@ -73,28 +71,22 @@
     display: flex;
     justify-content: center; /* Centers the button horizontally */
     align-items: center; 
-    background-color: #f8f9fa;
-    border-top: 1px solid #dee2e6;
+    background-color: #e6e6fa; /* Lavender */
+    border-top: 1px solid #bdb76b; /* Dark Khaki (for a subtle contrast) */
 }
 
 .bottom-navbar .nav-link {
-    color: #333;
+    color: #4b0082; /* Indigo */
     font-size: 1.25rem; /* Adjust icon size if needed */
 }
 
 .bottom-navbar .nav-link:focus, .bottom-navbar .nav-link:hover {
-    color: #007bff;
+    color: #9932cc; /* Dark Orchid */
     transform: scale(1.1);
 }
 
 .bottom-navbar .sos-button {
-    /* background-color: #dc3545;
-    border: none;
-    color: white;
-    padding: 10px 20px;     
-    border-radius: 50%;     
-    cursor: pointer;         */
-    background-color: #dc3545;
+    background-color: #ff6347; /* Tomato (complementary to purple) */
     border: none;
     color: white;
     width: 50px; /* Adjust size as needed */
@@ -107,8 +99,6 @@
 }
 
 .bottom-navbar .sos-button:focus, .bottom-navbar .sos-button:hover {
-    background-color: #931320;
+    background-color: #ff4500; /* Orange Red for hover */
     transform: scale(1.1);
 }
-
-
