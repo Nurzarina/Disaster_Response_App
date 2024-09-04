@@ -22,5 +22,15 @@
       transform: translateY(0);
     }
   }
+  .status-ongoing {
+    color: #ffa500; /* Orange color for ongoing */
+    font-weight: bold;
+  }
+  
+  .status-completed {
+    color: #28a745; /* Green color for completed */
+    font-weight: bold;
+  }
+  
 
   
