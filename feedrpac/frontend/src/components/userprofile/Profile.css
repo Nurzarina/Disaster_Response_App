@@ -1,0 +1,144 @@
+.outside-card {
+    border-radius: 10px;
+}
+
+/* Cover image container styling */
+.cover-image-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+
+/* Cover image styling */
+.cover-image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* Profile image container styling */
+/* Profile image container styling */
+.profile-image-container {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;  /* Ensure the image doesn't overflow the container */
+}
+
+.profile-image {
+    width: 100%;  /* Ensure the image fills the container's width */
+    height: 100%; /* Ensure the image fills the container's height */
+    object-fit: cover; /* Make the image cover the entire container */
+    border-radius: 50%; /* Keep the image circular */
+    
+}
+
+/* Additional styling */
+.username {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.email-button {
+    font-weight: 500;
+    color: #007bff;
+}
+
+.full-name,
+.location {
+    color: #666;
+    margin: 5px 0;
+}
+
+.bio {
+    font-size: 16px;
+    margin: 15px 0;
+    color: #333;
+}
+
+.website {
+    font-size: 15px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.update-profile-modal .modal-header-custom {
+    background-color: #007bff;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.update-profile-modal .modal-title-custom {
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.update-profile-modal .modal-body-custom {
+    padding: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.update-profile-modal {
+    border-top: none;
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.update-profile-modal {
+    background-color: #6c757d;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+.update-profile-modal {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: 500;
+}
+
+/* Modal responsiveness */
+@media (max-width: 768px) {
+    .update-profile-modal .modal-title-custom {
+        font-size: 20px;
+    }
+
+    .update-profile-modal .modal-body-custom {
+        font-size: 14px;
+    }
+
+    .update-profile-modal{
+        padding: 10px 15px;
+    }
+
+    .update-profile-modal,
+    .update-profile-modal {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 473px) {
+
+    .update-profile-modal, .update-profile-modal{
+        width: 100%;
+        padding: 15px 15px;
+        margin: 50px auto;
+    }
+
+}
