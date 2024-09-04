@@ -46,6 +46,26 @@ export const getReport = async (req, res) => {
     }
 };
 
+// This controller find report by reportId.
+export const getReportDetails = async (req, res) => {
+    try {
+        const reportId = req.params.reportId;
+  
+      // Fetch report details from the database
+      const report = await Report.findById(reportId);
+  
+      if (!report) {
+        return res.status(404).json({ error: 'Report not found' });
+      }
+  
+      // Send report details in the response
+      res.json(report);
+    } catch (error) {
+      console.error('Error fetching report details:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  };
+
 export const addOrRemoveVolunteerFromReport = async (req, res) => {
     try {
         const { reportId } = req.params;
