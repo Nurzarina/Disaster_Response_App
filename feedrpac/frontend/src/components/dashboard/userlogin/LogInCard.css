@@ -9,6 +9,7 @@
     /* background-color: #f7f9fc; */
     padding: 20px;
     text-align: center;
+    max-width: 400px;
   }
   
   .heading {
@@ -49,6 +50,15 @@
   }
 
   @media (min-width: 768px) {
+
+    #loginContainer {
+      min-width: 140px;
+      max-width: 160px;
+      margin-top: -80px;
+      /* margin-left: 10px; */
+      margin-right: -70px;
+    }
+
   }
 
   @media (min-width: 473px) and (max-width: 768px) {
