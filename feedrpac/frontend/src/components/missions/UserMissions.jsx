@@ -4,6 +4,7 @@ import { useAuth } from '../tobackend/AuthProvider';
 import { Container, Card, Button, ListGroup, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../tobackend/axiosInstance';
+import './UserMission.css'; // Ensure you have a CSS file for custom styles
 
 function UserMissions() {
   const { user } = useAuth();
@@ -82,6 +83,19 @@ function UserMissions() {
   } else {
     return (
       <Container>
+        <Row className="justify-content-center mb-4">
+          <Col xs={12} className="text-center">
+            <h1 className="display-4"><b>Your Missions Overview</b></h1>
+            <p className="lead" style={{
+              color: 'white',
+              backgroundColor: 'rgba(0, 0, 0, 0.1)', // Light semi-transparent background
+              padding: '0.5rem',
+              borderRadius: '5px'
+            }}>
+              Manage your ongoing and past missions here.
+            </p>
+          </Col>
+        </Row>
         <Row>
           {/* Ongoing Missions Column */}
           <Col md={6}>
