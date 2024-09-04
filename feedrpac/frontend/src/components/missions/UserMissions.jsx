@@ -28,41 +28,41 @@ function UserMissions() {
 
   const fetchUserMissions = async () => {
     setLoading(true);
-  
+
     try {
       const response = await axiosInstance.get(`http://localhost:5050/api/auth/me`);
       const userData = response.data;
-  
+
       setOngoingMissions(userData.ongoingMission || []);
       setPreviousMissions(userData.prevMission || []);
-  
+
       const missionIds = [
         ...userData.ongoingMission.map((mission) => mission.missionId),
         ...userData.prevMission.map((mission) => mission.missionId),
       ];
-  
+
       const detailsResponses = await Promise.all(
         missionIds.map((id) => axiosInstance.get(`http://localhost:5050/api/reports/${id}`))
       );
-  
+
       let details = detailsResponses.reduce((acc, curr) => {
         acc[curr.data._id] = curr.data;
         return acc;
       }, {});
-  
+
       // Update details with the correct status from user's mission data
       userData.prevMission.forEach(mission => {
         if (details[mission.missionId]) {
           details[mission.missionId].status = mission.status;
         }
       });
-  
+
       userData.ongoingMission.forEach(mission => {
         if (details[mission.missionId]) {
           details[mission.missionId].status = mission.status;
         }
       });
-  
+
       setMissionDetails(details);
       setLoading(false);
     } catch (error) {
@@ -142,16 +142,22 @@ function UserMissions() {
                               <strong>Severity:</strong> {missionDetail.severity || 'No severity available'}
                             </Card.Text>
                             <Card.Text>
-                              <strong>Status:</strong> {missionDetail.status || 'No status available'}
+                              <strong>Status: </strong>
+                              <span className={`status-${missionDetail.status.toLowerCase()}`}>
+                                {missionDetail.status || 'No status available'}
+                              </span>
                             </Card.Text>
-                            <StopVolunteeringButton
-                              reportId={mission.missionId}
-                              userId={user._id}
-                              onClick={() => handleStopVolunteering(mission.missionId)}
-                            />
+                            {missionDetail.status === 'ongoing' && (
+                              <StopVolunteeringButton
+                                reportId={mission.missionId}
+                                userId={user._id}
+                                onClick={() => handleStopVolunteering(mission.missionId)}
+                              />
+                            )}
                           </Card.Body>
                         </Card>
                       </ListGroup.Item>
+
                     );
                   })
                 ) : (
@@ -192,7 +198,10 @@ function UserMissions() {
                               <strong>Severity:</strong> {missionDetail.severity || 'No severity available'}
                             </Card.Text>
                             <Card.Text>
-                              <strong>Status:</strong> {missionDetail.status || 'No status available'}
+                              <strong>Status: </strong>
+                              <span className={`status-${mission.status.toLowerCase()}`}>
+                                {mission.status || 'No status available'}
+                              </span>
                             </Card.Text>
                           </Card.Body>
                         </Card>
