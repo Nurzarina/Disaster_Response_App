@@ -1,0 +1,13 @@
+#post-container{
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Optional: Add a semi-transparent background */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    /* margin: 10px 10px 20px 20px auto; */
+    /* margin-top: 60px; */
+    flex-grow: 1;
+    /* Make the container grow to fill the available space */
+    /* display: flex; */
+    /* flex-direction: row; */
+}

@@ -13,7 +13,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #CC0000, #3E0046, #000066, #FFCC00);
+  background: linear-gradient(135deg, #DDA0DD, #8A2BE2, #4B0082, #6A0DAD);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;      /*Keeps the gradient fixed while scrolling */

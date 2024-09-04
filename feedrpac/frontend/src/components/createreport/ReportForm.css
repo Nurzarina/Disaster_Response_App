@@ -23,13 +23,17 @@ select option:first-child {
   /* Italicize placeholder text */
 }
 
-/* #formTitle{
-
+#formTitle{
+  background-color: blueviolet;
 }
 
-#formTitleText{
+#formlabel{
+  font-weight: bold;
+}
 
-} */
+#cardbody{
+  background-color: rgb(217, 187, 246);
+}
 
 @media (max-width: 576px) {
   #custom-card {
