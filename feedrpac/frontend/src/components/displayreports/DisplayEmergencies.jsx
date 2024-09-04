@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Container, Row, Col, Card, Button, Dropdown, DropdownDivider } from 'react-bootstrap';
 import { FaHandsHelping } from "react-icons/fa";
 import { IoIosArrowBack } from 'react-icons/io';
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { CalculateTimeDifference } from '../utils/CalculateTimeDifference';
@@ -14,30 +13,29 @@ import './DisplayEmergencies.css';
 import { ScrollComponent } from '../utils/ScrollComponent';
 import HoverWindow from './HoverWindow';
 import MapModal from './MapModal';
-import ContactModal from '../volunteer/ContactModal';
-import { reportLink } from '../backendAddress/reportURL';
-import { useAuth } from '../login/AuthProvider'; // Import useAuth
+import ContactModal from './volunteer/ContactModal';
+import ConfirmLoginModal from './volunteer/ConfirmLoginModal';
+import { reportLink } from '../tobackend/URL';
+import { useAuth } from '../tobackend/AuthProvider'; // Import useAuth for user authentication.
 
 const DisplayEmergencies = () => {
   const { disastertype } = useParams();
   const [reports, setReports] = useState([]);
   const [filteredReports, setFilteredReports] = useState([]);
   const [filterType, setFilterType] = useState('All');
+  const [severityFilter, setSeverityFilter] = useState('All');
   const [mapModalShow, setMapModalShow] = useState(false);
   const [contactModalShow, setContactModalShow] = useState(false);
+  const [loginModalShow, setLoginModalShow] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
   const navigate = useNavigate();
-  const detailContent = "View the exact location on a map.";
   const detailVolunteer = "Click here to volunteer for this report.";
 
   const { user } = useAuth(); // Access user authentication state
 
   useEffect(() => {
-    // Add a custom class to the body
     document.body.classList.add('displayReportPage-body-style');
-
     return () => {
-      // Remove the class when the component unmounts
       document.body.classList.remove('displayReportPage-body-style');
     };
   }, []);
@@ -55,38 +53,51 @@ const DisplayEmergencies = () => {
     fetchReports();
   }, []);
 
+  //Automatically filter the reports when 'disastertype' or 'reports' or 'severityFilter' change.
   useEffect(() => {
     const type = disastertype || 'All';
-    filterReports(type);
+    filterReports(type, severityFilter);
+  }, [disastertype, severityFilter, reports]);
 
-    let filtered = disastertype === 'All' ? reports : reports.filter(report => report.disastertype === disastertype);
+  const filterReports = (type, severity) => {
+    let filtered = reports;
+
+    if (type !== 'All') {
+      filtered = filtered.filter(report => report.disastertype === type);
+    }
+
+    if (severity !== 'All') {
+      filtered = filtered.filter(report => report.severity === severity);
+    }
+
+    // Sort the filtered reports by date in descending order of their 'createdAt' date.
     filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    setFilteredReports(filtered);
-  }, [disastertype, reports]);
 
-  const filterReports = (type) => {
-    const filtered = type === 'All' ? reports : reports.filter(report => report.disastertype === type);
     setFilteredReports(filtered);
   };
 
-  const filterChangeByDropdown = (type) => {
-    navigate(`/emergencies/${type}`);
-    setFilterType(type);
-    filterReports(type);
+  const filterChangeByDropdown = (filterType, value) => {
+    if (filterType === 'type') {
+      navigate(`/emergencies/${value}`);
+      setDisasterTypeFilter(value);                 // Update disaster type filter state
+      filterReports(value, severityFilter);         // Apply existing severity filter
+    } else if (filterType === 'severity') {
+      setSeverityFilter(value);                     // Update severity filter state
+      filterReports(disastertype, value);           // Apply existing disaster type filter
+    }
   };
 
   const handleShowMap = (report) => {
     setSelectedReport(report);
-    setMapModalShow(true); // Show the map modal
+    setMapModalShow(true);
   };
 
   const handleShowContact = (report) => {
-    if (user) { // Check if user is authenticated
+    if (user) {
       setSelectedReport(report);
-      setContactModalShow(true); // Show the contact modal
+      setContactModalShow(true);
     } else {
-      // Handle unauthenticated access (e.g., redirect to login)
-      navigate('/login');
+      setLoginModalShow(true);
     }
   };
 
@@ -98,38 +109,63 @@ const DisplayEmergencies = () => {
       <Row className="my-2">
         <div id='currTextBg'>
           <h1 id='currText'>Current Situation</h1>
-          <Dropdown>
+          <Dropdown className="my-1">
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Filter by Disaster Type
+              Filter by Disaster Type: {disastertype}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {Object.keys(emergencyIcons).map((type, index) => (
-                <Dropdown.Item key={index} onClick={() => filterChangeByDropdown(type)}>{type}</Dropdown.Item>
+                <Dropdown.Item key={index} onClick={() => filterChangeByDropdown('type', type)}>
+                  {type}
+                </Dropdown.Item>
               ))}
               <DropdownDivider />
-              <Dropdown.Item onClick={() => filterChangeByDropdown('All')}>All</Dropdown.Item>
+              <Dropdown.Item onClick={() => filterChangeByDropdown('type', 'All')}>
+                All
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Dropdown className="my-1">
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic-severity">
+              Filter by Severity: {severityFilter}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'Critical')}>
+                Critical
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'High')}>
+                High
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'Medium')}>
+                Medium
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'Low')}>
+                Low
+              </Dropdown.Item>
+              <DropdownDivider />
+              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'All')}>
+                All
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
         <br></br>
       </Row>
 
-      {/* This row wraps wround each report Card. */}
-      <Row className="justify-content-center">
+      <Row id="reportCardWrapperRow" className="justify-content-center">
         <TransitionGroup component={null}>
           {filteredReports.map((report, index) => (
             <CSSTransition key={index}
               timeout={500}
               classNames="fade">
-              {/* Col to make the report cards arranged horizontally */}
-              <Col xs={11} md={6} lg={4} className="mb-2">
-                {/* Render Card component */}
+              <Col id='reportCardWrapperCol'
+                xs={11}
+                md={report.length === 1 ? 11 : 6}
+                lg={report.length === 1 ? 11 : 5}
+                className="mb-2"
+              >
                 <Card id='reportCard'>
                   <Card.Body id='reportCardBody'>
-                    {/* Severity Dash Wrapper */}
-                    <div className="severity-dash-wrapper">
-                      <div className={`severity-dash severity-${report.severity}`}></div>
-                    </div>
                     <Row>
                       <Col xs={8}>
                         <Card.Title id='reportCardTitle'>
@@ -152,9 +188,17 @@ const DisplayEmergencies = () => {
                           </small>
                         </Card.Text>
                       </Col>
-                      <Col xs={4} className='d-flex align-items-center justify-content-center'>
+                      <Col xs={4}>
+                        <div className="severity-dash-wrapper">
+                          <div className={`severity-dash severity-${report.severity}`}></div>
+                        </div>
+                        <br></br>
+                        <br></br>
+                        <br></br>
                         <HoverWindow content={detailVolunteer}>
-                          <Button id="volunBtn" variant="success" onClick={() => handleShowContact(report)}> <FaHandsHelping color="white" size="40px" /></Button>
+                          <Button id="volunBtn" variant="success" onClick={() => handleShowContact(report)}>
+                            <FaHandsHelping color="white" size="40px" />
+                          </Button>
                         </HoverWindow>
                       </Col>
                     </Row>
@@ -173,6 +217,8 @@ const DisplayEmergencies = () => {
           </div>
         </CSSTransition>
       </TransitionGroup>
+
+      {/* Send props to MapModal & ContactModal from selectedReports */}
       {selectedReport && (
         <>
           <MapModal
@@ -190,10 +236,17 @@ const DisplayEmergencies = () => {
               show={contactModalShow}
               handleClose={() => setContactModalShow(false)}
               phone={selectedReport.phone}
+              report_id={selectedReport._id}
+              user_id={user._id}
             />
           )}
         </>
       )}
+      {/* Modal to give user option to login or go back to viewing reports. */}
+      <ConfirmLoginModal
+        show={loginModalShow}
+        handleClose={() => setLoginModalShow(false)}
+      />
     </Container>
   );
 };

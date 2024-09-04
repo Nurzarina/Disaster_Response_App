@@ -132,3 +132,13 @@
         margin-bottom: 10px;
     }
 }
+
+@media (max-width: 473px) {
+
+    .update-profile-modal, .update-profile-modal{
+        width: 100%;
+        padding: 15px 15px;
+        margin: 50px auto;
+    }
+
+}
