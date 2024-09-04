@@ -1,19 +1,22 @@
 /* MapModal.css */
 .modal-dialog {
-  height: 90vh; /* Use a percentage of the viewport height */
-  max-height: 90vh; /* Prevent the modal from exceeding this height */
+  height: fit-content;        /* Use a percentage of the viewport height */
+  display: flex;
+  justify-content: center;    /* Center horizontally */
+  align-items: center;        /* Center vertically */
+  max-height: 90vh;           /* Prevent the modal from exceeding this height */
 }
 
 .modal-content {
-  height: 100%; /* Ensure the content takes the full height of the modal */
+  height: 100%;               /* Ensure the content takes the full height of the modal */
 }
 
 .modal-body {
-  height: calc(100% - 56px); /* Subtract the header and footer height */
-  overflow: hidden; /* Hide scrollbars within the modal */
-  padding: 0; /* Optional: Remove padding if needed */
+  height: calc(100% - 56px);  /* Subtract the header and footer height */
+  overflow: hidden;           /* Hide scrollbars within the modal */
+  padding: 10px;               /* Optional: Remove padding if needed */
 }
 
-#map{
+/* #map{
   
-}
+} */

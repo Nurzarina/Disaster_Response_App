@@ -1,22 +1,80 @@
 .fade-enter {
-    opacity: 0;
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+select option:first-child {
+  color: gray;
+  /* Example color for placeholder */
+  font-style: italic;
+  /* Italicize placeholder text */
+}
+
+/* #formTitle{
+
+}
+
+#formTitleText{
+
+} */
+
+@media (max-width: 576px) {
+  #custom-card {
+    min-width: 100%;
+    margin-top: 20px;
+    margin-bottom: 85px;
   }
-  
-  .fade-enter-active {
-    opacity: 1;
-    transition: opacity 300ms;
+}
+
+@media (min-width: 576px) and (max-width: 990px) {
+  #custom-card {
+    min-width: 500px;
+    margin-top: 20px;
+    margin-bottom: 100px;
   }
-  
-  .fade-exit {
-    opacity: 1;
+}
+
+@media (min-width: 990px) {
+  #custom-card {
+    min-width: 600px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
-  
-  .fade-exit-active {
-    opacity: 0;
-    transition: opacity 300ms;
-  }
-  
-  select option:first-child {
-    color: gray; /* Example color for placeholder */
-    font-style: italic; /* Italicize placeholder text */
+}
+
+
+/* Override body styles for ReportForm */
+/* .createReportPage-body-style {
+  display: block;
+  margin: 0;
+  padding: 0;
+  min-height: 96vh;
+  /* Other styles specific to this page */
+ /*}    */
+
+
+#custom-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  /* margin: 200px; */
+  /* margin-top: 160px;
+  margin-bottom: 10px; */
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+  /* Set a max-width for larger screens */
+  /* width: 100%; */
 }
