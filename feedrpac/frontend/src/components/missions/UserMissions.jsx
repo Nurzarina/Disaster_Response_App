@@ -119,7 +119,7 @@ function UserMissions() {
                               <strong>Description:</strong> {missionDetail.description || 'No description available'}
                             </Card.Text>
                             <Card.Text>
-                              <strong>Location:</strong> {missionDetail.location?.city || 'No city available'}, {missionDetail.location?.state || 'No state available'}
+                              <strong>Location:</strong> {missionDetail.city || 'No city available'}, {missionDetail.state || 'No state available'}
                             </Card.Text>
                             <Card.Text>
                               <strong>Phone:</strong> {missionDetail.phone || 'No phone number available'}
@@ -169,7 +169,7 @@ function UserMissions() {
                               <strong>Description:</strong> {missionDetail.description || 'No description available'}
                             </Card.Text>
                             <Card.Text>
-                              <strong>Location:</strong> {missionDetail.location?.city || 'No city available'}, {missionDetail.location?.state || 'No state available'}
+                              <strong>Location:</strong> {missionDetail.city || 'No city available'}, {missionDetail.state || 'No state available'}
                             </Card.Text>
                             <Card.Text>
                               <strong>Phone:</strong> {missionDetail.phone || 'No phone number available'}
