@@ -1,6 +1,6 @@
 
 import { Route, Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from './AuthProvider';
+import { useAuth } from '../backendAddress/AuthProvider';
 
 const ProtectedRoute = ({ element: Component, ...rest }) => {
   const { user } = useAuth();       // Access user from AuthProvider

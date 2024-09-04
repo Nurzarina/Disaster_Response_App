@@ -2,15 +2,26 @@
   text-align: center;
 }
 
+html,body{
+  /* Let height be 'auto' so that DisplayEmergencies page does not overflow. */
+  height : auto;          
+  margin :0;
+}
+
 body {
+  /* height: auto; */
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
   background: linear-gradient(135deg, #CC0000, #3E0046, #000066, #FFCC00);
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 100vh;
-  margin: 0;
+  background-attachment: fixed;      /*Keeps the gradient fixed while scrolling */
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
 }
 
 body.modal-open {
