@@ -112,6 +112,30 @@
     font-weight: 500;
 }
 
+#profilePage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.profile-title {
+    margin-bottom: 1rem;
+    font-size: 2.5rem; /* Adjust as needed */
+}
+
+.profile-paragraph {
+    margin-bottom: 2rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.1); /* Light semi-transparent background */
+    padding: 0.5rem;
+    border-radius: 5px;
+    width: 500px;
+    font-size: 1.25rem; /* Adjust as needed */
+}
+
+
 /* Modal responsiveness */
 @media (max-width: 768px) {
     .update-profile-modal .modal-title-custom {
