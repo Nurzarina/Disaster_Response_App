@@ -33,7 +33,7 @@ const Profile = () => {
     }
 
     return (
-        <Container className="d-flex flex-column align-items-center vh-100" id="profilePage">
+        <Container fluid className="d-flex flex-column align-items-center vh-100" id="profilePage">
             {/* Title and Paragraph Section */}
             <div className="text-center mb-4">
                 <h1 className="display-4 profile-title"><b>User Profile</b></h1>

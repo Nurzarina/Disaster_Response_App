@@ -108,6 +108,10 @@
     #EventsMapContainer {
         margin-bottom: 20px;
     }
+
+    #titleDashboard{
+        margin-top: 5%;
+    }
 }
 
 @media (min-width: 0px) and (max-width: 473px) {
