@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 
 const missionSchema = new mongoose.Schema({
     missionId: { type: String, required: true },
-    status: { type: String, required: true },
-    startDate: { type: Date, required: true }
-}, { _id: false }); // _id: false to not create a separate _id for each mission object
+    status: { type: String, required: true, enum: ['ongoing', 'completed'], default: 'ongoing', },
+    startDate: { type: Date, required: true },
+    stopDate: { type: Date }
+}, { _id: false });                                 // _id: false to not create a separate _id for each mission object
 
 const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
@@ -17,6 +18,7 @@ const userSchema = new mongoose.Schema({
     coverImg: { type: String, default: '' },
     bio: { type: String, default: '' },
     website: { type: String, default: '' },
+    likedPosts:[{type: mongoose.Schema.Types.ObjectId, ref: 'Post', default: []}],
     location: { type: String, default: '' },
     ongoingMission: [missionSchema], // Array of ongoing missions
     prevMission: [missionSchema], // Array of previous missions

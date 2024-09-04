@@ -1,0 +1,54 @@
+.modal-dialog {
+    height: fit-content;
+    /* Use a percentage of the viewport height */
+    max-height: 90vh;
+    /* Prevent the modal from exceeding this height */
+}
+
+.modal-content {
+    height: 100%;
+    /* Ensure the content takes the full height of the modal */
+}
+
+.modal-body {
+    height: calc(100% - 56px);
+    /* Subtract the header and footer height */
+    overflow: hidden;
+    /* Hide scrollbars within the modal */
+    padding: 0;
+    /* Optional: Remove padding if needed */
+}
+
+#contactText {
+    margin: 20px;
+    overflow: normal;
+}
+
+.button-list {
+    list-style-type: none;                  /* Remove bullets */
+    padding: 0;                             /* Remove default padding */
+    margin: 0;                              /* Remove default margin */
+    display: flex;                          /* Arrange list items horizontally */
+    gap: 10px;                              /* Space between buttons */
+  }
+  
+  .button-list li {
+    margin: 0;                              /* Remove default margin */
+  }
+  
+  .button-list a {
+    text-decoration: none;                  /* Remove underline from links */
+  }
+
+
+@media (min-width: 473px) and (max-width: 768px) {
+    #contactText {
+        overflow: wrap;
+    }
+}
+
+@media (min-width: 0px) and (max-width: 473px) {
+    #contactText {
+        overflow: wrap;
+    }
+}

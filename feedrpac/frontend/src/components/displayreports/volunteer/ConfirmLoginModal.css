@@ -1,0 +1,14 @@
+#loginText{
+    margin: 20px;
+    overflow: normal;
+}
+
+.modal-body {
+    height: calc(100% - 56px);
+    /* Subtract the header and footer height */
+    overflow: hidden;
+    /* Hide scrollbars within the modal */
+    padding: 0;
+    /* Optional: Remove padding if needed */
+    text-align: center;
+}

@@ -1,0 +1,25 @@
+.post-form-container{
+    background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  /* margin: 200px; */
+  /* margin-top: 160px;
+  margin-bottom: 10px; */
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  min-height: 100vh;
+  /* Set a max-width for larger screens */
+  /* width: 100%; */
+}
+
+.profile-image{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 145px;
+    height: 145px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;  /* Ensure the image doesn't overflow the container */
+}

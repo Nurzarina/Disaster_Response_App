@@ -4,8 +4,15 @@
     width: 150px; /* Adjust as needed */
 }
 
+.offcanvas .offcanvas-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: #333;
+}
+
 .offcanvas .offcanvas-header {
-    background-color: #f8f9fa;
+    background-color: #bdcddc;
 }
 
 .offcanvas .offcanvas-body {
@@ -28,6 +35,7 @@
     color: white;
     padding: 0.5rem 1rem;
     margin-left: 1em;
+    margin-top: 0.5em;
 }
 
 .offcanvas .sos-button:focus, .offcanvas .sos-button:hover {
