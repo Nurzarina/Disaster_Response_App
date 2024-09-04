@@ -59,7 +59,7 @@
 }
 
 #icon {
-    border: 1px solid black;
+    border: 1.5px solid black;
     border-radius: 20%;
     padding: 0.5px;
     box-shadow: 2px darkgray;
@@ -71,16 +71,42 @@
     transition: transform 0.3s ease;                        /* Smooth transition for hover effect */
 }
 
+#icon:hover {
+  border: 1.5px solid #B6174B
+}
+
 #icons_collection {
-    gap: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px; /* Default gap */
+}
+
+/* Adjust the gap for larger screens */
+@media (min-width: 768px) {
+  #icons_collection {
+      gap: 10px; /* Slightly larger gap for tablets and up */
+  }
+}
+
+@media (min-width: 1024px) {
+  #icons_collection {
+      gap: 15px; /* Larger gap for desktops */
+  }
+}
+
+@media (min-width: 1440px) {
+  #icons_collection {
+      gap: 20px; /* Even larger gap for wide screens */
+  }
 }
 
 #widgetTitle {
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
 }
 
 #viewBtn {
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 #widgetBorder {

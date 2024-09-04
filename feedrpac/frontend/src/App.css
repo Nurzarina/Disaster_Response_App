@@ -13,7 +13,7 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #CC0000, #3E0046, #000066, #FFCC00);
+  background: linear-gradient(135deg, #B6174B, #8A2BE2, #4B0082, #6A0DAD);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;      /*Keeps the gradient fixed while scrolling */
@@ -27,3 +27,31 @@ body {
 body.modal-open {
   overflow: hidden; /* Disable scrolling on the body when the modal is open */
 }
+
+/* Target all outline-primary buttons globally */
+.btn-outline-primary {
+  color: #B6174B; /* Custom text and border color */
+  border-color: #B6174B; /* Custom border color */
+  background-color: transparent; /* Ensure background remains transparent */
+}
+
+/* Hover, focus, and active states for outline-primary buttons */
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  color: #ffffff; /* Text color on hover */
+  background-color: #B6174B; /* Background color on hover */
+  border-color: #B6174B; /* Border color on hover */
+}
+:root {
+  --card-bg: #f8f9fa; /* Light gray background for the card */
+  --card-border: #B6174B; /* Light gray border */
+}
+
+.card {
+  border: 1px solid var(--card-border);
+  color: var(--card-text-color);
+}
+
+
+

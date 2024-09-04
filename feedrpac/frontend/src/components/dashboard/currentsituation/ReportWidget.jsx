@@ -99,19 +99,21 @@ const ReportWidget = () => {
     const noReports = Object.values(reportCounts).every(count => count === 0);
 
     return (
-        <Container fluid id='icons-container'>
-            <div id='widgetBorder' className="card text-center mx-3">
+        <div>
+            <div className="card text-center">
                 <div className="card-header mt-2">
-                    <h2 id="widgetTitle" className="text-center mb-0 bg-dark text-white">Current Situation</h2>
+                    {/* Flex container to align title and button on the same row */}
+                    <div className="d-flex justify-content-between align-items-center">
+                        <h2 id="widgetTitle" className="mb-0 fw-bold">Current Situation</h2>
 
-                    {noReports ? (
-                        <></>
-                    ) : (
-                        // Button to View All Emergencies 
-                        <Link to="/emergencies/All">
-                            <Button variant="primary" className="mb-3" id="viewBtn">View All Emergencies</Button>
-                        </Link>
-                    )}
+                        {/* Conditionally render the button if there are reports */}
+                        {!noReports && (
+                            <Link to="/emergencies/All">
+                                <Button variant="outline-primary">View All</Button>
+                            </Link>
+                        )}
+                    </div>
+
                     {/* Icons Collection */}
                     <div id='icons_collection' className="card-body d-flex justify-content-around flex-wrap mt-2">
                         {noReports ? (
@@ -124,21 +126,23 @@ const ReportWidget = () => {
                                         key={disaster.type}
                                         onClick={() => handleFilterClick(disaster.type)}
                                         className={`icon ${reportCounts[disaster.type] > 0 ? 'icon-enter' : 'icon-exit'}`}
-                                        style={{ cursor: 'pointer', animationDelay: `${index * 0.1}s` }}>
+                                        style={{ cursor: 'pointer', animationDelay: `${index * 0.1}s` }}
+                                        title={disaster.type}
+                                        >
 
                                         <FontAwesomeIcon
                                             className="mb-2"
-                                            style={{ color: disaster.color, fontSize: '2rem' }}
+                                            style={{ color: disaster.color, fontSize: '1.75rem' }}
                                             icon={disaster.icon} />
 
                                         <p>{reportCounts[disaster.type]}</p>
 
                                         {/* Badge indicating new reports since the last update. */}
                                         {/* {newReportCounts[disaster.type] > 0 && (
-                                            <Badge bg="danger" pill className="badge-inside-icon">
-                                                {newReportCounts[disaster.type]}
-                                            </Badge>
-                                        )} */}
+                                    <Badge bg="danger" pill className="badge-inside-icon">
+                                        {newReportCounts[disaster.type]}
+                                    </Badge>
+                                )} */}
                                     </div>
                                 )
                             )
@@ -146,7 +150,7 @@ const ReportWidget = () => {
                     </div>
                 </div>
             </div>
-        </Container>
+        </div>
     );
 };
 

@@ -1,63 +1,44 @@
-// BottomNavbar.jsx
-import { useState } from 'react';
-import { Navbar, Nav, Button, Offcanvas, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
+
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt, faRocket, faComments, faUser, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { SlArrowRightCircle } from "react-icons/sl";
 import './BottomNavbar.css';
 
 function BottomNavbar() {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     return (
         <>
+            {/* Sidebar */}
+            <div className="sidebar">
+                <Nav className="d-flex flex-column">
+                    <Nav.Link as={Link} to="/" className="nav-item">
+                        <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" />
+                        <span className="nav-text">Dashboard</span>
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/missions" className="nav-item">
+                        <FontAwesomeIcon icon={faRocket} className="nav-icon" />
+                        <span className="nav-text">Mission</span>
+                    </Nav.Link>
+                    <Link to="/sosreport" className="sos-link nav-item mt-auto" style={{
+                        textDecoration: 'none',
+                    }}>
+                        <FontAwesomeIcon icon={faExclamationTriangle} className="nav-icon" />
+                        <span className="nav-text fw-bold">SOS</span>
+                    </Link>
+                    <Nav.Link as={Link} to="/community/feed" className="nav-item">
+                        <FontAwesomeIcon icon={faComments} className="nav-icon" />
+                        <span className="nav-text">Community</span>
+                    </Nav.Link>
+                    <Nav.Link as={Link} to="/profile" className="nav-item">
+                        <FontAwesomeIcon icon={faUser} className="nav-icon" />
+                        <span className="nav-text">User Profile</span>
+                    </Nav.Link>
 
-            {/* <ToggleButton id='launch-button' onClick={handleShow}><SlArrowRightCircle size={30} />
-            </ToggleButton> */}
-            <SlArrowRightCircle id='launch-button' className="fixed-top-icon" size={40} onClick={handleShow} style={{ cursor: 'pointer' }} 
-            />
-
-            <Offcanvas show={show} onHide={handleClose}>
-                <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Disaster Response App</Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body>
-                    {/* Sidebar for larger screens */}
-                    {/* <Navbar bg="light" expand="lg" className="d-none d-lg-flex flex-column sidebar-navbar">
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav"> */}
-                            <Nav className="flex-column">
-                                <Nav.Link as={Link} to="/">
-                                    <FontAwesomeIcon icon={faTachometerAlt} /> Dashboard
-                                </Nav.Link>
-                                <Nav.Link as={Link} to="/missions">
-                                    <FontAwesomeIcon icon={faRocket} /> Mission
-                                </Nav.Link>
-                                <Nav.Link as={Link} to="/community/feed">
-                                    <FontAwesomeIcon icon={faComments} /> Community
-                                </Nav.Link>
-                                <Nav.Link as={Link} to="/profile">
-                                    <FontAwesomeIcon icon={faUser} /> User Profile
-                                </Nav.Link>
-                                <Link to="/sosreport" className="sos-link mt-auto">
-                                    <Button className="sos-button">
-                                        <FontAwesomeIcon icon={faExclamationTriangle} /> SoS
-                                    </Button>
-                                </Link>
-                            </Nav>
-                        {/* </Navbar.Collapse>
-                    </Navbar> */}
-                </Offcanvas.Body>
-            </Offcanvas>
-
-
-
+                </Nav>
+            </div>
             {/* Bottom navbar for mobile screens */}
-            <Navbar bg="light" fixed="bottom" className="d-lg-none bottom-navbar">
+            <Navbar fixed="bottom" className="d-lg-none bottom-navbar">
                 <Nav className="w-100 justify-content-around">
                     <Nav.Link as={Link} to="/">
                         <FontAwesomeIcon icon={faTachometerAlt} />

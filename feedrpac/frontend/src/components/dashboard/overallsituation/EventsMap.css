@@ -1,6 +1,7 @@
-.events-map{
-    height: 30vh;
-    width: 100%;
+.events-map {
+    height: 50vh; /* Full viewport height or any specific height */
+    width: 100%;   /* Full width */
+    position: relative; /* Required for map to be properly sized */
     border-radius: 10px;
 }
 

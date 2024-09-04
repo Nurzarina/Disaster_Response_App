@@ -22,7 +22,7 @@ function UserCard() {
                         <Button
                             variant="outline-primary"
                             onClick={logout}
-                            className="mt-4 mb-4"
+                            className="mt-2 mb-2"
                         >
                             Logout
                         </Button>

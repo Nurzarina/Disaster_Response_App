@@ -1,102 +1,128 @@
-
-/* Styles for the Offcanvas component */
-.offcanvas {
-    width: 150px; /* Adjust as needed */
-}
-
-.offcanvas .offcanvas-title {
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: bolder;
-    color: #333;
-}
-
-.offcanvas .offcanvas-header {
-    background-color: #bdcddc;
-}
-
-.offcanvas .offcanvas-body {
-    padding: 1rem;
-}
-
-.offcanvas .nav-link {
-    padding: 0.5rem 1rem;
-    color: #333;
-}
-
-.offcanvas .nav-link:focus, .offcanvas .nav-link:hover {
-    color: #3f7ac2;
-    transform: scale(1.05);
-}
-
-.offcanvas .sos-button {
-    background-color: #dc3545;
-    border: none;
-    color: white;
-    padding: 0.5rem 1rem;
-    margin-left: 1em;
-    margin-top: 0.5em;
-}
-
-.offcanvas .sos-button:focus, .offcanvas .sos-button:hover {
-    background-color: #a11523;
-    transform: scale(1.05);
-}
-
-.fixed-top-icon {
+/* Sidebar styles */
+.sidebar {
     position: fixed;
-    top: 10px; /* Adjust the distance from the top */
-    left: 10px; /* Adjust the distance from the right */
-    z-index: 1000; /* Ensure it's above other elements */
-    cursor: pointer;
-    color: #2b3d51; /* Optional: Change the color */
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 60px; /* Collapsed width */
+    background-color: #F3F5FF;
+    overflow: hidden;
+    z-index: 999; /* Ensure it's above other elements */
+    transition: width 0.3s;
 }
 
-.fixed-top-icon:hover {
-    color: #0561c3; /* Optional: Change color on hover */
+/* Show sidebar on larger screens */
+@media (min-width: 992px) {
+    .sidebar:hover {
+        width: 150px; /* Expanded width on hover */
+    }
+}
+
+.sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem; /* Adjust margin to avoid overlap */
+    padding: 0.75rem; /* Adjust padding as needed */
+    transition: color 0.3s; /* Smooth color transition for the entire item */
+}
+
+/* Default icon and text colors */
+.sidebar .nav-text {
+    font-size: 1rem; /* Slightly larger icons */
+    color: #333; /* Default color */
+    transition: color 0.3s; /* Smooth color transition */
+}
+.sidebar .nav-icon {
+    font-size: 1.5rem; /* Slightly larger icons */
+    color: #333; /* Default color */
+    transition: color 0.3s;
+    margin-right: 0.6rem;
+}
+
+/* Change icon and text color on hover */
+.sidebar .nav-item:hover .nav-icon,
+.sidebar .nav-item:hover .nav-text {
+    color: #b6174b; /* Blue color on hover */
     transform: scale(1.1);
 }
 
+/* SOS link with a specific red color */
+.sidebar .sos-link .nav-icon,
+.sidebar .sos-link .nav-text {
+    color: #931320; /* Red color for SOS link icon and text */
+}
 
-/* Bottom navbar for mobile screens */
-@media (max-width: 768px) {
-    .fixed-top-icon {
-        display: none;
+.sidebar .sos-link:hover .nav-icon,
+.sidebar .sos-link:hover .nav-text {
+    color: #931320; /* Keep red color for SOS icon and text on hover */
+    transform: scale(1.1);
+}
+
+.sidebar .nav-text {
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    justify-items: center;
+}
+
+.sidebar:hover .nav-text {
+    opacity: 1; /* Show text on hover */
+}
+
+#sos-link {
+    color: #931320; /* Red color for SOS link text */
+}
+
+/* Hide sidebar on small screens */
+@media (max-width: 991px) {
+    .sidebar {
+        display: none; /* Hide sidebar on small screens */
     }
-
-    .offcanvas {
-        display:none;
+    .main-content {
+        padding-bottom: 50px; /* Adjust based on sidebar collapsed width */
+        
     }
 }
 
+/* Adjust the content area padding to ensure it’s not hidden by the sidebar */
+
+
+@media (min-width: 992px) {
+    .main-content {
+        padding-left: 60px; /* Adjust based on expanded sidebar width */
+        transition: padding-left 0.3s; /* Smooth transition for padding adjustment */
+        
+    }
+}
+/* Bottom navbar for mobile screens */
 .bottom-navbar {
     display: flex;
-    justify-content: center; /* Centers the button horizontally */
-    align-items: center; 
-    background-color: #f8f9fa;
-    border-top: 1px solid #dee2e6;
+    justify-content: center;
+    align-items: center;
+    background-color: #F3F5FF;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Adjust to match navbar height */
+    z-index: 1000; /* Ensure it’s above other content */
 }
 
+/* Adjust navbar link and button styles */
 .bottom-navbar .nav-link {
     color: #333;
-    font-size: 1.25rem; /* Adjust icon size if needed */
+    font-size: 1.5rem; /* Adjust icon size if needed */
 }
 
-.bottom-navbar .nav-link:focus, .bottom-navbar .nav-link:hover {
-    color: #007bff;
+.bottom-navbar .nav-link:focus,
+.bottom-navbar .nav-link:hover {
+    color: #b6174b;
     transform: scale(1.1);
 }
 
 .bottom-navbar .sos-button {
-    /* background-color: #dc3545;
-    border: none;
-    color: white;
-    padding: 10px 20px;     
-    border-radius: 50%;     
-    cursor: pointer;         */
     background-color: #dc3545;
     border: none;
-    color: white;
+    color: #F3F5FF;
     width: 50px; /* Adjust size as needed */
     height: 50px; /* Adjust size as needed */
     border-radius: 50%;
@@ -106,9 +132,8 @@
     padding: 0;
 }
 
-.bottom-navbar .sos-button:focus, .bottom-navbar .sos-button:hover {
+.bottom-navbar .sos-button:focus,
+.bottom-navbar .sos-button:hover {
     background-color: #931320;
     transform: scale(1.1);
 }
-
-
