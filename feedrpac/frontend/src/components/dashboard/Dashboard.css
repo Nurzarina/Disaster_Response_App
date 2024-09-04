@@ -70,6 +70,8 @@
     #userArea {
         margin-top: -5px;
         margin-right: -100px;
+        position: relative;
+        z-index: 100;
     }
 
     #guestArea {
