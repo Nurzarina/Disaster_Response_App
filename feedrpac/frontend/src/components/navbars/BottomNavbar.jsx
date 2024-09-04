@@ -96,8 +96,8 @@ function BottomNavbar() {
                                 <Nav.Link as={Link} to="/">
                                     <FontAwesomeIcon icon={faTachometerAlt} /> Dashboard
                                 </Nav.Link>
-                                <Nav.Link as={Link} to="/mission">
-                                    <FontAwesomeIcon icon={faRocket} /> Mission
+                                <Nav.Link as={Link} to="/guide">
+                                    <FontAwesomeIcon icon={faRocket} /> Guide
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/history">
                                     <FontAwesomeIcon icon={faComments} /> Community
@@ -124,7 +124,7 @@ function BottomNavbar() {
                     <Nav.Link as={Link} to="/">
                         <FontAwesomeIcon icon={faTachometerAlt} />
                     </Nav.Link>
-                    <Nav.Link as={Link} to="/mission">
+                    <Nav.Link as={Link} to="/guide">
                         <FontAwesomeIcon icon={faRocket} />
                     </Nav.Link>
                     <Link to="/sosreport" className="sos-link">

@@ -11,6 +11,7 @@ import SidebarNavbar from './components/navbars/SidebarNavbar';
 import BottomNavbar from './components/navbars/BottomNavbar';
 import Profile from './components/userprofile/Profile';
 import './App.css'
+import Guide from './components/guide/Guide';
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path=":disastertype" element={<DisplayEmergencies />} />
           </Route>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/guide" element={<Guide/>}/>
           {/* No routes for modals, they are managed internally in DisplayEmergencies */}
         </Routes>
         <BottomNavbar />
