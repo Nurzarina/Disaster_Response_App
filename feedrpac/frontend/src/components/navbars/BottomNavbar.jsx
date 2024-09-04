@@ -16,8 +16,7 @@ function BottomNavbar() {
     return (
         <>
 
-            {/* <ToggleButton id='launch-button' onClick={handleShow}><SlArrowRightCircle size={30} />
-            </ToggleButton> */}
+            
             <SlArrowRightCircle id='launch-button' className="fixed-top-icon" size={40} onClick={handleShow} style={{ cursor: 'pointer' }} 
             />
 
