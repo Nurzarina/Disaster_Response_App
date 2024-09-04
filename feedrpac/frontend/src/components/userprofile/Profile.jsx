@@ -63,16 +63,16 @@ const Profile = () => {
                     </Row>
                     <Row className="mb-3">
                         <Col>
-                            <p><strong>{user.prevMission?.count || 0} Mission{user.prevMission?.count === 1 ? '' : 's'}</strong></p>
-                        </Col>
-
-                        <Col>
-                            <p><strong> {user.followers} Followers</strong></p>
+                            <p><strong>{user.prevMission?.length || 0} Mission{(user.prevMission?.length === 1 && user.prevMission.length > 0) ? '' : 's'}</strong></p>
                         </Col>
                         <Col>
-                            <p><strong> {user.following} Following</strong></p>
+                            <p><strong>{user.followers?.length || 0} Follower{(user.followers?.length === 1 && user.followers.length > 0) ? '' : 's'}</strong></p>
+                        </Col>
+                        <Col>
+                            <p><strong>{user.following?.length || 0} Following{(user.following?.length === 1 && user.following.length > 0) ? '' : 's'}</strong></p>
                         </Col>
                     </Row>
+
                     <div className="d-flex justify-content-between">
                         <Button variant="primary" onClick={handleShow}>Update Profile</Button>
                         <Button variant="danger" onClick={logout}>Logout</Button>
