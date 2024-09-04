@@ -40,14 +40,28 @@ function UserMissions() {
         ...userData.ongoingMission.map((mission) => mission.missionId),
         ...userData.prevMission.map((mission) => mission.missionId),
       ];
+
       const detailsResponses = await Promise.all(
         missionIds.map((id) => axiosInstance.get(`http://localhost:5050/api/reports/${id}`))
       );
 
-      const details = detailsResponses.reduce((acc, curr) => {
+      let details = detailsResponses.reduce((acc, curr) => {
         acc[curr.data._id] = curr.data;
         return acc;
       }, {});
+
+      // Update details with the correct status from user's mission data
+      userData.prevMission.forEach(mission => {
+        if (details[mission.missionId]) {
+          details[mission.missionId].status = mission.status;
+        }
+      });
+
+      userData.ongoingMission.forEach(mission => {
+        if (details[mission.missionId]) {
+          details[mission.missionId].status = mission.status;
+        }
+      });
 
       setMissionDetails(details);
       setLoading(false);
@@ -60,7 +74,7 @@ function UserMissions() {
   const handleStopVolunteering = async (reportId) => {
     try {
       await axiosInstance.post(`http://localhost:5050/api/stop-volunteering`, { reportId, userId: user._id });
-      fetchUserMissions(); // Re-fetch missions to update state
+      await fetchUserMissions(); // Ensure fresh data is fetched after stopping volunteering
     } catch (error) {
       console.error("Error stopping volunteering:", error);
     }
@@ -119,7 +133,7 @@ function UserMissions() {
                               <strong>Description:</strong> {missionDetail.description || 'No description available'}
                             </Card.Text>
                             <Card.Text>
-                              <strong>Location:</strong> {missionDetail.location?.city || 'No city available'}, {missionDetail.location?.state || 'No state available'}
+                              <strong>Location:</strong> {missionDetail.city || 'No city available'}, {missionDetail.state || 'No state available'}
                             </Card.Text>
                             <Card.Text>
                               <strong>Phone:</strong> {missionDetail.phone || 'No phone number available'}
@@ -128,16 +142,22 @@ function UserMissions() {
                               <strong>Severity:</strong> {missionDetail.severity || 'No severity available'}
                             </Card.Text>
                             <Card.Text>
-                              <strong>Status:</strong> {missionDetail.status || 'No status available'}
+                              <strong>Status: </strong>
+                              <span className={`status-${missionDetail.status.toLowerCase()}`}>
+                                {missionDetail.status || 'No status available'}
+                              </span>
                             </Card.Text>
-                            <StopVolunteeringButton
-                              reportId={mission.missionId}
-                              userId={user._id}
-                              onClick={() => handleStopVolunteering(mission.missionId)}
-                            />
+                            {missionDetail.status === 'ongoing' && (
+                              <StopVolunteeringButton
+                                reportId={mission.missionId}
+                                userId={user._id}
+                                onClick={() => handleStopVolunteering(mission.missionId)}
+                              />
+                            )}
                           </Card.Body>
                         </Card>
                       </ListGroup.Item>
+
                     );
                   })
                 ) : (
@@ -169,7 +189,7 @@ function UserMissions() {
                               <strong>Description:</strong> {missionDetail.description || 'No description available'}
                             </Card.Text>
                             <Card.Text>
-                              <strong>Location:</strong> {missionDetail.location?.city || 'No city available'}, {missionDetail.location?.state || 'No state available'}
+                              <strong>Location:</strong> {missionDetail.city || 'No city available'}, {missionDetail.state || 'No state available'}
                             </Card.Text>
                             <Card.Text>
                               <strong>Phone:</strong> {missionDetail.phone || 'No phone number available'}
@@ -178,7 +198,10 @@ function UserMissions() {
                               <strong>Severity:</strong> {missionDetail.severity || 'No severity available'}
                             </Card.Text>
                             <Card.Text>
-                              <strong>Status:</strong> {missionDetail.status || 'No status available'}
+                              <strong>Status: </strong>
+                              <span className={`status-${mission.status.toLowerCase()}`}>
+                                {mission.status || 'No status available'}
+                              </span>
                             </Card.Text>
                           </Card.Body>
                         </Card>
