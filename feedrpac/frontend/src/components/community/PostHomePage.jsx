@@ -10,7 +10,7 @@ const PostHomePage = () => {
 	return (
 		<Container fluid id="post-container">
 			<Row className="justify-content-center mb-4">
-				<Col xs={12} className="text-center">
+				<Col xs={10} md={12} className="text-center">
 					<h1 className="display-4"><b>Community Posts</b></h1>
 					<p className="lead" style={{
 						color: '#6c757d', // Light grey color
@@ -22,6 +22,7 @@ const PostHomePage = () => {
 					</p>
 				</Col>
 			</Row>
+			<Row id="communityRow">
 			<div className='flex-[4_4_0] mr-auto border-r border-gray-700 min-h-screen'>
 				{/* Header */}
 				<div className='flex w-full border-b border-gray-700'>
@@ -53,6 +54,7 @@ const PostHomePage = () => {
 				{/* POSTS */}
 				<Posts />
 			</div>
+			</Row>
 		</Container>
 	);
 };

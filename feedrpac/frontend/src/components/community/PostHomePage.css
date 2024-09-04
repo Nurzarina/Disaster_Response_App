@@ -11,3 +11,14 @@
     /* display: flex; */
     /* flex-direction: row; */
 }
+
+@media (max-width: 473px) {
+
+    #post-container{
+        max-width: 200px;
+    }
+
+    #communityRow{
+        min-width: 40vw;
+    }
+}
