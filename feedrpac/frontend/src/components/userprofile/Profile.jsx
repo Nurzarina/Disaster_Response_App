@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../tobackend/AuthProvider';
+import { useAuth } from '../tobackend/AuthProvider';
 import UpdateProfile from './UpdateProfile'; // Import the UpdateProfile component
 import { Modal, Button, Card, Container, Row, Col, Image } from 'react-bootstrap'; // Import components from react-bootstrap
 import { Link } from 'react-router-dom';
@@ -8,7 +9,6 @@ import './Profile.css';
 import defaultProfileImg from '/profileimg.png';
 import defaultCoverImg from '/coverimg.png';
 
-
 const Profile = () => {
     const { user, error, logout } = useAuth();
     const [show, setShow] = useState(false); // State to manage modal visibility
@@ -16,6 +16,7 @@ const Profile = () => {
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
+    // If user is not logged in, give user the option to log in.
     if (!user) {
         return (
             <Card className="text-center p-4 shadow-lg justify-content-center" style={{ width: '400px', height: '300px' }}>

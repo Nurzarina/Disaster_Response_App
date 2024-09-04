@@ -99,13 +99,13 @@ const ReportForm = () => {
     return (
         <Container fluid id="custom-card">
             <Card>
-                <Card.Header id="formTitle" className="bg-dark text-white">
+                <Card.Header id="formTitle" className="text-white">
                     <h2 id='formTitleText'>Submit a Report</h2>
                 </Card.Header>
-                <Card.Body>
+                <Card.Body id='cardbody'>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formName">
-                            <Form.Label>Name:</Form.Label>
+                            <Form.Label id='formlabel'>Name:</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="name"
@@ -117,7 +117,7 @@ const ReportForm = () => {
                         </Form.Group>
 
                         <Form.Group controlId="formDisasterType">
-                            <Form.Label className='mt-3'>Disaster Type:</Form.Label>
+                            <Form.Label id='formlabel' className='mt-3'>Disaster Type:</Form.Label>
                             <Form.Control
                                 as="select"
                                 name="disastertype"
@@ -138,7 +138,7 @@ const ReportForm = () => {
                         </Form.Group>
 
                         <Form.Group controlId="formPhone">
-                            <Form.Label className='mt-3'>Phone:</Form.Label>
+                            <Form.Label id='formlabel' className='mt-3'>Phone:</Form.Label>
                             <Form.Control
                                 type="tel"
                                 name="phone"
@@ -151,7 +151,7 @@ const ReportForm = () => {
                         </Form.Group>
 
                         <Form.Group controlId="formSeverity">
-                            <Form.Label className='mt-3'>Severity:</Form.Label>
+                            <Form.Label id='formlabel' className='mt-3'>Severity:</Form.Label>
                             <Form.Control
                                 as="select"
                                 name="severity"
@@ -168,7 +168,7 @@ const ReportForm = () => {
                         </Form.Group>
 
                         <Form.Group className='mt-3'>
-                            <Form.Label>Location:</Form.Label>
+                            <Form.Label id='formlabel'>Location:</Form.Label>
                             <Button
                                 variant="warning"
                                 id="CurrentLocationBtn"
@@ -186,7 +186,7 @@ const ReportForm = () => {
                         </Form.Group>
 
                         <Form.Group controlId="formDescription" className='mt-3'>
-                            <Form.Label>Description:</Form.Label>
+                            <Form.Label id='formlabel'>Description:</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 name="description"

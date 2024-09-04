@@ -51,7 +51,7 @@ function BottomNavbar() {
                             <FontAwesomeIcon icon={faExclamationTriangle} />
                         </Button>
                     </Link>
-                    <Nav.Link as={Link} to="/community/feed">
+                    <Nav.Link as={Link} to="/community/createpost">
                         <FontAwesomeIcon icon={faComments} />
                     </Nav.Link>
                     <Nav.Link as={Link} to="/profile">
