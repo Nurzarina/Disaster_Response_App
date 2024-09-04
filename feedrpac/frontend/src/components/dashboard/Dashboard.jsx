@@ -49,7 +49,7 @@ const Dashboard = () => {
                         classNames="fade"
                         unmountOnExit
                     >
-                        <div id="userArea">
+                        <div id="userArea" className="ml-3">
                             {user ? (
                                  // User Profile Card
                                  <UserCard />
@@ -76,14 +76,14 @@ const Dashboard = () => {
                 </Col>
             </Row>
 
-            <Row id="ReportWidgetContainer" className="justify-content-center mt-3">
-                <Col xs={12} md={10} lg={8}>
+            <Row id="ReportWidgetContainer" className="justify-content-center">
+                <Col xs={12} md={10} lg={8} id="ReportWidgetRow">
                     <ReportWidget />
                 </Col>
             </Row>
 
-            <Row className="justify-content-center mt-2">
-                <Col xs={12} md={12} lg={12}>
+            <Row className="justify-content-center" id="EventsMapRow">
+                <Col xs={12} md={12} lg={8} id="EventsMapCol">
                     <CSSTransition
                         in={showMap}
                         timeout={700}
@@ -92,7 +92,7 @@ const Dashboard = () => {
                     >
                         <Card id="EventsMapContainer">
                             <Card.Body>
-                                <Card.Title id="EventsMapTitle" className="text-center mb-2">
+                                <Card.Title id="EventsMapTitle" className="text-center">
                                     Events within Malaysia
                                 </Card.Title>
                                 <EventsMap events={events} />
