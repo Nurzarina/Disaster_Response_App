@@ -104,7 +104,7 @@ const ReportWidget = () => {
                 <div className="card-header mt-2">
                     {/* Flex container to align title and button on the same row */}
                     <div className="d-flex justify-content-between align-items-center">
-                        <h2 id="widgetTitle" className="mb-0 fw-bold">Current Situation</h2>
+                        <h2 className="mb-0 fw-bold">Current Situation</h2>
 
                         {/* Conditionally render the button if there are reports */}
                         {!noReports && (

@@ -5,9 +5,9 @@ import './LogInCard.css'; // Import the CSS file
 
 function LogInCard() {
   return (
-    <Card className=''>
-      <Card.Body>
-        <h3>You are currently not signed in</h3>
+    <Card>
+      <Card.Body className='text-center'>
+        <h3 >You are currently not signed in</h3>
         <Link to="/login">
           <Button variant='outline-primary'>
             Log In

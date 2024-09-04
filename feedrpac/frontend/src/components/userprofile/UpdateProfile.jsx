@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -150,8 +150,8 @@ const UpdateProfile = ({ handleClose }) => {
                     />
                 </Form.Group>
                 <br />
-                <Button variant="primary" onClick={handleSubmit}>Save Changes</Button>
-                <Button variant="secondary" onClick={handleClose} className="ms-2">Cancel</Button>
+                <Button variant="outline-primary" onClick={handleSubmit}>Save Changes</Button>
+                <Button variant="outline-secondary" onClick={handleClose} className="ms-2">Cancel</Button>
                 
             </Form>
         </Container>

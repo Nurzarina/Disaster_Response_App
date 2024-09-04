@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuth } from '../tobackend/AuthProvider'; 
+import { useAuth } from '../tobackend/AuthProvider';
 import UpdateProfile from './UpdateProfile'; // Import the UpdateProfile component
 import { Modal, Button, Card, Container, Row, Col, Image } from 'react-bootstrap'; // Import components from react-bootstrap
 import { Link } from 'react-router-dom';
@@ -18,23 +18,25 @@ const Profile = () => {
 
     if (!user) {
         return (
-            <Container fluid className="d-flex align-items-center justify-content-center vh-100">
-                <Card className="text-center p-4 shadow-lg">
-                    <Card.Body>
-                        <Card.Title>Please Log In</Card.Title>
-                        <Card.Text>To view your profile.</Card.Text>
-                        <Link to="/login">
-                            <Button variant="primary">Login</Button>
-                        </Link>
-                    </Card.Body>
-                </Card>
-            </Container>
+            <Card className="text-center p-4 shadow-lg justify-content-center" style={{ width: '400px', height: '300px' }}>
+                <Card.Body>
+                    <Card.Title>Please Log In</Card.Title>
+                    <Card.Text>To view your profile.</Card.Text>
+                    <Link to="/login">
+                        <Button variant="outline-primary">Login</Button>
+                    </Link>
+                    <Card.Text className='mt-3'>Does'nt have an account?</Card.Text>
+                    <Link to="/signup">
+                        <Button variant="outline-primary">Signup</Button>
+                    </Link>
+                </Card.Body>
+            </Card>
         );
     }
 
     return (
-        <Container className="d-flex justify-content-center align-items-center vh-100">
-            <Card className="outside-card w-100">
+        <div className='main-content'>
+            <Card className="outside-card">
                 {error && <p className="text-danger text-center">{error}</p>}
                 <div className="cover-image-container">
                     <Image src={user.coverImg || defaultCoverImg} alt="Cover" className="cover-image" fluid />
@@ -74,23 +76,19 @@ const Profile = () => {
                     </Row>
 
                     <div className="d-flex justify-content-between">
-                        <Button variant="primary" onClick={handleShow}>Update Profile</Button>
+                        <Button variant="outline-primary" onClick={handleShow}>Update Profile</Button>
                         <Button variant="danger" onClick={logout}>Logout</Button>
                     </div>
                 </Card.Body>
             </Card>
 
             {/* Modal for UpdateProfile */}
-            <Modal show={show} onHide={handleClose} centered size="lg" scrollable className="update-profile-modal ">
-                <Modal.Header closeButton className="modal-header-custom">
-                    <Modal.Title className="modal-title-custom">Update Your Profile</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="modal-body-custom">
+            <Modal show={show} onHide={handleClose} centered size="md" scrollable>
+                <Modal.Body>
                     <UpdateProfile handleClose={handleClose} />
                 </Modal.Body>
             </Modal>
-
-        </Container>
+            </div>
     );
 };
 
