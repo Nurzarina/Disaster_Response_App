@@ -1,8 +1,12 @@
 .events-map{
-    height: 30vh;
+    height: 49vh;
     width: 100%;
     border-radius: 10px;
 }
+
+/* #EventsMapCol{
+    margin-left: 30px;
+} */
 
 /* CSS for bouncing effect */
 @keyframes bounce {

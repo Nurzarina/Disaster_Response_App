@@ -48,6 +48,38 @@
         margin-left: -100px;
         width: 500px;
     }
+
+    /* Adjustments for the overall events container */
+    #EventsMapRow {
+        margin-left: -10.5%;
+        margin-top: -6.5%;
+        margin-right: -80px;
+    }
+
+    #ReportWidgetContainer {
+        margin-bottom: -10%;
+        margin-top: 2.5%;
+        position: relative;             /*  This container needs to have lower index than guestArea so that it does not cover the signup link.  */
+        z-index: 0;
+    }
+
+    #ReportWidgetRow{
+        margin-left: 1%;
+    }
+
+    #userArea {
+        margin-top: -5px;
+        margin-right: -100px;
+        position: relative;
+        z-index: 100;
+    }
+
+    #guestArea {
+        margin-top: 130px;
+        margin-right: -100px;
+        position: relative;
+        z-index: 100;
+    }
 }
 
 @media (min-width: 473px) and (max-width: 768px) {
@@ -82,6 +114,10 @@
     #EventsMapContainer {
         margin-bottom: 20px;
     }
+
+    #titleDashboard{
+        margin-top: 5%;
+    }
 }
 
 @media (min-width: 0px) and (max-width: 473px) {
@@ -94,4 +130,9 @@
         justify-content: center;
         box-sizing: border-box;
     }
+
+    #ReportWidgetContainer {
+        margin-top: -150px;
+    }
+
 }

@@ -27,3 +27,7 @@ body {
 body.modal-open {
   overflow: hidden; /* Disable scrolling on the body when the modal is open */
 }
+
+.card {
+  transition: all 0.3s ease-in-out;
+}
