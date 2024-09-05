@@ -1,9 +1,39 @@
-#post-container{
+.post-container {
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
-    /* Optional: Add a semi-transparent background */
+    background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+}
+
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.nav-tabs {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-tabs a {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-tabs a.active {
+    background-color: #fff;
+    border-bottom: 2px solid #007bff;
     /* margin: 10px 10px 20px 20px auto; */
     /* margin-top: 60px; */
     flex-grow: 1;

@@ -1,11 +1,31 @@
+
+import { useState } from 'react';
+import Posts from '../utils/common/Posts';
+import CreatePost from './CreatePost';
+=======
 import { useState } from "react";
 import Posts from "../../components/utils/common/Posts";
 import CreatePost from "./CreatePost";
 import { Container, Row, Col } from "react-bootstrap";
+
 import './PostHomePage.css';
 
 const PostHomePage = () => {
-	const [feedType, setFeedType] = useState("forYou");
+    const [feedType, setFeedType] = useState('forYou');
+
+
+    return (
+        <div className='post-container'>
+            <div className='post-header'>
+                <div className='nav-tabs'>
+                    <a className={`nav-link ${feedType === 'forYou' ? 'active' : ''}`} onClick={() => setFeedType('forYou')}>For you</a>
+                    <a className={`nav-link ${feedType === 'following' ? 'active' : ''}`} onClick={() => setFeedType('following')}>Following</a>
+                </div>
+            </div>
+            <CreatePost />
+            <Posts feedType={feedType} />
+        </div>
+    );
 
 	return (
 		<Container fluid id="post-container">
@@ -57,5 +77,7 @@ const PostHomePage = () => {
 			</Row>
 		</Container>
 	);
+
 };
+
 export default PostHomePage;
