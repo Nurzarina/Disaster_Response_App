@@ -1,36 +1,44 @@
 .mission-card {
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-  }
-  
-  .mission-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 20px rgba(153, 0, 0, 0.2);
-  }
-  
-  .mission-list-item {
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .status-ongoing {
-    color: #ffa500; /* Orange color for ongoing */
-    font-weight: bold;
-  }
-  
-  .status-completed {
-    color: #28a745; /* Green color for completed */
-    font-weight: bold;
-  }
-  
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
-  
+.mission-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.mission-low {
+  background-color: #84e099; /* Light green for low severity */
+}
+
+.mission-medium {
+  background-color: #f8f79e; /* Light yellow for medium severity */
+}
+
+.mission-high {
+  background-color: #f0b470; /* Light red for high severity */
+}
+
+.mission-critical {
+  background-color: #c07c83; /* Darker red for critical severity */
+}
+
+.status-ongoing {
+  color: #ffa500; /* Orange color for ongoing */
+  font-weight: bold;
+}
+
+.status-completed {
+  color: #28a745; /* Green color for completed */
+  font-weight: bold;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}

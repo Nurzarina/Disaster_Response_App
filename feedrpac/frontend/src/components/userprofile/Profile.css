@@ -69,3 +69,31 @@
     margin-bottom: 15px;
 }
 
+/* Profile.css */
+.mission-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.mission-card.low {
+    background-color: #d4edda; /* Light green for low severity */
+    border-color: #c3e6cb; /* Slightly darker green for border */
+}
+
+.mission-card.medium {
+    background-color: #fff3cd; /* Light yellow for medium severity */
+    border-color: #ffeeba; /* Slightly darker yellow for border */
+}
+
+.mission-card.high {
+    background-color: #f8d7da; /* Light red for high severity */
+    border-color: #f5c6cb; /* Slightly darker red for border */
+}
+
+.mission-card.critical {
+    background-color: #f5c6cb; /* Darker red for critical severity */
+    border-color: #f1b0b7; /* Slightly darker red for border */
+}
+

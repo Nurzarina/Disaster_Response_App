@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useAuth } from '../tobackend/AuthProvider';
-import { useAuth } from '../tobackend/AuthProvider';
 import UpdateProfile from './UpdateProfile'; // Import the UpdateProfile component
 import { Modal, Button, Card, Container, Row, Col, Image } from 'react-bootstrap'; // Import components from react-bootstrap
 import { Link } from 'react-router-dom';
@@ -8,6 +7,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 import './Profile.css';
 import defaultProfileImg from '/profileimg.png';
 import defaultCoverImg from '/coverimg.png';
+import UserMissions from '../missions/UserMissions';
 
 const Profile = () => {
     const { user, error, logout } = useAuth();
@@ -81,7 +81,11 @@ const Profile = () => {
                         <Button variant="danger" onClick={logout}>Logout</Button>
                     </div>
                 </Card.Body>
+
             </Card>
+            <Col>
+                <UserMissions user={user} />
+            </Col>
 
             {/* Modal for UpdateProfile */}
             <Modal show={show} onHide={handleClose} centered size="md" scrollable>
@@ -89,7 +93,7 @@ const Profile = () => {
                     <UpdateProfile handleClose={handleClose} />
                 </Modal.Body>
             </Modal>
-            </div>
+        </div>
     );
 };
 
