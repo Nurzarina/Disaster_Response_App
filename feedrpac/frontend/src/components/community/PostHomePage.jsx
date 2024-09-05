@@ -1,11 +1,6 @@
-
 import { useState } from 'react';
 import Posts from '../utils/common/Posts';
 import CreatePost from './CreatePost';
-=======
-import { useState } from "react";
-import Posts from "../../components/utils/common/Posts";
-import CreatePost from "./CreatePost";
 import { Container, Row, Col } from "react-bootstrap";
 
 import './PostHomePage.css';

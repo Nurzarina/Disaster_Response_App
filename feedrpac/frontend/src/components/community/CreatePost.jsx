@@ -14,7 +14,7 @@ const CreatePost = () => {
     const isError = false;
 
     const data = {
-        profileImg: '/avatars/boy1.png',
+        profileImg: '/avatars/men1.png',
     };
 
     const handleSubmit = (e) => {
@@ -34,14 +34,20 @@ const CreatePost = () => {
     };
 
 
-return (
-	<Container className="create-post">
-		<Row>
-			<Col xs={12}>
-				<div className='flex p-4 items-start gap-4 border-b border-gray-700'>
-				<div className='avatar'>
+    return (
+        <Container  className="create-post d-flex justify-content-center align-items-center"
+        style={{ height: '40vh' }}
+    >
+            <Row>
+                <Col xs={12}>
+                    <div className='flex p-4 items-start gap-4 border-b border-gray-700'>
+                        <div className='avatar'>
                             <div className='w-8 rounded-full'>
-                                <img src={data.profileImg || '/avatar-placeholder.png'} className='rounded-full w-10 h-10 object-cover'/>
+                                <img
+                                    src={data.profileImg || '/avatar-placeholder.png'}
+                                    className='rounded-full'
+                                    style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+                                />
                             </div>
                         </div>
                         <Form className='flex flex-col gap-2 w-full' onSubmit={handleSubmit}>
@@ -79,11 +85,11 @@ return (
                             </div>
                             {isError && <div className='text-red-500'>Something went wrong</div>}
                         </Form>
-				</div>
-			</Col>
-		</Row>
-	</Container>
-);
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+    );
 };
 
 export default CreatePost;
