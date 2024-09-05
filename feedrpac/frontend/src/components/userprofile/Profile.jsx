@@ -90,11 +90,9 @@ const Profile = () => {
             </Card>
 
             {/* Modal for UpdateProfile */}
-            <Modal show={show} onHide={handleClose} centered size="lg" scrollable className="update-profile-modal">
-                <Modal.Header closeButton className="modal-header-custom">
-                    <Modal.Title className="modal-title-custom">Update Your Profile</Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="modal-body-custom">
+            {/* Modal for UpdateProfile */}
+            <Modal show={show} onHide={handleClose} centered size="md" scrollable>
+                <Modal.Body>
                     <UpdateProfile handleClose={handleClose} />
                 </Modal.Body>
             </Modal>
