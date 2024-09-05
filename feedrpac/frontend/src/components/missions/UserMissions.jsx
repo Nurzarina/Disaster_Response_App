@@ -1,56 +1,63 @@
-import { useEffect, useState } from 'react';
-import { StopVolunteeringButton } from "../utils/AddOrRemoveVolunteer";
-import { useAuth } from '../tobackend/AuthProvider';
-import { Container, Card, Button, ListGroup, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import axiosInstance from '../tobackend/axiosInstance';
-import './UserMission.css'; // Ensure you have a CSS file for custom styles
+import { useEffect, useState } from 'react'; // Import React hooks for managing state and lifecycle
+import { StopVolunteeringButton } from "../utils/AddOrRemoveVolunteer"; // Import custom button component
+import { useAuth } from '../tobackend/AuthProvider'; // Import custom authentication context
+import { Container, Card, Button, ListGroup, Row, Col } from 'react-bootstrap'; // Import React Bootstrap components for UI
+import { Link } from 'react-router-dom'; // Import Link for navigation
+import axiosInstance from '../tobackend/axiosInstance'; // Custom Axios instance for API requests
+import './UserMission.css'; // Import custom CSS for styling the component
 
 function UserMissions() {
-  const { user } = useAuth();
-  const [ongoingMissions, setOngoingMissions] = useState([]);
-  const [previousMissions, setPreviousMissions] = useState([]);
-  const [missionDetails, setMissionDetails] = useState({});
-  const [loading, setLoading] = useState(true);
+  const { user } = useAuth(); // Retrieve current user from custom AuthProvider context
+  const [ongoingMissions, setOngoingMissions] = useState([]); // State to store ongoing missions
+  const [previousMissions, setPreviousMissions] = useState([]); // State to store previous missions
+  const [missionDetails, setMissionDetails] = useState({}); // State to store detailed information about missions
+  const [loading, setLoading] = useState(true); // State to manage loading status
 
+  // Fetch user missions when the component mounts or when the user changes
   useEffect(() => {
     if (user) {
-      fetchUserMissions();
+      fetchUserMissions(); // If user is authenticated, fetch their missions
     }
 
+    // Clean up when component unmounts
     return () => {
       setOngoingMissions([]);
       setPreviousMissions([]);
       setMissionDetails({});
       setLoading(true);
     };
-  }, [user]);
+  }, [user]); // The effect runs whenever the user changes
 
+  // Function to fetch user missions from the server
   const fetchUserMissions = async () => {
-    setLoading(true);
+    setLoading(true); // Set loading state to true
 
     try {
-      const response = await axiosInstance.get(`http://localhost:5050/api/auth/me`);
+      const response = await axiosInstance.get(`http://localhost:5050/api/auth/me`); // Get current user's mission data
       const userData = response.data;
 
+      // Set ongoing and previous missions based on the user's data
       setOngoingMissions(userData.ongoingMission || []);
       setPreviousMissions(userData.prevMission || []);
 
+      // Get all mission IDs from both ongoing and previous missions
       const missionIds = [
         ...userData.ongoingMission.map((mission) => mission.missionId),
         ...userData.prevMission.map((mission) => mission.missionId),
       ];
 
+      // Fetch detailed data for each mission by ID
       const detailsResponses = await Promise.all(
         missionIds.map((id) => axiosInstance.get(`http://localhost:5050/api/reports/${id}`))
       );
 
+      // Create an object that maps mission ID to mission details
       let details = detailsResponses.reduce((acc, curr) => {
         acc[curr.data._id] = curr.data;
         return acc;
       }, {});
 
-      // Update details with the correct status from user's mission data
+      // Update mission details with the status from the user's mission data
       userData.prevMission.forEach(mission => {
         if (details[mission.missionId]) {
           details[mission.missionId].status = mission.status;
@@ -63,23 +70,25 @@ function UserMissions() {
         }
       });
 
-      setMissionDetails(details);
-      setLoading(false);
+      setMissionDetails(details); // Set detailed mission information in state
+      setLoading(false); // Stop the loading state
     } catch (error) {
-      console.error("Error fetching user missions:", error);
+      console.error("Error fetching user missions:", error); // Handle errors
       setLoading(false);
     }
   };
 
+  // Handle stopping a volunteering mission
   const handleStopVolunteering = async (reportId) => {
     try {
-      await axiosInstance.post(`http://localhost:5050/api/stop-volunteering`, { reportId, userId: user._id });
-      await fetchUserMissions(); // Ensure fresh data is fetched after stopping volunteering
+      await axiosInstance.post(`http://localhost:5050/api/stop-volunteering`, { reportId, userId: user._id }); // Send request to stop volunteering
+      await fetchUserMissions(); // Re-fetch missions to reflect changes
     } catch (error) {
-      console.error("Error stopping volunteering:", error);
+      console.error("Error stopping volunteering:", error); // Handle errors
     }
   };
 
+  // If user is not authenticated, show a prompt to log in
   if (!user) {
     return (
       <Container fluid className="d-flex align-items-center justify-content-center vh-100">
@@ -110,8 +119,9 @@ function UserMissions() {
             </p>
           </Col>
         </Row>
+
+        {/* Ongoing Missions */}
         <Row>
-          {/* Ongoing Missions Column */}
           <Col md={6}>
             <Card className="mt-3">
               <Card.Header>Your Ongoing Missions</Card.Header>
@@ -120,7 +130,7 @@ function UserMissions() {
                   <ListGroup.Item>Loading...</ListGroup.Item>
                 ) : ongoingMissions.length > 0 ? (
                   ongoingMissions.map((mission) => {
-                    const missionDetail = missionDetails[mission.missionId] || {};
+                    const missionDetail = missionDetails[mission.missionId] || {}; // Get mission details by ID
                     return (
                       <ListGroup.Item key={mission.missionId}>
                         <Card>
@@ -143,7 +153,7 @@ function UserMissions() {
                             </Card.Text>
                             <Card.Text>
                               <strong>Status: </strong>
-                              <span className={`status-${missionDetail.status.toLowerCase()}`}>
+                              <span className={`status-${missionDetail.status?.toLowerCase()}`}>
                                 {missionDetail.status || 'No status available'}
                               </span>
                             </Card.Text>
@@ -151,13 +161,12 @@ function UserMissions() {
                               <StopVolunteeringButton
                                 reportId={mission.missionId}
                                 userId={user._id}
-                                onClick={() => handleStopVolunteering(mission.missionId)}
+                                onClick={() => handleStopVolunteering(mission.missionId)} // Button to stop volunteering
                               />
                             )}
                           </Card.Body>
                         </Card>
                       </ListGroup.Item>
-
                     );
                   })
                 ) : (
@@ -167,7 +176,7 @@ function UserMissions() {
             </Card>
           </Col>
 
-          {/* Previous Missions Column */}
+          {/* Previous Missions */}
           <Col md={6}>
             <Card className="mt-3">
               <Card.Header>Previous Missions</Card.Header>
@@ -176,7 +185,7 @@ function UserMissions() {
                   <ListGroup.Item>Loading...</ListGroup.Item>
                 ) : previousMissions.length > 0 ? (
                   previousMissions.map((mission) => {
-                    const missionDetail = missionDetails[mission.missionId] || {};
+                    const missionDetail = missionDetails[mission.missionId] || {}; // Get mission details by ID
                     return (
                       <ListGroup.Item key={mission.missionId}>
                         <Card>

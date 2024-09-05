@@ -143,7 +143,7 @@ const SignUp = () => {
                                         required
                                     />
                                 </Form.Group>
-                                <Form.Group controlId="formProfileImg">
+                                {/* <Form.Group controlId="formProfileImg">
                                     <Form.Label className='mt-2'>Profile Image</Form.Label>
                                     <Form.Control
                                         type="file"
@@ -184,7 +184,7 @@ const SignUp = () => {
                                         value={formData.website}
                                         onChange={handleChange}
                                     />
-                                </Form.Group>
+                                </Form.Group> */}
                                 <Form.Group controlId="formLocation">
                                     <Form.Label className='mt-2'>Location</Form.Label>
                                     <Form.Control

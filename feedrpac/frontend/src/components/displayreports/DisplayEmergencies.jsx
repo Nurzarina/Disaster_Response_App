@@ -40,6 +40,7 @@ const DisplayEmergencies = () => {
     };
   }, []);
 
+  // Fetch all the reports from backend.
   useEffect(() => {
     const fetchReports = async () => {
       try {
@@ -76,6 +77,7 @@ const DisplayEmergencies = () => {
     setFilteredReports(filtered);
   };
 
+  // Update filterType state based on input from user in Dropdown menu.
   const filterChangeByDropdown = (filterType, value) => {
     if (filterType === 'type') {
       navigate(`/emergencies/${value}`);
@@ -87,11 +89,13 @@ const DisplayEmergencies = () => {
     }
   };
 
+  // When a report is selected, the details of the report is stored into SelectedReport state and MapModal is displayed.
   const handleShowMap = (report) => {
     setSelectedReport(report);
     setMapModalShow(true);
   };
 
+  // When user click on Contact button, only give access if user is logged in, if not logged in, display LoginModal.
   const handleShowContact = (report) => {
     if (user) {
       setSelectedReport(report);
@@ -102,6 +106,7 @@ const DisplayEmergencies = () => {
   };
 
   return (
+    // Render the page.
     <Container fluid id="displayEmergenciesContainer">
       <div className='m-2'>
         <Link to="/"> <IoIosArrowBack />Back</Link>
@@ -109,6 +114,7 @@ const DisplayEmergencies = () => {
       <Row className="my-2">
         <div id='currTextBg'>
           <h1 id='currText'>Current Situation</h1>
+          {/* Dropdown menu for type of disaster */}
           <Dropdown className="my-1">
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
               Filter by Disaster Type: {disastertype}
@@ -125,6 +131,7 @@ const DisplayEmergencies = () => {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
+          {/*  Dropdown menu of severity level */}
           <Dropdown className="my-1">
             <Dropdown.Toggle variant="secondary" id="dropdown-basic-severity">
               Filter by Severity: {severityFilter}
@@ -152,16 +159,17 @@ const DisplayEmergencies = () => {
         <br></br>
       </Row>
 
+      {/* Report Card */}
       <Row id="reportCardWrapperRow" className="justify-content-center">
         <TransitionGroup component={null}>
-          {filteredReports.map((report, index) => (
-            <CSSTransition key={index}
+          {filteredReports.map((report, index) => (        // Map the report into index.
+            <CSSTransition key={index}                    // CSS transition for each report card.
               timeout={500}
               classNames="fade">
               <Col id='reportCardWrapperCol'
                 xs={11}
-                md={report.length === 1 ? 11 : 6}
-                lg={report.length === 1 ? 11 : 5}
+                md={report.length === 1 ? 11 : 6}         // if there is only 1 report available, set Col size to 11, else set to 6.
+                lg={report.length === 1 ? 11 : 5}         // if there is only 1 report available, set Col size to 11, else set to 5.
                 className="mb-2"
               >
                 <Card id='reportCard'>
@@ -169,11 +177,13 @@ const DisplayEmergencies = () => {
                     <Row>
                       <Col xs={8}>
                         <Card.Title id='reportCardTitle'>
-                          {emergencyIcons[report.disastertype] || emergencyIcons.general} {report.disastertype}
+                          {/* Emergency icon is chosen based on disasterType in report details. */}
+                          {emergencyIcons[report.disastertype] || emergencyIcons.general} {report.disastertype}      
                         </Card.Title>
                         <Card.Text id='reportCardText'>
                           reported at
                         </Card.Text>
+                        {/* Address is taken from report details. */}
                         <Card.Text id='addressText'>
                           {report.state ? `${report.city}, ${report.state}` : 'Location not available.'}
                         </Card.Text>
@@ -183,12 +193,14 @@ const DisplayEmergencies = () => {
                           </Button>
                         </Card.Text>
                         <Card.Text>
+                          {/* Send createdAt date from report details to CalculateTimeDifference and received back the time difference between current time and time the report was created.*/}
                           <small className="text-muted">
                             Submitted {CalculateTimeDifference(report.createdAt)}.
                           </small>
                         </Card.Text>
                       </Col>
                       <Col xs={4}>
+                      {/* Color for seerity dash wrapper is chosen based on severity in report details. */}
                         <div className="severity-dash-wrapper">
                           <div className={`severity-dash severity-${report.severity}`}></div>
                         </div>
