@@ -34,4 +34,21 @@
 .nav-tabs a.active {
     background-color: #fff;
     border-bottom: 2px solid #007bff;
+    /* margin: 10px 10px 20px 20px auto; */
+    /* margin-top: 60px; */
+    flex-grow: 1;
+    /* Make the container grow to fill the available space */
+    /* display: flex; */
+    /* flex-direction: row; */
+}
+
+@media (max-width: 473px) {
+
+    #post-container{
+        max-width: 200px;
+    }
+
+    #communityRow{
+        min-width: 40vw;
+    }
 }
