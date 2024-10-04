@@ -19,8 +19,10 @@ export const CalculateTimeDifference = (submittedTime) => {
 
   // Check the calculated time difference and return the appropriate human-readable string.
   if (differenceInMinutes < 60) {
+    // Return the calculated time in minutes.
     return `${differenceInMinutes} minutes ago`;
   } else if (differenceInHours < 24) {
+    // Return the calculated time in hours.
     return `${differenceInHours} hours ago`;
   } else {
     // Calculate the difference in days

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Container, Row, Col, Card, Button, Dropdown, DropdownDivider } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Dropdown, DropdownDivider, DropdownToggle, DropdownMenu, DropdownItem } from 'react-bootstrap';
 import { FaHandsHelping } from "react-icons/fa";
 import { IoIosArrowBack } from 'react-icons/io';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -28,6 +28,7 @@ const DisplayEmergencies = () => {
   const [contactModalShow, setContactModalShow] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
+  const [selectedType, setSelectedType] = useState("All");
   const navigate = useNavigate();
   const detailVolunteer = "Click here to volunteer for this report.";
 
@@ -76,6 +77,11 @@ const DisplayEmergencies = () => {
     setFilteredReports(filtered);
   };
 
+  const handleSelect = (type) => {
+    setSelectedType(type);
+    filterChangeByDropdown('type', type);
+  };
+
   const filterChangeByDropdown = (filterType, value) => {
     if (filterType === 'type') {
       navigate(`/emergencies/${value}`);
@@ -109,22 +115,76 @@ const DisplayEmergencies = () => {
       <Row className="my-2">
         <div id='currTextBg'>
           <h1 id='currText'>Current Situation</h1>
-          <Dropdown className="my-1">
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Filter by Disaster Type: {disastertype}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
+          <div className="disaster-filter-list">
+            <p>Filter by Disaster Type</p>
+            <ul style={{ listStyleType: 'none', padding: 0 }}>
               {Object.keys(emergencyIcons).map((type, index) => (
-                <Dropdown.Item key={index} onClick={() => filterChangeByDropdown('type', type)}>
+                <li
+                  key={index}
+                  onClick={() => handleSelect(type)}
+                  style={{
+                    cursor: 'pointer',
+                    padding: '8px',
+                    backgroundColor: selectedType === type ? '#007bff' : 'transparent',
+                    color: selectedType == type ? '#fff' : '#000',
+                    border: '1px solid #ddd',
+                    marginBottom: '4px',
+                    borderRadius: '4px',
+                  }}
+                >
                   {type}
-                </Dropdown.Item>
+                </li>
               ))}
-              <DropdownDivider />
-              <Dropdown.Item onClick={() => filterChangeByDropdown('type', 'All')}>
+              <li
+                onClick={() => handleSelect('All')}
+                style={{
+                  cursor: 'pointer',
+                  padding: '8px',
+                  backgroundColor: selectedType == 'All' ? '#007bff' : 'transparent',
+                  color: selectedType === 'All' ? '#fff' : '#000',
+                  border: '1px solid #ddd',
+                  marginBottom: '4px',
+                  borderRadius: '4px',
+                }}
+              >
                 All
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+              </li>
+            </ul>
+          </div>
+
+          <div className="disaster-filter-dropdown">
+                <Dropdown>
+                  <DropdownToggle>
+                    Filter by Disaster Type : {selectedType}
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    {
+                      Object.keys(emergencyIcons).map((type, index) => (
+                        <DropdownItem 
+                          key = {index}
+                          onClick={() => handleSelect(type)}
+                          style={{
+                            backgroundColor: selectedType === type ? '#007bff' : 'transparent',
+                            color: selectedType === type ? '#fff': '#000',
+                          }}
+                            >
+                            {type}
+                        </DropdownItem>
+                      ))}
+                        <DropdownDivider />
+                        <DropdownItem
+                          onClick={() => handleSelect('All')}
+                          style={{
+                              backgroundColor: selectedType ==='All' ? '#007bff' : "transparent",
+                              color: selectedType === 'All' ? '#fff' : '#000',
+                          }}
+                        >
+                          All
+                        </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+          </div>
+
           <Dropdown className="my-1">
             <Dropdown.Toggle variant="secondary" id="dropdown-basic-severity">
               Filter by Severity: {severityFilter}

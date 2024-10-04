@@ -280,3 +280,25 @@ h1 {
     margin-left: 5%;
   }
 }
+
+/* Display unordered list filter on large screens (min-width: 992px) */
+@media (min-width: 992px) {
+  .disaster-filter-list {
+      display: block;   /* Show the unordered list filter */
+  }
+
+  .disaster-filter-dropdown {
+      display: none;    /* Hide the dropdown on large screens */
+  }
+}
+
+/* Display dropdown on small to medium screens (max-width: 991px) */
+@media (max-width: 991px) {
+  .disaster-filter-list {
+    display: none;    /* Hide the unordered list filter */
+  }
+
+  .disaster-filter-dropdown {
+    display: block;   /* Show the dropdown on small/medium screens */
+  }
+}
