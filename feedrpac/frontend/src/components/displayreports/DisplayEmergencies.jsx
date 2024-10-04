@@ -114,10 +114,21 @@ const DisplayEmergencies = () => {
       </div>
       <Row className="my-2">
         <div id='currTextBg'>
-          <h1 id='currText'>Current Situation</h1>
+          <h1 id='currText' style={{marginBottom: '10px'}} >Current Situation</h1>
           <div className="disaster-filter-list">
-            <p>Filter by Disaster Type</p>
-            <ul style={{ listStyleType: 'none', padding: 0 }}>
+            <p style={{marginBottom: '3px', color: 'grey',}}>
+              Filter by Disaster Type:
+              </p>
+            <ul 
+            style={{ 
+              display: 'flex',
+              flexWrap: 'wrap',     // Allow list items to wrap to the next line
+              justifyContent: 'center',   // Center the list items
+              listStyleType: 'none',
+              margin: '0 5px', 
+              padding: '8px 12px', 
+            }}
+            >
               {Object.keys(emergencyIcons).map((type, index) => (
                 <li
                   key={index}
@@ -126,10 +137,11 @@ const DisplayEmergencies = () => {
                     cursor: 'pointer',
                     padding: '8px',
                     backgroundColor: selectedType === type ? '#007bff' : 'transparent',
-                    color: selectedType == type ? '#fff' : '#000',
+                    color: selectedType == type ? '#fff' : 'grey',
                     border: '1px solid #ddd',
-                    marginBottom: '4px',
+                    margin: '2px',
                     borderRadius: '4px',
+                    width: 'auto',
                   }}
                 >
                   {type}
@@ -141,9 +153,9 @@ const DisplayEmergencies = () => {
                   cursor: 'pointer',
                   padding: '8px',
                   backgroundColor: selectedType == 'All' ? '#007bff' : 'transparent',
-                  color: selectedType === 'All' ? '#fff' : '#000',
+                  color: selectedType === 'All' ? '#fff' : 'grey',
                   border: '1px solid #ddd',
-                  marginBottom: '4px',
+                  margin: '1px',
                   borderRadius: '4px',
                 }}
               >
