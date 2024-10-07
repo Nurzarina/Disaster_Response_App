@@ -28,9 +28,11 @@ const DisplayEmergencies = () => {
   const [contactModalShow, setContactModalShow] = useState(false);
   const [loginModalShow, setLoginModalShow] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
-  const [selectedType, setSelectedType] = useState("All");
+  const [selectedDisasterType, setSelectedDisasterType] = useState("All");
+  const [selectedSeverity, setSelectedSeverity] = useState("All");
   const navigate = useNavigate();
   const detailVolunteer = "Click here to volunteer for this report.";
+  const severityLevel = [{ severity: 'Critical' },{ severity: 'High' },{ severity: 'Medium' },{ severity: 'Low' }];
 
   const { user } = useAuth(); // Access user authentication state
 
@@ -77,9 +79,14 @@ const DisplayEmergencies = () => {
     setFilteredReports(filtered);
   };
 
-  const handleSelect = (type) => {
-    setSelectedType(type);
+  const handleSelectedDisaster = (type) => {
+    setSelectedDisasterType(type);
     filterChangeByDropdown('type', type);
+  };
+
+  const handleSelectedSeverity = (severity) => {
+    setSelectedSeverity(severity);
+    filterChangeByDropdown('severity', severity);
   };
 
   const filterChangeByDropdown = (filterType, value) => {
@@ -114,30 +121,32 @@ const DisplayEmergencies = () => {
       </div>
       <Row className="my-2">
         <div id='currTextBg'>
-          <h1 id='currText' style={{marginBottom: '10px'}} >Current Situation</h1>
+          <h1 id='currText' style={{ marginBottom: '10px' }} >Current Situation</h1>
+
+          {/* Disaster Type filter in unlisted display */}
           <div className="disaster-filter-list">
-            <p style={{marginBottom: '3px', color: 'grey',}}>
+            <p style={{ marginBottom: '3px', color: 'grey', }}>
               Filter by Disaster Type:
-              </p>
-            <ul 
-            style={{ 
-              display: 'flex',
-              flexWrap: 'wrap',     // Allow list items to wrap to the next line
-              justifyContent: 'center',   // Center the list items
-              listStyleType: 'none',
-              margin: '0 5px', 
-              padding: '8px 12px', 
-            }}
+            </p>
+            <ul
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',     // Allow list items to wrap to the next line
+                justifyContent: 'center',   // Center the list items
+                listStyleType: 'none',
+                margin: '0 5px',
+                padding: '8px 12px',
+              }}
             >
               {Object.keys(emergencyIcons).map((type, index) => (
                 <li
                   key={index}
-                  onClick={() => handleSelect(type)}
+                  onClick={() => handleSelectedDisaster(type)}
                   style={{
                     cursor: 'pointer',
                     padding: '8px',
-                    backgroundColor: selectedType === type ? '#007bff' : 'transparent',
-                    color: selectedType == type ? '#fff' : 'grey',
+                    backgroundColor: selectedDisasterType === type ? '#007bff' : 'transparent',
+                    color: selectedDisasterType == type ? '#fff' : 'grey',
                     border: '1px solid #ddd',
                     margin: '2px',
                     borderRadius: '4px',
@@ -148,12 +157,12 @@ const DisplayEmergencies = () => {
                 </li>
               ))}
               <li
-                onClick={() => handleSelect('All')}
+                onClick={() => handleSelectedDisaster('All')}
                 style={{
                   cursor: 'pointer',
                   padding: '8px',
-                  backgroundColor: selectedType == 'All' ? '#007bff' : 'transparent',
-                  color: selectedType === 'All' ? '#fff' : 'grey',
+                  backgroundColor: selectedDisasterType == 'All' ? '#007bff' : 'transparent',
+                  color: selectedDisasterType === 'All' ? '#fff' : 'grey',
                   border: '1px solid #ddd',
                   margin: '1px',
                   borderRadius: '4px',
@@ -164,62 +173,124 @@ const DisplayEmergencies = () => {
             </ul>
           </div>
 
+          {/*  Disaster Type filter in dropdown format */}
           <div className="disaster-filter-dropdown">
-                <Dropdown>
-                  <DropdownToggle>
-                    Filter by Disaster Type : {selectedType}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    {
-                      Object.keys(emergencyIcons).map((type, index) => (
-                        <DropdownItem 
-                          key = {index}
-                          onClick={() => handleSelect(type)}
-                          style={{
-                            backgroundColor: selectedType === type ? '#007bff' : 'transparent',
-                            color: selectedType === type ? '#fff': '#000',
-                          }}
-                            >
-                            {type}
-                        </DropdownItem>
-                      ))}
-                        <DropdownDivider />
-                        <DropdownItem
-                          onClick={() => handleSelect('All')}
-                          style={{
-                              backgroundColor: selectedType ==='All' ? '#007bff' : "transparent",
-                              color: selectedType === 'All' ? '#fff' : '#000',
-                          }}
-                        >
-                          All
-                        </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+            <Dropdown>
+              <DropdownToggle>
+                Filter by Disaster Type : {selectedDisasterType}
+              </DropdownToggle>
+              <DropdownMenu>
+                {
+                  Object.keys(emergencyIcons).map((type, index) => (
+                    <DropdownItem
+                      key={index}
+                      onClick={() => handleSelectedDisaster(type)}
+                      style={{
+                        backgroundColor: selectedDisasterType === type ? '#007bff' : 'transparent',
+                        color: selectedDisasterType === type ? '#fff' : '#000',
+                      }}
+                    >
+                      {type}
+                    </DropdownItem>
+                  ))}
+                <DropdownDivider />
+                <DropdownItem
+                  onClick={() => handleSelectedDisaster('All')}
+                  style={{
+                    backgroundColor: selectedDisasterType === 'All' ? '#007bff' : "transparent",
+                    color: selectedDisasterType === 'All' ? '#fff' : '#000',
+                  }}
+                >
+                  All
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           </div>
 
-          <Dropdown className="my-1">
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic-severity">
-              Filter by Severity: {severityFilter}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'Critical')}>
-                Critical
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'High')}>
-                High
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'Medium')}>
-                Medium
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'Low')}>
-                Low
-              </Dropdown.Item>
-              <DropdownDivider />
-              <Dropdown.Item onClick={() => filterChangeByDropdown('severity', 'All')}>
+          {/* Severity filter in unlisted display */}
+          <div className="severity-filter-list">
+            <p style={{ marginBottom: '3px', color: 'grey', }}>
+              Filter by Severity:
+            </p>
+            <ul
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',     // Allow list items to wrap to the next line
+                justifyContent: 'center',   // Center the list items
+                listStyleType: 'none',
+                margin: '0 5px',
+                padding: '8px 12px',
+              }}
+            >
+              {severityLevel.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleSelectedSeverity(item.severity)}
+                  style={{
+                    cursor: 'pointer',
+                    padding: '8px',
+                    backgroundColor: selectedSeverity === item.severity ? '#007bff' : 'transparent',
+                    color: selectedSeverity == item.severity ? '#fff' : 'grey',
+                    border: '1px solid #ddd',
+                    margin: '2px',
+                    borderRadius: '4px',
+                    width: 'auto',
+                  }}
+                >
+                  {item.severity}
+                </li>
+              ))}
+              <li
+                onClick={() => handleSelectedSeverity('All')}
+                style={{
+                  cursor: 'pointer',
+                  padding: '8px',
+                  backgroundColor: selectedSeverity == 'All' ? '#007bff' : 'transparent',
+                  color: selectedSeverity === 'All' ? '#fff' : 'grey',
+                  border: '1px solid #ddd',
+                  margin: '1px',
+                  borderRadius: '4px',
+                }}
+              >
                 All
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+              </li>
+            </ul>
+          </div>
+
+          {/*  Severity filter in dropdown format */}
+          <div className="severity-filter-dropdown" style={{ marginTop: '10px' }}>
+            <Dropdown>
+              <DropdownToggle>
+                Filter by Severity : {selectedSeverity}
+              </DropdownToggle>
+              <DropdownMenu>
+                {
+                  severityLevel.map((item, index) => (
+                    <DropdownItem
+                      key={index}
+                      onClick={() => handleSelectedSeverity(item.severity)}
+                      style={{
+                        backgroundColor: selectedSeverity === item.severity ? '#007bff' : 'transparent',
+                        color: selectedSeverity === item.severity ? '#fff' : '#000',
+                      }}
+                    >
+                      {item.severity}
+                    </DropdownItem>
+                  ))}
+                <DropdownDivider />
+                <DropdownItem
+                  onClick={() => handleSelectedSeverity('All')}
+                  style={{
+                    backgroundColor: selectedSeverity === 'All' ? '#007bff' : "transparent",
+                    color: selectedSeverity === 'All' ? '#fff' : '#000',
+                  }}
+                >
+                  All
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
+
         </div>
         <br></br>
       </Row>
