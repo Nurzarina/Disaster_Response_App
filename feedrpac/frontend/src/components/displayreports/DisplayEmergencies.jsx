@@ -145,15 +145,18 @@ const DisplayEmergencies = () => {
                   style={{
                     cursor: 'pointer',
                     padding: '8px',
-                    backgroundColor: selectedDisasterType === type ? '#007bff' : 'transparent',
-                    color: selectedDisasterType == type ? '#fff' : 'grey',
+                    backgroundColor: selectedDisasterType === type ? '#9cc8f7' : 'white',
+                    color: selectedDisasterType == type ? '#fff' : 'black',
                     border: '1px solid #ddd',
                     margin: '2px',
                     borderRadius: '4px',
                     width: 'auto',
                   }}
                 >
-                  {type}
+                   <span style={{paddingRight: '3px'}}>
+                    {emergencyIcons[type] || emergencyIcons.general} 
+                    </span>
+                    {type}
                 </li>
               ))}
               <li
@@ -161,7 +164,7 @@ const DisplayEmergencies = () => {
                 style={{
                   cursor: 'pointer',
                   padding: '8px',
-                  backgroundColor: selectedDisasterType == 'All' ? '#007bff' : 'transparent',
+                  backgroundColor: selectedDisasterType == 'All' ? '#9cc8f7' : 'transparent',
                   color: selectedDisasterType === 'All' ? '#fff' : 'grey',
                   border: '1px solid #ddd',
                   margin: '1px',
@@ -186,7 +189,7 @@ const DisplayEmergencies = () => {
                       key={index}
                       onClick={() => handleSelectedDisaster(type)}
                       style={{
-                        backgroundColor: selectedDisasterType === type ? '#007bff' : 'transparent',
+                        backgroundColor: selectedDisasterType === type ? '#9cc8f7' : 'transparent',
                         color: selectedDisasterType === type ? '#fff' : '#000',
                       }}
                     >
@@ -197,7 +200,7 @@ const DisplayEmergencies = () => {
                 <DropdownItem
                   onClick={() => handleSelectedDisaster('All')}
                   style={{
-                    backgroundColor: selectedDisasterType === 'All' ? '#007bff' : "transparent",
+                    backgroundColor: selectedDisasterType === 'All' ? '#9cc8f7' : "transparent",
                     color: selectedDisasterType === 'All' ? '#fff' : '#000',
                   }}
                 >
@@ -229,7 +232,7 @@ const DisplayEmergencies = () => {
                   style={{
                     cursor: 'pointer',
                     padding: '8px',
-                    backgroundColor: selectedSeverity === item.severity ? '#007bff' : 'transparent',
+                    backgroundColor: selectedSeverity === item.severity ? '#9cc8f7' : 'transparent',
                     color: selectedSeverity == item.severity ? '#fff' : 'grey',
                     border: '1px solid #ddd',
                     margin: '2px',
@@ -245,7 +248,7 @@ const DisplayEmergencies = () => {
                 style={{
                   cursor: 'pointer',
                   padding: '8px',
-                  backgroundColor: selectedSeverity == 'All' ? '#007bff' : 'transparent',
+                  backgroundColor: selectedSeverity == 'All' ? '#9cc8f7' : 'transparent',
                   color: selectedSeverity === 'All' ? '#fff' : 'grey',
                   border: '1px solid #ddd',
                   margin: '1px',
