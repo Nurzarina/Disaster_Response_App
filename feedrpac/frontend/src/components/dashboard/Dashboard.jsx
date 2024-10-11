@@ -44,7 +44,7 @@ const Dashboard = () => {
             {/* Page Title */}
             <Row className="justify-content-center mb-4">
                 <Col xs={12} md={12} lg={12} className="text-center">
-                    <h1 className="display-4" id="titleDashboard"><b>Welcome to Disaster Response App</b></h1>
+                    <h1 className="display-4" id="titleDashboard" style={{color: 'white'}}><b>Welcome to Disaster Response App</b></h1>
                     <p className="lead" style={{
                         color: '#FFFFFF',
                         backgroundColor: 'rgba(0, 0, 0, 0.5)', /* Dark semi-transparent background */
