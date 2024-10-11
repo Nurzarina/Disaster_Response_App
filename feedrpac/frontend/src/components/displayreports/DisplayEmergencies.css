@@ -280,3 +280,41 @@ h1 {
     margin-left: 5%;
   }
 }
+
+/* Display unordered list filter on large screens (min-width: 992px) */
+@media (min-width: 992px) {
+  .disaster-filter-list {
+      display: block;   /* Show the unordered Disaster Type list filter */
+  }
+
+  .disaster-filter-dropdown {
+      display: none;   /* Hide the dropdown Disaster Type filter */
+  }
+
+  .severity-filter-list {
+    display: block;   /* Show the unordered severity list filter */
+}
+
+  .severity-filter-dropdown{
+    display: none;    /* Hide the dropdown Severity filter */
+  }
+}
+
+/* Display dropdown on small to medium screens (max-width: 991px) */
+@media (max-width: 991px) {
+  .disaster-filter-list {
+    display: none;    /* Hide the unordered Disaster Type list filter */
+  }
+
+  .disaster-filter-dropdown {
+    display: block;   /* Show the dropdown Disaster Type filter */
+  }
+
+  .severity-filter-list {
+    display: none;   /* Hide the unordered severity list filter */
+}
+
+  .severity-filter-dropdown{
+    display: block;  /* Show the dropdown Severity filter */
+  }
+}
