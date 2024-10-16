@@ -79,5 +79,7 @@ npm run dev
 
 The frontend will be running on http://localhost:5173/
 
-**Note**
+## Status
 The app is still in development, and certain features may not be fully operational yet. However, the key functionalities, such as the 'Disaster Insight Cards,' are fully functional.
+
+
