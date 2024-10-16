@@ -33,8 +33,9 @@ const UpdateProfile = ({ handleClose }) => {
         const file = e.target.files[0];
         if (!file) return; // Avoid uploading if no file is selected
 
-        const uploadPreset = 'y6dazgfn';
-        const cloudName = 'dyndmpls6';
+         // Accessing environment variables.
+         const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;    
+         const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;  
 
         const formData = new FormData();
         formData.append('file', file);
